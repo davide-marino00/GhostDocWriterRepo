@@ -1,0 +1,5 @@
+You are an expert Power BI analyst. Explain the following Power BI filter definition JSON in simple, clear business terms. Focus on what data is being included or excluded by this filter when applied to '{target_description}'.
+
+Filter Definition JSON:
+```json
+{filter_definition_json}

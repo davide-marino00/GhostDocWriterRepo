@@ -1,0 +1,74 @@
+{
+  "name": "Campaigns",
+  "isHidden": false,
+  "description": null,
+  "annotations": [],
+  "columns": [
+    {
+      "name": "CampaignSeq",
+      "dataType": "int64",
+      "sourceColumn": "CampaignSeq",
+      "formatString": "0",
+      "isHidden": false,
+      "summarizeBy": "none",
+      "description": null,
+      "annotations": [
+        {
+          "name": "SummarizationSetBy",
+          "value": "Automatic"
+        },
+        {
+          "name": "Format",
+          "value": "<Format Format=\"NumberWhole\" Accuracy=\"0\" />"
+        },
+        {
+          "name": "PBI_ChangedProperties",
+          "value": "[\"IsHidden\"]"
+        }
+      ],
+      "llm_description": null
+    },
+    {
+      "name": "Campaign Type",
+      "dataType": "string",
+      "sourceColumn": "Campaign Type",
+      "formatString": null,
+      "isHidden": false,
+      "summarizeBy": "none",
+      "description": null,
+      "annotations": [
+        {
+          "name": "SummarizationSetBy",
+          "value": "Automatic"
+        },
+        {
+          "name": "Format",
+          "value": "<Format Format=\"Text\" />"
+        }
+      ],
+      "llm_description": null
+    },
+    {
+      "name": "Campaign",
+      "dataType": "string",
+      "sourceColumn": "Campaign",
+      "formatString": null,
+      "isHidden": false,
+      "summarizeBy": "none",
+      "description": null,
+      "annotations": [
+        {
+          "name": "SummarizationSetBy",
+          "value": "Automatic"
+        },
+        {
+          "name": "Format",
+          "value": "<Format Format=\"Text\" />"
+        }
+      ],
+      "llm_description": null
+    }
+  ],
+  "measures": [],
+  "llm_description": null
+}

@@ -1,0 +1,5 @@
+You are an expert data model documenter. Provide a concise, business-focused description (1 sentence) for the table column based on its name, data type, and table context.
+
+Generate a description for the column named '{column_name}' (Data Type: {data_type}) within the table '{table_name}'. The table's purpose is roughly: {table_description}
+
+Column Description:

@@ -1,0 +1,5 @@
+You are an expert DAX analyst. Explain the following DAX code snippet used for '{item_name}' in simple, clear business terms. Focus on what it calculates or achieves.
+
+Explain this DAX expression:
+```dax
+{dax_code}

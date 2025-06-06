@@ -1,0 +1,82 @@
+{
+  "name": "Opportunity Forecast Adjustment",
+  "isHidden": false,
+  "description": null,
+  "annotations": [],
+  "columns": [
+    {
+      "name": "Forecast Adjustment",
+      "dataType": "string",
+      "sourceColumn": "[Value]",
+      "formatString": "0",
+      "isHidden": false,
+      "summarizeBy": "none",
+      "description": null,
+      "annotations": [
+        {
+          "name": "SummarizationSetBy",
+          "value": "User"
+        },
+        {
+          "name": "Format",
+          "value": "<Format Format=\"NumberWhole\" Accuracy=\"0\" />"
+        }
+      ],
+      "llm_description": null
+    },
+    {
+      "name": "Blank",
+      "dataType": "string",
+      "sourceColumn": null,
+      "formatString": "0",
+      "isHidden": false,
+      "summarizeBy": "sum",
+      "description": null,
+      "annotations": [
+        {
+          "name": "SummarizationSetBy",
+          "value": "Automatic"
+        },
+        {
+          "name": "Format",
+          "value": "<Format Format=\"NumberWhole\" Accuracy=\"0\" />"
+        },
+        {
+          "name": "PBI_ChangedProperties",
+          "value": "[\"IsHidden\"]"
+        }
+      ],
+      "llm_description": null,
+      "daxExpression": "1",
+      "llm_dax_explanation": null
+    }
+  ],
+  "measures": [
+    {
+      "name": "Forecast Adjustment Value",
+      "daxExpression": "SELECTEDVALUE('Opportunity Forecast Adjustment'[Forecast Adjustment], 0)",
+      "formatString": null,
+      "isHidden": false,
+      "description": null,
+      "annotations": [],
+      "llm_description": null,
+      "llm_dax_explanation": null
+    },
+    {
+      "name": "Fcst adj slicer alt text",
+      "daxExpression": "CONCATENATE(\"Use the slicer to adjust the forecast, current value is \", 'Opportunity Forecast Adjustment'[Forecast Adjustment Value])",
+      "formatString": null,
+      "isHidden": false,
+      "description": null,
+      "annotations": [
+        {
+          "name": "Format",
+          "value": "<Format Format=\"Text\" />"
+        }
+      ],
+      "llm_description": null,
+      "llm_dax_explanation": null
+    }
+  ],
+  "llm_description": null
+}

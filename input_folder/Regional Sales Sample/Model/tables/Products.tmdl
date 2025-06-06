@@ -1,0 +1,49 @@
+﻿table Products
+
+	column Product
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Product
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation Format = <Format Format="Text" />
+
+	column ProductSeq
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: ProductSeq
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation Format = <Format Format="NumberWhole" Accuracy="0" />
+
+		annotation PBI_ChangedProperties = ["IsHidden"]
+
+	column 'Product Category'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Product Category
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation Format = <Format Format="Text" />
+
+	partition Products-61d71a22-5f23-4d9d-85f8-f6f4f6c01813 = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(Web.Contents("https://microsoft-my.sharepoint.com/personal/misewell_microsoft_com/Documents/Documents/GitHub/ContosoBI/Contoso%20-%20Sales%20-%20Current%20Release/Contoso%20-%20Dynamics%20365%20Sales%20Source%20Data.xlsx"), null, true),
+				    ProductTbl_Table = Source{[Item="ProductTbl",Kind="Table"]}[Data],
+				    #"Removed Columns" = Table.RemoveColumns(ProductTbl_Table,{"Factor", "MinOppValue", "MaxOppValue", "Distribution%", "DistributionAccumulation", "CategoryFactor", "CategorySeq"}),
+				    #"Filtered Rows" = Table.SelectRows(#"Removed Columns", each [ProductSeq] <> null and [ProductSeq] <> ""),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Filtered Rows",{{"ProductSeq", Int64.Type}, {"Product Category", type text}, {"Product", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_QueryRelationships = {"columnCount":5,"keyColumnNames":[],"queryRelationships":[],"columnIdentities":["Section1/Products/Changed Type.{ProductSeq,0}","Section1/Products/Changed Type.{Product,1}","Section1/Products/Changed Type.{Product LOB,2}","Section1/Products/Changed Type.{MinOppValue,3}","Section1/Products/Changed Type.{MaxOppValue,4}"],"ColumnCount":5,"KeyColumnNames":[],"ColumnIdentities":["Section1/Products/Changed Type.{ProductSeq,0}","Section1/Products/Changed Type.{Product,1}","Section1/Products/Changed Type.{Product LOB,2}","Section1/Products/Changed Type.{MinOppValue,3}","Section1/Products/Changed Type.{MaxOppValue,4}"],"RelationshipInfo":[]}
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,66 @@
+[
+  {
+    "fromTable": "Opportunities",
+    "fromColumn": "AccountSeq",
+    "toTable": "Accounts",
+    "toColumn": "AccountSeq",
+    "isActive": true,
+    "crossFilteringBehavior": "singleDirection"
+  },
+  {
+    "fromTable": "Contacts",
+    "fromColumn": "AccountSeq",
+    "toTable": "Accounts",
+    "toColumn": "AccountSeq",
+    "isActive": true,
+    "crossFilteringBehavior": "singleDirection"
+  },
+  {
+    "fromTable": "Accounts",
+    "fromColumn": "IndustrySeq",
+    "toTable": "Industries",
+    "toColumn": "IndustrySeq",
+    "isActive": true,
+    "crossFilteringBehavior": "singleDirection"
+  },
+  {
+    "fromTable": "Opportunities",
+    "fromColumn": "ProductSeq",
+    "toTable": "Products",
+    "toColumn": "ProductSeq",
+    "isActive": true,
+    "crossFilteringBehavior": "singleDirection"
+  },
+  {
+    "fromTable": "Opportunities",
+    "fromColumn": "SystemUserSeq",
+    "toTable": "Owners",
+    "toColumn": "SystemUserSeq",
+    "isActive": true,
+    "crossFilteringBehavior": "singleDirection"
+  },
+  {
+    "fromTable": "Opportunities",
+    "fromColumn": "CampaignSeq",
+    "toTable": "Campaigns",
+    "toColumn": "CampaignSeq",
+    "isActive": true,
+    "crossFilteringBehavior": "singleDirection"
+  },
+  {
+    "fromTable": "Accounts",
+    "fromColumn": "TerritorySeq",
+    "toTable": "Territories",
+    "toColumn": "TerritorySeq",
+    "isActive": true,
+    "crossFilteringBehavior": "singleDirection"
+  },
+  {
+    "fromTable": "Opportunities",
+    "fromColumn": "CloseDate",
+    "toTable": "Opportunity Calendar",
+    "toColumn": "Date",
+    "isActive": true,
+    "crossFilteringBehavior": "singleDirection"
+  }
+]

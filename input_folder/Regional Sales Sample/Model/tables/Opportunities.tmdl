@@ -1,0 +1,439 @@
+﻿table Opportunities
+
+	measure 'Revenue Won' = ```
+			
+			 CALCULATE(
+			     SUMX(Opportunities, Opportunities[Value]),
+			     FILTER(Opportunities, Opportunities[Status] = "Won")
+			 )
+			```
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+
+		annotation PBI_ChangedProperties = ["FormatString"]
+
+		annotation Format = <Format Format="CurrencyCustom" Accuracy="2" ThousandSeparator="True"><Currency LCID="0" DisplayName="Currency General" Symbol="$" PositivePattern="0" NegativePattern="0" /></Format>
+
+	measure 'Revenue In Pipeline' = ```
+			
+			VAR Revenue =
+			    CALCULATE (
+			        SUMX ( Opportunities, Opportunities[Value] ),
+			        FILTER (
+			            Opportunities,
+			            Opportunities[Status] = "Open"
+			            && VALUE(LEFT(Opportunities[Sales Stage],1)) >=2
+			        )
+			    )
+			RETURN
+			    Revenue + ( Revenue * ( 'Opportunity Forecast Adjustment'[Forecast Adjustment Value] / 100 ) )
+			
+			```
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+
+		annotation PBI_ChangedProperties = ["FormatString"]
+
+		annotation Format = <Format Format="CurrencyCustom" Accuracy="2" ThousandSeparator="True"><Currency LCID="0" DisplayName="Currency General" Symbol="$" PositivePattern="0" NegativePattern="0" /></Format>
+
+	measure 'Forecast %' = (([Revenue Won]+[Revenue In Pipeline]))/ [Rev Goal]
+		formatString: #,0%;-#,0%;#,0%
+
+		annotation Format = <Format Format="Percentage" Accuracy="0" ThousandSeparator="True" />
+
+	measure Forecast = ([Revenue Won]+[Revenue In Pipeline])
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+
+		annotation Format = <Format Format="CurrencyGeneral" ThousandSeparator="True"><Currency LCID="1033" DisplayName="$ English (United States)" Symbol="$" PositivePattern="0" NegativePattern="0" /></Format>
+
+	measure 'Opportunity Count In Pipeline' = ```
+			
+			    CALCULATE (
+			        COUNT( Opportunities[Value] ),
+			        FILTER (
+			            Opportunities,
+			            Opportunities[Status] = "Open"
+			              --  && Opportunities[PipelineStep] IN { "3-Pipeline", "4-Mandate", "5-Close" }
+			        )
+			    )
+			
+			```
+		formatString: #,0
+
+		annotation Format = <Format Format="NumberWhole" Accuracy="0" ThousandSeparator="True" />
+
+	measure 'Opportunity Count' =
+			
+			COUNTAX(Opportunities,TRUE())
+		formatString: #,0
+
+		annotation Format = <Format Format="NumberWhole" Accuracy="0" ThousandSeparator="True" />
+
+	measure 'Count of Won' = ```
+			
+			COUNTAX(
+			    FILTER(
+			        KEEPFILTERS(Opportunities),Opportunities[Status] = "Won"
+			        ),
+			    Opportunities[OpportunitySeq]
+			    ) 
+			```
+		formatString: #,0
+
+		annotation Format = <Format Format="NumberWhole" Accuracy="0" ThousandSeparator="True" />
+
+	measure 'Count of Lost' = ```
+			
+			COUNTAX(
+			    FILTER(
+			        KEEPFILTERS(Opportunities),Opportunities[Status] = "Lost"
+			        ),
+			    Opportunities[OpportunitySeq]
+			    ) 
+			```
+		formatString: #,0
+
+		annotation Format = <Format Format="NumberWhole" Accuracy="0" ThousandSeparator="True" />
+
+	measure 'Close %' = [Count of Won]/([Count of Won]+[Count of Lost])
+		formatString: 0.0%;-0.0%;0.0%
+
+		annotation Format = <Format Format="Percentage" Accuracy="1" />
+
+	measure 'Revenue Open' =
+			
+			VAR Revenue =
+			    CALCULATE (
+			        SUMX ( Opportunities, Opportunities[Value] ),
+			        FILTER (
+			            Opportunities,
+			            Opportunities[Status] = "Open"
+			        )
+			    )
+			RETURN
+			    Revenue + ( Revenue * ( 'Opportunity Forecast Adjustment'[Forecast Adjustment Value] / 100 ) )
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+
+		annotation PBI_ChangedProperties = ["FormatString"]
+
+		annotation Format = <Format Format="CurrencyCustom" Accuracy="2" ThousandSeparator="True"><Currency LCID="0" DisplayName="Currency General" Symbol="$" PositivePattern="0" NegativePattern="0" /></Format>
+
+	measure 'Revenue Won Average Deal Size' = AVERAGEX(Opportunities,[Revenue Won])
+		formatString: \$#,0;(\$#,0);\$#,0
+
+		annotation PBI_ChangedProperties = ["FormatString"]
+
+		annotation Format = <Format Format="CurrencyCustom" Accuracy="0" ThousandSeparator="True"><Currency LCID="0" DisplayName="Currency General" Symbol="$" PositivePattern="0" NegativePattern="0" /></Format>
+
+	measure 'Forecast by Win/Loss Ratio' = [Revenue Open] * [Close %]
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+
+		annotation PBI_ChangedProperties = ["FormatString"]
+
+		annotation Format = <Format Format="CurrencyCustom" Accuracy="2" ThousandSeparator="True"><Currency LCID="0" DisplayName="Currency General" Symbol="$" PositivePattern="0" NegativePattern="0" /></Format>
+
+	column 'Purchase Process'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Purchase Process
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation Format = <Format Format="Text" />
+
+	column 'Decision Maker Identified'
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		summarizeBy: none
+		sourceColumn: Decision Maker Identified
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation Format = <Format Format="Boolean" />
+
+	column Status
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Status
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation Format = <Format Format="Text" />
+
+	column 'Sales Stage'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Sales Stage
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation Format = <Format Format="Text" />
+
+	column Value
+		dataType: int64
+		isHidden
+		formatString: \$#,0;(\$#,0);\$#,0
+		summarizeBy: sum
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation Format = <Format Format="CurrencyCustom" Accuracy="0" ThousandSeparator="True"><Currency LCID="1033" DisplayName="$ English (United States)" Symbol="$" PositivePattern="0" NegativePattern="0" /></Format>
+
+		annotation PBI_ChangedProperties = ["IsHidden"]
+
+	column 'Weeks Open' =
+			
+			ABS (
+			    DATEDIFF (
+			        Opportunities[Opportunity Created On],
+			        IF (
+			            ISBLANK ( Opportunities[CloseDate] ) = TRUE (),
+			            TODAY (),
+			            Opportunities[CloseDate]
+			        ),
+			        WEEK
+			    )
+			)
+		formatString: #,0
+		summarizeBy: average
+
+		annotation SummarizationSetBy = User
+
+		annotation Format = <Format Format="NumberWhole" Accuracy="0" ThousandSeparator="True" />
+
+		annotation PBI_ChangedProperties = ["FormatString"]
+
+	column DaysToClose
+		dataType: int64
+		formatString: 0
+		summarizeBy: sum
+		sourceColumn: DaysToClose
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation Format = <Format Format="NumberWhole" Accuracy="0" />
+
+	column Discount
+		dataType: double
+		formatString: 0.0%;-0.0%;0.0%
+		summarizeBy: average
+		sourceColumn: Discount
+
+		annotation SummarizationSetBy = User
+
+		annotation Format = <Format Format="Percentage" Accuracy="1" />
+
+	column Probability
+		dataType: double
+		formatString: 0.0%;-0.0%;0.0%
+		summarizeBy: average
+		sourceColumn: Probability
+
+		annotation SummarizationSetBy = User
+
+		annotation Format = <Format Format="Percentage" Accuracy="1" />
+
+	column Rating
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Rating
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation Format = <Format Format="Text" />
+
+	column 'Days Remaining In Pipeline' = IF(Opportunities[Status]="Open", DATEDIFF(TODAY(),Opportunities[CloseDate],DAY),0)
+		formatString: 0
+		summarizeBy: average
+
+		annotation SummarizationSetBy = User
+
+		annotation Format = <Format Format="NumberWhole" Accuracy="0" />
+
+		annotation __PBI_SemanticLinks = [{"LinkTarget":{"TableName":"Opportunities","TableItemName":"Days Remaining In Pipeline (bins)","ObjectType":4},"LinkType":"UsedInGroup"}]
+
+	column 'Probability (raw)'
+		dataType: double
+		isHidden
+		formatString: #,0.0%;-#,0.0%;#,0.0%
+		summarizeBy: average
+		sourceColumn: Probability (raw)
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_ChangedProperties = ["FormatString","IsHidden"]
+
+		annotation Format = <Format Format="Percentage" Accuracy="1" ThousandSeparator="True" />
+
+	column AccountSeq
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: AccountSeq
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation Format = <Format Format="NumberWhole" Accuracy="0" />
+
+		annotation PBI_ChangedProperties = ["IsHidden"]
+
+	column OpportunitySeq
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: sum
+		sourceColumn: OpportunitySeq
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation Format = <Format Format="NumberWhole" Accuracy="0" />
+
+		annotation PBI_ChangedProperties = ["IsHidden"]
+
+	column ProductSeq
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: ProductSeq
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation Format = <Format Format="NumberWhole" Accuracy="0" />
+
+		annotation PBI_ChangedProperties = ["IsHidden"]
+
+	column SystemUserSeq
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: SystemUserSeq
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation Format = <Format Format="NumberWhole" Accuracy="0" />
+
+		annotation PBI_ChangedProperties = ["IsHidden"]
+
+	column CampaignSeq
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: CampaignSeq
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation Format = <Format Format="NumberWhole" Accuracy="0" />
+
+		annotation PBI_ChangedProperties = ["IsHidden"]
+
+	column Blank = BLANK()
+		formatString: 0
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation Format = <Format Format="NumberWhole" Accuracy="0" />
+
+	column DateDiff-Days
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: sum
+		sourceColumn: DateDiff-Days
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation Format = <Format Format="NumberWhole" Accuracy="0" />
+
+		annotation PBI_ChangedProperties = ["IsHidden"]
+
+	column 'Opportunity Created On'
+		dataType: dateTime
+		formatString: Short Date
+		summarizeBy: none
+		sourceColumn: Opportunity Created On
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation Format = <Format Format="DateTimeGeneralPattern"><DateTimes><DateTime LCID="1033" Group="ShortDate" FormatString="d" /></DateTimes></Format>
+
+		annotation PBI_ChangedProperties = ["FormatString"]
+
+	column CloseDate
+		dataType: dateTime
+		formatString: m/d/yyyy
+		summarizeBy: none
+		sourceColumn: CloseDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation Format = <Format Format="DateTimeCustom"><DateTimes><DateTime LCID="1033" Group="ShortDate" FormatString="M/d/yyyy" /></DateTimes></Format>
+
+		annotation PBI_ChangedProperties = ["FormatString"]
+
+	column 'Days Remaining In Pipeline (bins)' =
+			IF(
+			  ISBLANK('Opportunities'[Days Remaining In Pipeline]),
+			  BLANK(),
+			  INT('Opportunities'[Days Remaining In Pipeline] / 5) * 5
+			)
+		formatString: 0
+		summarizeBy: none
+
+		extendedProperty GroupingMetadata =
+				{
+				  "version": 0,
+				  "groupedColumns": [
+				    {
+				      "Column": {
+				        "Expression": {
+				          "SourceRef": {
+				            "Entity": "Opportunities"
+				          }
+				        },
+				        "Property": "Days Remaining In Pipeline"
+				      }
+				    }
+				  ],
+				  "binningMetadata": {
+				    "binSize": {
+				      "value": 5.0,
+				      "unit": 0
+				    }
+				  }
+				}
+
+		annotation GroupingDesignState = {"Version":0,"Sources":[{"Name":"o","Entity":"Opportunities"}],"GroupedColumns":[{"Column":{"Expression":{"SourceRef":{"Source":"o"}},"Property":"Days Remaining In Pipeline"}}],"BinItem":{"Expression":{"Floor":{"Expression":{"Column":{"Expression":{"SourceRef":{"Source":"o"}},"Property":"Days Remaining In Pipeline"}},"Size":5.0}}}}
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation Format = <Format Format="NumberWhole" Accuracy="0" />
+
+	partition Opportunities-2905f1f8-aef9-42b6-b178-4b43efaa2633 = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(Web.Contents("https://microsoft-my.sharepoint.com/personal/misewell_microsoft_com/Documents/Documents/GitHub/ContosoBI/Contoso%20-%20Sales%20-%20Current%20Release/Contoso%20-%20Dynamics%20365%20Sales%20Source%20Data.xlsx"), null, true),
+				    OpportunityTbl_Table = Source{[Item="OpportunityTbl",Kind="Table"]}[Data],
+				    #"Removed Other Columns" = Table.SelectColumns(OpportunityTbl_Table,{"OpportunitySeq", "DateDiff-Minutes", "DaysToClose", "SystemUserSeq", "AccountSeq", "ProductSeq", "CampaignSeq", "Purchase Process", "Decision Maker Identified", "Discount", "Value", "PipelineStep", "Probability (raw)", "Probability", "Rating", "Status"}),
+				    #"Integer-Divided Column" = Table.TransformColumns(#"Removed Other Columns", {{"DateDiff-Minutes", each Number.IntegerDivide(_, 1440), Int64.Type}}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Integer-Divided Column",{{"DaysToClose", Int64.Type}}),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Changed Type",{{"DateDiff-Minutes", "DateDiff-Days"},{"PipelineStep", "Sales Stage"}}),
+				    #"Added Custom" = Table.AddColumn(#"Renamed Columns1", "CreatedonDateUTC", each Date.AddDays(DateTimeZone.UtcNow(),[#"DateDiff-Days"])),
+				    #"Added Custom2" = Table.AddColumn(#"Added Custom", "CloseDateUTC", each Date.AddDays([CreatedonDateUTC],[#"DaysToClose"])),
+				    #"Renamed Columns" = Table.RenameColumns(#"Added Custom2",{{"CreatedonDateUTC", "Opportunity Created On"}, {"CloseDateUTC", "CloseDate"}}),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Renamed Columns",{{"CloseDate", type date}, {"Opportunity Created On", type date}, {"OpportunitySeq", Int64.Type}, {"DateDiff-Days", Int64.Type}, {"DaysToClose", Int64.Type}, {"SystemUserSeq", Int64.Type}, {"AccountSeq", Int64.Type}, {"ProductSeq", Int64.Type}, {"CampaignSeq", Int64.Type}, {"Purchase Process", type text}, {"Decision Maker Identified", type logical}, {"Discount", type number}, {"Value", Int64.Type}, {"Sales Stage", type text}, {"Probability (raw)", type number}, {"Probability", type number}, {"Rating", type text}, {"Status", type text}})
+				in
+				    #"Changed Type1"
+
+	annotation PBI_QueryRelationships = {"columnCount":22,"keyColumnNames":[],"queryRelationships":[],"columnIdentities":["Section1/Opportunities/Changed Type.{OpportunitySeq,0}","Section1/Opportunities/Changed Type.{CreatedonDate,1}","Section1/Opportunities/Changed Type.{DaysToClose,2}","Section1/Opportunities/Changed Type.{CloseDate,3}","Section1/Opportunities/Changed Type.{SystemUserSeq,4}","Section1/Opportunities/Changed Type.{Opportunity Owner Name,5}","Section1/Opportunities/Changed Type.{AccountSeq,6}","Section1/Opportunities/Changed Type.{ProductSeq,7}","Section1/Opportunities/Changed Type.{ProductName,8}","Section1/Opportunities/OpportunityTbl_Table.{CampaignSeq,10}","Section1/Opportunities/OpportunityTbl_Table.{Campaign Name,11}","Section1/Opportunities/Changed Type.{Budget,11}","Section1/Opportunities/Changed Type.{Topic,12}","Section1/Opportunities/Changed Type.{Purchase Process,13}","Section1/Opportunities/Changed Type.{Decision Maker Identified,14}","Section1/Opportunities/Changed Type.{Discount,15}","Section1/Opportunities/Changed Type.{Value,16}","Section1/Opportunities/Changed Type.{PipelineStep,17}","Section1/Opportunities/Changed Type.{Probability (raw),18}","Section1/Opportunities/Changed Type.{Probability,19}","Section1/Opportunities/Changed Type.{Rating,20}","Section1/Opportunities/Changed Type.{Status,21}"],"ColumnCount":22,"KeyColumnNames":[],"ColumnIdentities":["Section1/Opportunities/Changed Type.{OpportunitySeq,0}","Section1/Opportunities/Changed Type.{CreatedonDate,1}","Section1/Opportunities/Changed Type.{DaysToClose,2}","Section1/Opportunities/Changed Type.{CloseDate,3}","Section1/Opportunities/Changed Type.{SystemUserSeq,4}","Section1/Opportunities/Changed Type.{Opportunity Owner Name,5}","Section1/Opportunities/Changed Type.{AccountSeq,6}","Section1/Opportunities/Changed Type.{ProductSeq,7}","Section1/Opportunities/Changed Type.{ProductName,8}","Section1/Opportunities/OpportunityTbl_Table.{CampaignSeq,10}","Section1/Opportunities/OpportunityTbl_Table.{Campaign Name,11}","Section1/Opportunities/Changed Type.{Budget,11}","Section1/Opportunities/Changed Type.{Topic,12}","Section1/Opportunities/Changed Type.{Purchase Process,13}","Section1/Opportunities/Changed Type.{Decision Maker Identified,14}","Section1/Opportunities/Changed Type.{Discount,15}","Section1/Opportunities/Changed Type.{Value,16}","Section1/Opportunities/Changed Type.{PipelineStep,17}","Section1/Opportunities/Changed Type.{Probability (raw),18}","Section1/Opportunities/Changed Type.{Probability,19}","Section1/Opportunities/Changed Type.{Rating,20}","Section1/Opportunities/Changed Type.{Status,21}"],"RelationshipInfo":[]}
+
+	annotation PBI_ResultType = Table
+

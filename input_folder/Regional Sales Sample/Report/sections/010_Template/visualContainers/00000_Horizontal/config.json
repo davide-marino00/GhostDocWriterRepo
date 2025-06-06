@@ -1,0 +1,22 @@
+{
+  "name": "952f79c232d6033955c6",
+  "layouts": [
+    {
+      "id": 0,
+      "position": {
+        "height": 604.15426586942135,
+        "width": 1245.7747732942485,
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "tabOrder": 69000
+      }
+    }
+  ],
+  "singleVisualGroup": {
+    "displayName": "Horizontal",
+    "groupMode": 0,
+    "isHidden": false
+  },
+  "parentGroupName": "0350598d17066b8e4060"
+}

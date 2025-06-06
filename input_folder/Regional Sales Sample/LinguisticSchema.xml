@@ -1,0 +1,59 @@
+<LinguisticSchema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Language="en-US" DynamicImprovement="Default" xmlns="http://schemas.microsoft.com/sqlserver/2016/01/linguisticschema">
+  <Entities>
+    <Entity Name="Pipeline_Trends" ConceptualEntity="Pod14" Source="Generated">
+      <Words>
+        <Word>Pipeline Trends</Word>
+      </Words>
+    </Entity>
+    <Entity Name="Win_Loss_Ratio_Insights" ConceptualEntity="Pod15" Source="Generated">
+      <Words>
+        <Word>Win/Loss Ratio Insights</Word>
+      </Words>
+    </Entity>
+    <Entity Name="Revenue_Source_Breakdown" ConceptualEntity="Pod16" Source="Generated">
+      <Words>
+        <Word>Revenue Source Breakdown</Word>
+      </Words>
+    </Entity>
+    <Entity Name="QA_Query" ConceptualEntity="Pod17" Source="Generated">
+      <Words>
+        <Word>Q&amp;A Query</Word>
+      </Words>
+    </Entity>
+    <Entity Name="Win_Loss_Ratio_Overview" ConceptualEntity="Pod5" Source="Generated">
+      <Words>
+        <Word>Win/Loss Ratio Overview</Word>
+      </Words>
+    </Entity>
+    <Entity Name="Sales_Discounting_Insights" ConceptualEntity="Pod" Source="Generated">
+      <Words>
+        <Word>Sales Discounting Insights</Word>
+      </Words>
+    </Entity>
+    <Entity Name="Sales_Overview" ConceptualEntity="Pod1" Source="Generated">
+      <Words>
+        <Word>Sales Overview</Word>
+      </Words>
+    </Entity>
+    <Entity Name="Template" ConceptualEntity="Pod2" Source="Generated">
+      <Words>
+        <Word>Template</Word>
+      </Words>
+    </Entity>
+    <Entity Name="Trend_Analytics" ConceptualEntity="Pod3" Source="Generated">
+      <Words>
+        <Word>Trend Analytics</Word>
+      </Words>
+    </Entity>
+    <Entity Name="Days_to_Close_Insights" ConceptualEntity="Pod4" Source="Generated">
+      <Words>
+        <Word>Days to Close Insights</Word>
+      </Words>
+    </Entity>
+    <Entity Name="Industries_Overview" ConceptualEntity="Pod6" Source="Generated">
+      <Words>
+        <Word>Industries Overview</Word>
+      </Words>
+    </Entity>
+  </Entities>
+</LinguisticSchema>

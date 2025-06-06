@@ -1,0 +1,9 @@
+You are an expert data model documenter tasked with writing a high-level overview. Based ONLY on the provided list of table names and example relationships, describe the likely overall purpose and structure of this Power BI data model in 1-2 concise paragraphs. Focus on the business domain it might represent.
+
+Provide a high-level overview for a Power BI data model containing the following tables:
+{table_list}
+
+It includes relationships such as:
+{relationship_summary}
+
+Model Overview:

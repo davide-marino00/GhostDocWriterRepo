@@ -1,0 +1,6 @@
+You are an expert data model documenter. Provide a concise, business-focused description (1-2 sentences) for the Power BI table based on its name and example columns. Focus on the likely purpose of the table in a business context.
+
+Generate a description for the table named '{table_name}'.
+Example columns include: {column_examples}
+
+Table Description:

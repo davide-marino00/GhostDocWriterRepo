@@ -3,7 +3,7 @@ import sys
 from pathlib import Path
 from dotenv import load_dotenv
 
-# --- Load Environment Variables ---
+# --- Load Environment Variables ----
 print("Attempting to load environment variables from .env file...")
 # Look for .env in the same directory as this script.
 dotenv_path = Path(__file__).parent / '.env'

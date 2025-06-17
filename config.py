@@ -22,8 +22,6 @@ output_path_str = os.getenv("OUTPUT_DIR")
 # If paths are set, make them absolute based on the script's location.
 PBI_EXTRACT_ROOT_DIR = (SCRIPT_DIR / input_path_str).resolve() if input_path_str else None
 OUTPUT_DIR = (SCRIPT_DIR / output_path_str).resolve() if output_path_str else None
-
-# --- Filename Configuration (Loaded from Environment with Defaults) ---
 # All filenames and directory names are now loaded from .env for full control.
 # Sensible defaults are provided so the script works out-of-the-box.
 MODEL_DIR_NAME = os.getenv("MODEL_DIR_NAME", "Model")
@@ -110,7 +108,10 @@ def validate_config():
 
     # Check Required Azure Credentials
     print("Checking Azure OpenAI Credentials from .env file...")
-    creds = {"Endpoint": AZURE_OPENAI_ENDPOINT, "API Key": AZURE_OPENAI_API_KEY, "API Version": AZURE_OPENAI_API_VERSION, "Chat Deployment Name": AZURE_OPENAI_CHAT_DEPLOYMENT_NAME}
+    creds = {"Endpoint": AZURE_OPENAI_ENDPOINT, 
+             "API Key": AZURE_OPENAI_API_KEY, 
+             "API Version": AZURE_OPENAI_API_VERSION, 
+             "Chat Deployment Name": AZURE_OPENAI_CHAT_DEPLOYMENT_NAME}
     missing_creds = [name for name, value in creds.items() if not value]
     if missing_creds:
         print(f"  ERROR: Missing Azure OpenAI environment variables: {', '.join(missing_creds)}")
@@ -122,8 +123,10 @@ def validate_config():
     # Check Prompt Template Files
     print("Checking Prompt Template Files...")
     prompt_files = {
-        "Table Description": PROMPT_TABLE_DESC_FILE, "Column Description": PROMPT_COLUMN_DESC_FILE,
-        "DAX Explanation": PROMPT_DAX_EXPLAIN_FILE, "Model Overview": PROMPT_MODEL_OVERVIEW_FILE
+        "Table Description": PROMPT_TABLE_DESC_FILE, 
+        "Column Description": PROMPT_COLUMN_DESC_FILE,
+        "DAX Explanation": PROMPT_DAX_EXPLAIN_FILE, 
+        "Model Overview": PROMPT_MODEL_OVERVIEW_FILE
     }
     missing_prompts = [f"{name} ({path.name})" for name, path in prompt_files.items() if not path.is_file()]
     if missing_prompts:

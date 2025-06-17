@@ -1,11 +1,8 @@
-# pbi_data_models.py - Updated with fields for LLM output
-
 import json
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import List, Optional, Dict, Any
 
-# --- Data Classes ---
 
 @dataclass
 class FilterTarget:

@@ -1,17 +1,11 @@
-# parse_pbi_model.py - REFACTORED to use config.py
-
 import json
 import os
 import re
 from pathlib import Path
 from typing import List, Dict, Tuple, Any, Optional
 import traceback # Keep traceback
-
-# Import configuration settings
 import config
 
-# Import our data model classes and the custom encoder
-# Ensure pbi_data_models.py is in the same directory or Python path
 try:
     from pbi_data_models import (
         Table, Column, CalculatedColumn, Measure, Relationship, Annotation,
@@ -29,7 +23,6 @@ except ImportError:
 # --- Helper Function for Parsing Table/Column References ---
 def parse_table_column_ref(ref_string: str) -> Tuple[str | None, str | None]:
     """ Parses 'Table'.'Column' or Table.Column, handling quotes. Uses greedy match. """
-    # Regex to capture: OptionalQuote1, TableName (greedy), OptionalQuote1, Dot, OptionalQuote2, ColumnName (greedy), OptionalQuote2
     match = re.match(r"^\s*(['\"]?)(.+)\1\s*\.\s*(['\"]?)(.+)\3\s*$", ref_string)
     if match:
         table_name = match.group(2)
@@ -115,7 +108,8 @@ def parse_relationships(relationship_files: List[Path]) -> List[Relationship]:
 
             def process_collected_relationship(rel_id, props_dict):
                 # Helper to create Relationship object from collected properties
-                if not rel_id or not props_dict: return None
+                if not rel_id or not props_dict: 
+                    return None
                 if rel_id in processed_rel_ids:
                     # Silently skip duplicates found across files, only process the first time.
                     return None
@@ -139,11 +133,13 @@ def parse_relationships(relationship_files: List[Path]) -> List[Relationship]:
 
                 processed_rel_ids.add(rel_id) # Mark as processed
                 return Relationship(
-                    fromTable=from_table, fromColumn=from_column,
-                    toTable=to_table, toColumn=to_column,
-                    isActive=is_active, crossFilteringBehavior=cross_filter
+                    fromTable=from_table,
+                    fromColumn=from_column,
+                    toTable=to_table,
+                    toColumn=to_column,
+                    isActive=is_active,
+                    crossFilteringBehavior=cross_filter
                 )
-            # --- End of helper ---
 
             for line in lines:
                 line_stripped = line.strip()
@@ -151,21 +147,23 @@ def parse_relationships(relationship_files: List[Path]) -> List[Relationship]:
                     if is_in_block:
                          # Process the completed relationship block
                         rel_obj = process_collected_relationship(current_rel_id, current_props)
-                        if rel_obj: all_relationships.append(rel_obj)
+                        if rel_obj:
+                            all_relationships.append(rel_obj)
                         # Reset state after processing
                         is_in_block = False
                         current_rel_id = None
                         current_props = {}
                     continue # Skip blank line
 
-                rel_match = rel_start_pattern.match(line) # Check if line starts a new relationship
+                rel_match = rel_start_pattern.match(line)
 
                 if rel_match:
                     # Found the start of a new relationship definition
                     # Process the PREVIOUS relationship's properties first (if any)
                     if current_rel_id:
                          rel_obj = process_collected_relationship(current_rel_id, current_props)
-                         if rel_obj: all_relationships.append(rel_obj)
+                         if rel_obj: 
+                            all_relationships.append(rel_obj)
 
                     # Start collecting for the new relationship
                     current_rel_id = rel_match.group(1)
@@ -186,7 +184,7 @@ def parse_relationships(relationship_files: List[Path]) -> List[Relationship]:
                         current_props[key] = value
                     else:
                         # Line is indented but doesn't match property pattern - ignore? Or log?
-                        pass # Ignore lines like comments within the block
+                        pass
 
                 elif not line.startswith(' ') and not line.startswith('\t') and is_in_block :
                      # Line is not indented, and not blank, and not a new definition
@@ -201,7 +199,8 @@ def parse_relationships(relationship_files: List[Path]) -> List[Relationship]:
             # Process the very last relationship collected after the loop finishes
             if current_rel_id:
                 rel_obj = process_collected_relationship(current_rel_id, current_props)
-                if rel_obj: all_relationships.append(rel_obj)
+                if rel_obj:
+                    all_relationships.append(rel_obj)
 
         except FileNotFoundError:
             # This shouldn't happen if find_tmdl_files worked, but handle defensively
@@ -232,7 +231,8 @@ def parse_properties_and_annotations(lines: List[str]) -> Tuple[Dict[str, str], 
 
     for line in lines:
         line_stripped = line.strip()
-        if not line_stripped or line_stripped.startswith('--'): continue # Skip empty/comment lines
+        if not line_stripped or line_stripped.startswith('--'):
+            continue # Skip empty/comment lines
 
         ann_match = ann_pattern.match(line_stripped)
         if ann_match:
@@ -288,9 +288,13 @@ def parse_table_file(table_file_path: Path) -> Table:
     current_object_def_line = ""
     current_indentation = ""
 
-    def process_object(obj_type: Optional[str], def_line: str, obj_lines: List[str], table_obj: Table):
+    def process_object(obj_type: Optional[str],
+                       def_line: str,
+                       obj_lines: List[str],
+                       table_obj: Table):
         # Helper to process collected data for a table, column, or measure
-        if not obj_type: return
+        if not obj_type:
+            return
 
         name = ""
         is_calc_col = False
@@ -306,28 +310,33 @@ def parse_table_file(table_file_path: Path) -> Table:
             table_obj.description = properties.get('description')
             table_obj.annotations.extend(annotations)
             # Extract description from specific annotation if present
-            desc_annotation = next((a for a in annotations if a.name == 'PBI_ObjectProcessingOrder'), None) # Or common name like 'Description'
-            if desc_annotation: table_obj.description = desc_annotation.value
+            desc_annotation = next((a for a in annotations if a.name == 'PBI_ObjectProcessingOrder'), None) 
+            if desc_annotation:
+                table_obj.description = desc_annotation.value
             return
 
         elif obj_type == 'column':
             # Handle quoted names: column 'Column Name' or column ColumnName
             col_match = re.match(r"^\s*column\s+(?:(['\"])(.+?)\1|([\w\.-]+))(?:\s*=\s*(.*))?$", def_line.strip())
-            if not col_match: print(f"Warning: Could not parse column definition line: {def_line}"); return
+            if not col_match: 
+                print(f"Warning: Could not parse column definition line: {def_line}"); return
             name = col_match.group(2) or col_match.group(3) # Get quoted or unquoted name
             dax_part = col_match.group(4)
             if dax_part is not None:
                 is_calc_col = True
-                if not dax_part.strip().startswith("```"): single_line_dax = dax_part.strip()
+                if not dax_part.strip().startswith("```"):
+                    single_line_dax = dax_part.strip()
 
         elif obj_type == 'measure':
             # Handle quoted names: measure 'Measure Name' or measure MeasureName
             mea_match = re.match(r"^\s*measure\s+(?:(['\"])(.+?)\1|([\w\.-]+))\s*=\s*(.*)$", def_line.strip())
-            if not mea_match: print(f"Warning: Could not parse measure definition line: {def_line}"); return
+            if not mea_match:
+                print(f"Warning: Could not parse measure definition line: {def_line}"); return
             name = mea_match.group(2) or mea_match.group(3) # Get quoted or unquoted name
             dax_part = mea_match.group(4)
             is_measure = True
-            if not dax_part.strip().startswith("```"): single_line_dax = dax_part.strip()
+            if not dax_part.strip().startswith("```"):
+                single_line_dax = dax_part.strip()
 
         # --- Parse Properties and Annotations from the object's body ---
         properties, annotations = parse_properties_and_annotations(obj_lines)
@@ -336,7 +345,8 @@ def parse_table_file(table_file_path: Path) -> Table:
         obj_description = properties.get('description') # Check direct property first
         if not obj_description:
              desc_annotation = next((a for a in annotations if a.name == 'PBI_ObjectProcessingOrder'), None) # Or common name like 'Description'
-             if desc_annotation: obj_description = desc_annotation.value
+             if desc_annotation:
+                 obj_description = desc_annotation.value
 
         # --- Determine DAX Expression ---
         dax_expression = None
@@ -350,7 +360,8 @@ def parse_table_file(table_file_path: Path) -> Table:
 
         # --- Create Object ---
         if is_measure:
-            if dax_expression is None: dax_expression = "" # Measures must have expression
+            if dax_expression is None:
+                dax_expression = "" # Measures must have expression
             measure = Measure(
                 name=name, daxExpression=dax_expression,
                 formatString=properties.get('formatString'),
@@ -364,7 +375,8 @@ def parse_table_file(table_file_path: Path) -> Table:
             if 'sourceColumn' in properties:
                 is_calc_col = False
             else:
-                if dax_expression is None: dax_expression = "" # Calc columns must have expression
+                if dax_expression is None:
+                    dax_expression = "" # Calc columns must have expression
                 calc_col = CalculatedColumn(
                     name=name, daxExpression=dax_expression,
                     dataType=properties.get('dataType', 'string'), # Default if missing
@@ -427,7 +439,8 @@ def parse_table_file(table_file_path: Path) -> Table:
             # If we encounter a column or measure, process the preceding object (which could be table props or another col/measure)
             if current_object_type is not None:
                  process_object(current_object_type, current_object_def_line, current_object_lines, table_obj)
-                 if current_object_type == 'table': table_properties_processed = True
+                 if current_object_type == 'table':
+                    table_properties_processed = True
 
 
             # Start collecting for the new object
@@ -454,7 +467,8 @@ def parse_table_file(table_file_path: Path) -> Table:
             # If line is not indented and not part of current block, process the completed block
             else:
                  process_object(current_object_type, current_object_def_line, current_object_lines, table_obj)
-                 if current_object_type == 'table': table_properties_processed = True
+                 if current_object_type == 'table':
+                    table_properties_processed = True
                  # Reset state, but keep the current line to process in the next iteration
                  current_object_type = None
                  current_object_def_line = ""
@@ -524,8 +538,8 @@ def run_parser():
                     # Log error for specific table and continue with others
                     print(f"ERROR parsing table file {table_file.name}: {e}")
                     traceback.print_exc() # Print traceback for table errors
-                    continue # Skip faulty table file
-
+                    continue
+                
         # Check if any tables were successfully parsed before creating summary
         if not parsed_tables and table_files:
              print("WARNING: No tables were successfully parsed, but table files were found.")

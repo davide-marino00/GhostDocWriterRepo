@@ -66,8 +66,6 @@ async def main_pipeline():
         sys.exit(1)
 
     # 4. Run Documentation Generation (Async)
-     # 4. Run Documentation Generation (Async)
-    # Updated title to reflect both outputs
     print("\n--- Step 3: Generating Documentation (Loading JSON, Calling LLM, Assembling Markdown & JSON) ---")
     try:
         await generate_documentation.run_generation()
@@ -107,11 +105,16 @@ if __name__ == "__main__":
         try: loop = asyncio.get_running_loop()
         except RuntimeError: loop = asyncio.new_event_loop(); asyncio.set_event_loop(loop)
         loop.run_until_complete(main_pipeline())
-    except SystemExit: print("\nPipeline execution stopped due to errors.")
-    except KeyboardInterrupt: print("\nPipeline execution interrupted by user."); sys.exit(1)
-    except Exception as main_e: print(f"\nAn unexpected error occurred during pipeline execution: {main_e}"); traceback.print_exc(); sys.exit(1)
+    except SystemExit: 
+        print("\nPipeline execution stopped due to errors.")
+    except KeyboardInterrupt: 
+        print("\nPipeline execution interrupted by user."); sys.exit(1)
+    except Exception as main_e:
+        print(f"\nAn unexpected error occurred during pipeline execution: {main_e}"); traceback.print_exc(); sys.exit(1)
     finally:
          if 'loop' in locals() and not loop.is_running():
-             try: loop.close(); asyncio.set_event_loop(None)
-             except Exception as loop_e: print(f"Error closing event loop: {loop_e}")
+             try: 
+                loop.close(); asyncio.set_event_loop(None)
+             except Exception as loop_e:
+                 print(f"Error closing event loop: {loop_e}")
 

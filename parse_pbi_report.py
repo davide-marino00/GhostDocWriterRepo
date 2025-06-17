@@ -1,18 +1,12 @@
-# parse_pbi_report.py - REFACTORED to use config.py (Latest Version)
-
 import json
 import os
 import time
 import re
 from pathlib import Path
 from typing import List, Dict, Tuple, Any, Optional
-import traceback # Keep traceback
-
-# Import configuration settings
+import traceback
 import config
 
-# Import relevant data classes from pbi_data_models
-# Ensure pbi_data_models.py is in the same directory or Python path
 try:
     from pbi_data_models import (
         ReportPage, Visual, ReportFilter, FilterTarget, VisualFieldMapping,
@@ -22,8 +16,6 @@ except ImportError:
     print("ERROR: Could not import data models from pbi_data_models.py.")
     print("       Ensure the file exists and is accessible.")
     raise # Stop execution if models can't be imported
-
-# --- Helper Functions ---
 
 def load_json_file(file_path: Path) -> Optional[Any]:
     """Safely loads a JSON file, returning None if error occurs."""
@@ -50,28 +42,32 @@ def parse_filter_target(expression_dict: Optional[Dict[str, Any]]) -> Optional[F
     Parses the 'expression' object within a filter definition.
     Handles simple Column references and basic Aggregations.
     """
-    if not expression_dict: return None
+    if not expression_dict:
+        return None
     try:
         # Case 1: Simple Column Filter (Most common)
         if "Column" in expression_dict:
             column_dict = expression_dict["Column"]
             expression = column_dict.get("Expression")
             source_ref = None
-            if expression: source_ref = expression.get("SourceRef")
-            if source_ref is None: source_ref = column_dict.get("SourceRef") # Fallback
+            if expression: 
+                source_ref = expression.get("SourceRef")
+            if source_ref is None:
+                source_ref = column_dict.get("SourceRef") # Fallback
 
             entity = None
-            if source_ref: entity = source_ref.get("Entity") or source_ref.get("Source")
-
+            if source_ref: 
+                entity = source_ref.get("Entity") or source_ref.get("Source")
             property_name = column_dict.get("Property")
-
             if entity and property_name:
                 return FilterTarget(entity=entity, property=property_name)
 
         # Case 2: Aggregation Filter (e.g., Sum(SalesAmount) > 50)
         elif "Aggregation" in expression_dict:
             agg_dict = expression_dict["Aggregation"]
-            agg_func_map = {0: "Sum", 1: "Avg", 2: "Min", 3: "Max", 4: "Count", 5: "CountNonNull", 6: "Median", 7: "StandardDeviation", 8: "Variance"}
+            agg_func_map = {0: "Sum", 1: "Avg", 2: "Min", 3: "Max",
+                            4: "Count", 5: "CountNonNull", 6: "Median",
+                            7: "StandardDeviation", 8: "Variance"}
             agg_func_code = agg_dict.get("Function", -1)
             agg_func_name = agg_func_map.get(agg_func_code, f"Agg{agg_func_code}")
 
@@ -81,11 +77,14 @@ def parse_filter_target(expression_dict: Optional[Dict[str, Any]]) -> Optional[F
                  column_dict = inner_expr["Column"]
                  expression = column_dict.get("Expression")
                  source_ref = None
-                 if expression: source_ref = expression.get("SourceRef")
-                 if source_ref is None: source_ref = column_dict.get("SourceRef") # Fallback
+                 if expression: 
+                    source_ref = expression.get("SourceRef")
+                 if source_ref is None:
+                     source_ref = column_dict.get("SourceRef") # Fallback
 
                  entity = None
-                 if source_ref: entity = source_ref.get("Entity") or source_ref.get("Source")
+                 if source_ref: 
+                    entity = source_ref.get("Entity") or source_ref.get("Source")
 
                  property_name = column_dict.get("Property")
 
@@ -105,18 +104,18 @@ def parse_filter_target(expression_dict: Optional[Dict[str, Any]]) -> Optional[F
              measure_dict = expression_dict["Measure"]
              expression = measure_dict.get("Expression")
              source_ref = None
-             if expression: source_ref = expression.get("SourceRef")
+             if expression:
+                 source_ref = expression.get("SourceRef")
 
              entity = None
-             if source_ref: entity = source_ref.get("Entity") or source_ref.get("Source")
+             if source_ref:
+                 entity = source_ref.get("Entity") or source_ref.get("Source")
              property_name = measure_dict.get("Property") # This is the Measure name
 
              if entity and property_name:
                  return FilterTarget(entity=entity, property=f"[{property_name}]") # Indicate measure with []
              elif property_name:
                   return FilterTarget(entity="Measure", property=f"[{property_name}]")
-
-        # Add more cases here if other expression types are found (e.g., HierarchyLevel)
 
     except Exception as e:
         print(f"Warning: Exception during filter target parsing: {e} - Data: {expression_dict}")
@@ -151,7 +150,8 @@ def parse_filters(filter_list_json: Optional[List[Dict[str, Any]]], level: str) 
     return filters
 
 # Use the version with extensive debugging prints
-def parse_field_mappings(visual_config: Optional[Dict[str, Any]], visual_transforms: Optional[Dict[str, Any]]) -> List[VisualFieldMapping]:
+def parse_field_mappings(visual_config: Optional[Dict[str, Any]],
+                         visual_transforms: Optional[Dict[str, Any]]) -> List[VisualFieldMapping]:
     """
     Parses field mappings from visual config (config.json) and dataTransforms (dataTransforms.json).
     Prefers using dataTransforms.selects if available, otherwise falls back to config.projections.
@@ -180,11 +180,13 @@ def parse_field_mappings(visual_config: Optional[Dict[str, Any]], visual_transfo
         for i, select_item in enumerate(selects_list):
             # Limit printing very large select items
             select_item_str = json.dumps(select_item)
-            if len(select_item_str) > 500: select_item_str = select_item_str[:500] + "..."
+            if len(select_item_str) > 500:
+                select_item_str = select_item_str[:500] + "..."
             print(f"      DEBUG: Processing select item {i+1}: {select_item_str}")
             try:
                 # Extract the primary role
-                field_role = next((role for role, is_active in select_item.get('roles', {}).items() if is_active), "Unknown")
+                field_role = next(
+                    (role for role, is_active in select_item.get('roles', {}).items() if is_active), "Unknown")
                 query_name = select_item.get('queryName')
                 display_name = select_item.get('displayName')
 
@@ -218,7 +220,8 @@ def parse_field_mappings(visual_config: Optional[Dict[str, Any]], visual_transfo
                 for j, field_projection in enumerate(fields_in_role):
                     # Limit printing large projection items
                     field_proj_str = json.dumps(field_projection)
-                    if len(field_proj_str) > 500: field_proj_str = field_proj_str[:500] + "..."
+                    if len(field_proj_str) > 500:
+                        field_proj_str = field_proj_str[:500] + "..."
                     print(f"        DEBUG: Processing field projection {j+1} in role '{role}': {field_proj_str}")
                     if not isinstance(field_projection, dict):
                          print(f"        WARNING: Field projection item {j+1} in role '{role}' is not a dict. Skipping.")
@@ -234,9 +237,6 @@ def parse_field_mappings(visual_config: Optional[Dict[str, Any]], visual_transfo
                              if prop_display_name:
                                  display_name = prop_display_name
                                  print(f"          DEBUG: Found displayName in columnProperties: {display_name}")
-                             # else: print(f"          DEBUG: queryRef found in columnProperties, but no 'displayName' key.")
-                        # else: print(f"          DEBUG: queryRef not found as key in columnProperties.")
-
                         try:
                             mapping = VisualFieldMapping(
                                 role=str(role), # Ensure string
@@ -262,19 +262,21 @@ def parse_field_mappings(visual_config: Optional[Dict[str, Any]], visual_transfo
     print(f"    DEBUG: Final mappings list count: {len(mappings)}")
     if not mappings:
          print(f"    >>>> WARNING: No field mappings extracted for visual {visual_name_for_debug} <<<<")
-
     return mappings
 
 def parse_visual_title(visual_config: Optional[Dict[str, Any]]) -> Optional[str]:
     """Extracts visual title from config JSON."""
-    if not visual_config: return None
+    if not visual_config: 
+        return None
     try:
         title_objects = visual_config.get("singleVisual", {}).get("vcObjects", {}).get("title", [])
-        if not title_objects or not isinstance(title_objects, list): return None
+        if not title_objects or not isinstance(title_objects, list):
+            return None
         title_obj = title_objects[0]
         properties = title_obj.get("properties", {})
         show_prop = properties.get("show", {}).get("expr", {}).get("Literal", {}).get("Value")
-        if show_prop != "true": return None
+        if show_prop != "true": 
+            return None
         title_text_val = properties.get("text", {}).get("expr", {}).get("Literal", {}).get("Value")
         if isinstance(title_text_val, str) and title_text_val.startswith("'") and title_text_val.endswith("'"):
              return title_text_val[1:-1]
@@ -284,11 +286,7 @@ def parse_visual_title(visual_config: Optional[Dict[str, Any]]) -> Optional[str]
         print(f"Warning: Could not parse visual title for visual {visual_name_for_debug}: {e}")
     return None
 
-# --- Main Parsing Functions ---
 
-# In parse_pbi_report.py
-
-# Replace the existing parse_visual function with this one:
 def parse_visual(visual_dir: Path) -> Optional[Visual]:
     """Parses JSON files within a visual's directory using config constants. Includes filter debugging."""
     visual_name_for_debug = visual_dir.name
@@ -304,7 +302,6 @@ def parse_visual(visual_dir: Path) -> Optional[Visual]:
     config_json = load_json_file(config_json_path)
     transforms_json = load_json_file(transforms_json_path)
 
-    # --- Debug Visual Filter Loading & Parsing ---
     print(f"      DEBUG (parse_visual): Checking for filters file: {filters_json_path}")
     filters_json = load_json_file(filters_json_path) # Load the visual's filters.json
     visual_level_filters = [] # Initialize empty list
@@ -319,7 +316,6 @@ def parse_visual(visual_dir: Path) -> Optional[Visual]:
             print(f"      WARNING (parse_visual): Expected list in filters file, got {type(filters_json)}. Skipping filters.")
     else:
         print(f"      DEBUG (parse_visual): No filters file found or loaded for {visual_name_for_debug}.")
-    # --- End Debug Visual Filter ---
 
     if not config_json: # Config is essential
         print(f"    Warning: Missing or invalid {config.VISUAL_CONFIG_JSON_FILE} for visual {visual_name_for_debug}. Skipping visual.")
@@ -427,7 +423,8 @@ def run_parser():
         sections_dir = report_dir / config.SECTIONS_SUBDIR
         if sections_dir.is_dir():
             # Sort page directories alpha-numerically for consistent order
-            page_dirs = sorted([d for d in sections_dir.iterdir() if d.is_dir()])
+            page_dirs = sorted(
+                [d for d in sections_dir.iterdir() if d.is_dir()])
             print(f"Found {len(page_dirs)} page directories in '{sections_dir.name}'.")
             for page_dir in page_dirs:
                 # Add inner try-except for individual page parsing
@@ -438,7 +435,7 @@ def run_parser():
                 except Exception as page_parse_error:
                     print(f"ERROR: Failed to parse page directory {page_dir.name}: {page_parse_error}")
                     traceback.print_exc() # Log error and continue with next page
-                    continue # Skip this page
+                    continue
         else:
             print(f"Warning: Sections directory not found: {sections_dir}")
 

@@ -5,10 +5,10 @@ import re
 from pathlib import Path
 from typing import List, Dict, Tuple, Any, Optional
 import traceback
-import config
+from . import config
 
 try:
-    from pbi_data_models import (
+    from .pbi_data_models import (
         ReportPage, Visual, ReportFilter, FilterTarget, VisualFieldMapping,
         DataClassEncoder # Reuse the encoder
     )

@@ -4,10 +4,10 @@ import re
 from pathlib import Path
 from typing import List, Dict, Tuple, Any, Optional
 import traceback # Keep traceback
-import config
+from . import config
 
 try:
-    from pbi_data_models import (
+    from .pbi_data_models import (
         Table, Column, CalculatedColumn, Measure, Relationship, Annotation,
         DataClassEncoder
     )

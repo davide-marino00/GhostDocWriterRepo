@@ -14,11 +14,10 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnableSequence
 
 # Import configuration settings
-import config
+from . import config
 
-# Import our data model classes
 try:
-    from pbi_data_models import (
+    from .pbi_data_models import (
         Table, Column, CalculatedColumn, Measure, Relationship, Annotation,
         ReportPage, Visual, ReportFilter, FilterTarget, VisualFieldMapping,
         DataClassEncoder # Make sure this is imported

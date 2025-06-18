@@ -5,7 +5,6 @@ import os
 import traceback
 from pathlib import Path
 
-# --- Configuration Import ---
 try:
     import config
 except ImportError:

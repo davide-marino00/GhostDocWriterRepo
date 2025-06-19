@@ -259,58 +259,57 @@ def parse_visual_title(visual_config: Optional[Dict[str, Any]]) -> Optional[str]
         print(f"Warning: Could not parse visual title for visual {visual_name_for_debug}: {e}")
     return None
 
-
-def parse_visual(visual_dir: Path) -> Optional[Visual]:
-    """Parses JSON files within a visual's directory using config constants. Includes filter debugging."""
-    visual_name_for_debug = visual_dir.name
-    print(f"    Parsing visual: {visual_name_for_debug}")
-
+def _load_visual_files(visual_dir: Path) -> dict:
+    """Loads all necessary JSON files for a single visual into a dictionary."""
     # Use config constants for filenames
     container_json_path = visual_dir / config.VISUAL_CONTAINER_JSON_FILE
     config_json_path = visual_dir / config.VISUAL_CONFIG_JSON_FILE
-    filters_json_path = visual_dir / config.VISUAL_FILTERS_JSON_FILE # Path to visual filters
+    filters_json_path = visual_dir / config.VISUAL_FILTERS_JSON_FILE
     transforms_json_path = visual_dir / config.VISUAL_DATATRANSFORMS_JSON_FILE
 
-    container_json = load_json_file(container_json_path)
-    config_json = load_json_file(config_json_path)
-    transforms_json = load_json_file(transforms_json_path)
+    return {
+        "container": load_json_file(container_json_path),
+        "config": load_json_file(config_json_path),
+        "filters": load_json_file(filters_json_path),
+        "transforms": load_json_file(transforms_json_path),
+    }
 
-    print(f"      DEBUG (parse_visual): Checking for filters file: {filters_json_path}")
-    filters_json = load_json_file(filters_json_path) # Load the visual's filters.json
-    visual_level_filters = [] # Initialize empty list
 
-    if filters_json is not None:
-        print(f"      DEBUG (parse_visual): Found and loaded filters file for {visual_name_for_debug}. Content type: {type(filters_json)}")
-        if isinstance(filters_json, list):
-            print(f"      DEBUG (parse_visual): Calling parse_filters for {len(filters_json)} items.")
-            visual_level_filters = parse_filters(filters_json, 'Visual')
-            print(f"      DEBUG (parse_visual): parse_filters returned {len(visual_level_filters)} filter objects.")
-        else:
-            print(f"      WARNING (parse_visual): Expected list in filters file, got {type(filters_json)}. Skipping filters.")
-    else:
-        print(f"      DEBUG (parse_visual): No filters file found or loaded for {visual_name_for_debug}.")
+def parse_visual(visual_dir: Path) -> Optional[Visual]:
+    """
+    Parses all data for a single visual and instantiates a Visual object.
+    This function first loads all data, then processes it.
+    """
+    visual_name_for_debug = visual_dir.name
+    print(f"    Parsing visual: {visual_name_for_debug}")
 
-    if not config_json: # Config is essential
+    # Step 1: Load all raw data from files
+    json_data = _load_visual_files(visual_dir)
+    
+    config_json = json_data.get("config")
+    if not config_json:
         print(f"    Warning: Missing or invalid {config.VISUAL_CONFIG_JSON_FILE} for visual {visual_name_for_debug}. Skipping visual.")
         return None
 
-    # Extract field mappings (keep existing logic with its own debug prints)
-    field_mappings = parse_field_mappings(config_json, transforms_json)
+    # Step 2: Parse each part of the raw data
+    container_json = json_data.get("container")
+    visual_level_filters = parse_filters(json_data.get("filters"), 'Visual')
+    field_mappings = parse_field_mappings(config_json, json_data.get("transforms"))
+    visual_title = parse_visual_title(config_json)
 
+    # Step 3: Build the final Visual object
     try:
-        # Create the Visual object, passing the visual_level_filters list we created
         visual = Visual(
             name=config_json.get('name'),
             visual_type=config_json.get('singleVisual', {}).get('visualType'),
-            title=parse_visual_title(config_json),
+            title=visual_title,
             x=container_json.get('x') if container_json else None,
             y=container_json.get('y') if container_json else None,
             width=container_json.get('width') if container_json else None,
             height=container_json.get('height') if container_json else None,
-            visual_level_filters=visual_level_filters, # Pass the potentially populated list
+            visual_level_filters=visual_level_filters,
             field_mappings=field_mappings
         )
-        print(f"      DEBUG (parse_visual): Successfully created Visual object for {visual_name_for_debug} with {len(visual.visual_level_filters)} filters attached.") # Confirm filters attached
         return visual
     except Exception as e:
          print(f"    ERROR: Failed to instantiate Visual object for {visual_dir.name}: {e}")

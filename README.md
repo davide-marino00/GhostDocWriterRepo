@@ -71,24 +71,20 @@ Next, deploy a model in Azure to get the necessary credentials.
 
 Provide your credentials to the script using an environment file.
 
-1.  Bash# In the project's root foldercp .env.example .env
+1.  Locate .env in the project folder
     
-2.  **Example .env file:**
-3.  Code snippet# --- REQUIRED: Path Configuration ---PBI\_EXTRACT\_ROOT\_DIR=input\_folder/yourreportOUTPUT\_DIR=output\_folder# --- REQUIRED: Azure OpenAI Configuration ---AZURE\_OPENAI\_ENDPOINT=https://your-service.openai.azure.com/AZURE\_OPENAI\_API\_KEY=your-secret-key-from-azureAZURE\_OPENAI\_API\_VERSION=2024-07-18AZURE\_OPENAI\_CHAT\_DEPLOYMENT\_NAME=gpt-4o-mini# --- OPTIONAL: Output Filename Configuration ---FINAL\_MARKDOWN\_FILENAME=Ghostwritten.mdFINAL\_JSON\_FILENAME=Ghostwritten.json**Note:** Do not use quotes (" or ') around the values in the .env file.
+2.  Provide your credentials:
     
 
 ### Step 4: Run the Documentation Pipeline
 
 Finally, set up the Python environment and run the script.
 
-1.  Bashpython -m venv venv.\\venv\\Scripts\\activate # On Windows# source venv/bin/activate # On macOS/Linux
+1.  Bash ```python -m venv venv.\\venv\\Scripts\\activate``` # On Windows#
+         ```source venv/bin/activate``` # On macOS/Linux
     
-2.  Bashpip install -r requirements.txt
+2.  Bash ```pip install -r requirements.txt```
     
 3.  The script will generate the documentation in your specified output\_folder.
-    
-    *   python -m src.run\_pipeline parse
         
-    *   python -m src.run\_pipeline generate
-        
-    *   python -m src.run\_pipeline all
+     ```python -m src.run_pipeline```

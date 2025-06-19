@@ -37,13 +37,15 @@ Setup and Usage
 
 Follow these steps to get GhostDocWriter running.
 
-### Step 1: Prepare Your Power BI File with pbi-tools
+### Step 1: Prepare Your Power BI File with pbi-tools  
 
 First, extract the metadata from your .pbix file. We will use the open-source pbi-tools for this.
 
-1.  **Download and Extract pbi-tools**Download the latest version from the official GitHub releases: [pbi-tools v1.2.0](https://github.com/pbi-tools/pbi-tools/releases/download/1.2.0/pbi-tools.1.2.0.zip). Extract the contents into a folder on your computer.
+1.  **Download and Extract pbi-tools**  Download the latest version from the official GitHub releases: [pbi-tools v1.2.0](https://github.com/pbi-tools/pbi-tools/releases/download/1.2.0/pbi-tools.1.2.0.zip). Extract the contents into a folder on your computer.
     
-2.  **Example for Windows:**Bash.\\pbi-tools.exe extract "C:\\Users\\yourusername\\Documents\\yourreport.pbix"This command will create a new folder (e.g., yourreport). Move this newly created folder into the input\_folder within the GhostDocWriter project directory.
+2.  **Example for Windows:**  Open the terminal from the same folder where you extracted pbi-tools.
+  ```pbi-tools.exe extract "C:\\Users\\yourusername\\Documents\\yourreport.pbix"```  
+This command will create a new folder (e.g., yourreport). Move this newly created folder into the input\_folder within the GhostDocWriter project directory.
     
 
 ### Step 2: Set Up Azure OpenAI Service
@@ -69,23 +71,20 @@ Next, deploy a model in Azure to get the necessary credentials.
 
 Provide your credentials to the script using an environment file.
 
-1.  Bash# In the project's root foldercp .env.example .env
+1.  Locate .env in the project folder
     
-2.  **Example .env file:**Code snippet# --- REQUIRED: Path Configuration ---PBI\_EXTRACT\_ROOT\_DIR=input\_folder/yourreportOUTPUT\_DIR=output\_folder# --- REQUIRED: Azure OpenAI Configuration ---AZURE\_OPENAI\_ENDPOINT=https://your-service.openai.azure.com/AZURE\_OPENAI\_API\_KEY=your-secret-key-from-azureAZURE\_OPENAI\_API\_VERSION=2024-07-18AZURE\_OPENAI\_CHAT\_DEPLOYMENT\_NAME=gpt-4o-mini# --- OPTIONAL: Output Filename Configuration ---FINAL\_MARKDOWN\_FILENAME=Ghostwritten.mdFINAL\_JSON\_FILENAME=Ghostwritten.json**Note:** Do not use quotes (" or ') around the values in the .env file.
+2.  Provide your credentials:
     
 
 ### Step 4: Run the Documentation Pipeline
 
 Finally, set up the Python environment and run the script.
 
-1.  Bashpython -m venv venv.\\venv\\Scripts\\activate # On Windows# source venv/bin/activate # On macOS/Linux
+1. ```python -m venv venv; .\venv\Scripts\Activate.ps1``` # On Windows                         
+         ```python3 -m venv venv && source venv/bin/activate``` # On macOS/Linux                      
     
-2.  Bashpip install -r requirements.txt
+2. ```pip install -r requirements.txt```
     
-3.  The script will generate the documentation in your specified output\_folder.
-    
-    *   python -m src.run\_pipeline parse
+3. The script will generate the documentation in your specified output\_folder.
         
-    *   python -m src.run\_pipeline generate
-        
-    *   python -m src.run\_pipeline all
+     ```python -m src.run_pipeline```

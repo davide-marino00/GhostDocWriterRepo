@@ -71,7 +71,8 @@ Provide your credentials to the script using an environment file.
 
 1.  Bash# In the project's root foldercp .env.example .env
     
-2.  **Example .env file:**Code snippet# --- REQUIRED: Path Configuration ---PBI\_EXTRACT\_ROOT\_DIR=input\_folder/yourreportOUTPUT\_DIR=output\_folder# --- REQUIRED: Azure OpenAI Configuration ---AZURE\_OPENAI\_ENDPOINT=https://your-service.openai.azure.com/AZURE\_OPENAI\_API\_KEY=your-secret-key-from-azureAZURE\_OPENAI\_API\_VERSION=2024-07-18AZURE\_OPENAI\_CHAT\_DEPLOYMENT\_NAME=gpt-4o-mini# --- OPTIONAL: Output Filename Configuration ---FINAL\_MARKDOWN\_FILENAME=Ghostwritten.mdFINAL\_JSON\_FILENAME=Ghostwritten.json**Note:** Do not use quotes (" or ') around the values in the .env file.
+2.  **Example .env file:**
+3.  Code snippet# --- REQUIRED: Path Configuration ---PBI\_EXTRACT\_ROOT\_DIR=input\_folder/yourreportOUTPUT\_DIR=output\_folder# --- REQUIRED: Azure OpenAI Configuration ---AZURE\_OPENAI\_ENDPOINT=https://your-service.openai.azure.com/AZURE\_OPENAI\_API\_KEY=your-secret-key-from-azureAZURE\_OPENAI\_API\_VERSION=2024-07-18AZURE\_OPENAI\_CHAT\_DEPLOYMENT\_NAME=gpt-4o-mini# --- OPTIONAL: Output Filename Configuration ---FINAL\_MARKDOWN\_FILENAME=Ghostwritten.mdFINAL\_JSON\_FILENAME=Ghostwritten.json**Note:** Do not use quotes (" or ') around the values in the .env file.
     
 
 ### Step 4: Run the Documentation Pipeline

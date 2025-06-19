@@ -1,0 +1,243 @@
+{
+  "Commands": [
+    {
+      "SemanticQueryDataShapeCommand": {
+        "Query": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "o",
+              "Entity": "Opportunities",
+              "Type": 0
+            },
+            {
+              "Name": "p",
+              "Entity": "Products",
+              "Type": 0
+            },
+            {
+              "Name": "t",
+              "Entity": "Territories",
+              "Type": 0
+            },
+            {
+              "Name": "i",
+              "Entity": "Industries",
+              "Type": 0
+            }
+          ],
+          "Select": [
+            {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Source": "p"
+                  }
+                },
+                "Property": "Product Category"
+              },
+              "Name": "Products.Product LOB"
+            },
+            {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Source": "p"
+                  }
+                },
+                "Property": "Product"
+              },
+              "Name": "Products.Product"
+            },
+            {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Source": "o"
+                  }
+                },
+                "Property": "Revenue Open"
+              },
+              "Name": "Opportunities.Revenue Open"
+            },
+            {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Source": "t"
+                  }
+                },
+                "Property": "Territory"
+              },
+              "Name": "Territories.Territory"
+            },
+            {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Source": "o"
+                  }
+                },
+                "Property": "Revenue In Pipeline"
+              },
+              "Name": "Opportunities.Revenue In Pipeline"
+            },
+            {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Source": "o"
+                  }
+                },
+                "Property": "Opportunity Count In Pipeline"
+              },
+              "Name": "Opportunities.Opportunity Count In Pipeline"
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "In": {
+                  "Expressions": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "o"
+                          }
+                        },
+                        "Property": "Status"
+                      }
+                    }
+                  ],
+                  "Values": [
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'Open'"
+                        }
+                      }
+                    ]
+                  ]
+                }
+              }
+            },
+            {
+              "Condition": {
+                "Not": {
+                  "Expression": {
+                    "In": {
+                      "Expressions": [
+                        {
+                          "Column": {
+                            "Expression": {
+                              "SourceRef": {
+                                "Source": "i"
+                              }
+                            },
+                            "Property": "Industry"
+                          }
+                        }
+                      ],
+                      "Values": [
+                        [
+                          {
+                            "Literal": {
+                              "Value": "'n/a'"
+                            }
+                          }
+                        ]
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "Binding": {
+          "Primary": {
+            "Groupings": [
+              {
+                "Projections": [
+                  3
+                ]
+              },
+              {
+                "Projections": [
+                  0,
+                  2,
+                  4,
+                  5
+                ]
+              }
+            ],
+            "Synchronization": [
+              {
+                "Groupings": [
+                  1
+                ]
+              }
+            ]
+          },
+          "DataReduction": {
+            "DataVolume": 6,
+            "Scoped": [
+              {
+                "Scope": {
+                  "Primary": [
+                    0
+                  ]
+                },
+                "Algorithm": {
+                  "Window": {
+                    "Count": 6
+                  }
+                }
+              },
+              {
+                "Scope": {
+                  "Primary": [
+                    1
+                  ]
+                },
+                "Algorithm": {
+                  "Top": {}
+                }
+              }
+            ]
+          },
+          "Aggregates": [
+            {
+              "Select": 2,
+              "Aggregations": [
+                {
+                  "Min": {}
+                },
+                {
+                  "Max": {}
+                }
+              ]
+            },
+            {
+              "Select": 4,
+              "Aggregations": [
+                {
+                  "Min": {}
+                },
+                {
+                  "Max": {}
+                }
+              ]
+            }
+          ],
+          "SuppressedJoinPredicates": [
+            4,
+            5
+          ],
+          "Version": 1
+        }
+      }
+    }
+  ]
+}

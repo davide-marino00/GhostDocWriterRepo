@@ -1,0 +1,370 @@
+{
+  "objects": {
+    "dataPoint": [
+      {
+        "properties": {
+          "fill": {
+            "solid": {
+              "color": {
+                "expr": {
+                  "ThemeDataColor": {
+                    "ColorId": 6,
+                    "Percent": 0
+                  }
+                }
+              }
+            }
+          },
+          "fillRule": {
+            "linearGradient2": {
+              "min": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'minColor'"
+                    }
+                  }
+                }
+              },
+              "max": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'maxColor'"
+                    }
+                  }
+                }
+              },
+              "nullColoringStrategy": {
+                "strategy": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'asZero'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "showAllDataPoints": {
+            "expr": {
+              "Literal": {
+                "Value": "false"
+              }
+            }
+          }
+        }
+      },
+      {
+        "properties": {
+          "fill": {
+            "solid": {
+              "color": {
+                "expr": {
+                  "FillRule": {
+                    "Input": {
+                      "Measure": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "Opportunities"
+                          }
+                        },
+                        "Property": "Revenue Won"
+                      }
+                    },
+                    "FillRule": {
+                      "linearGradient2": {
+                        "min": {
+                          "color": {
+                            "Literal": {
+                              "Value": "'#a0d1ff'"
+                            }
+                          }
+                        },
+                        "max": {
+                          "color": {
+                            "Literal": {
+                              "Value": "'#3b5e96'"
+                            }
+                          }
+                        },
+                        "nullColoringStrategy": {
+                          "strategy": {
+                            "Literal": {
+                              "Value": "'asZero'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "selector": {
+          "data": [
+            {
+              "dataViewWildcard": {
+                "matchingOption": 1
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "shape": [
+      {
+        "properties": {
+          "map": {
+            "geoJson": {
+              "type": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'shared'"
+                  }
+                }
+              },
+              "name": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'usa.states.topo'"
+                  }
+                }
+              },
+              "content": {
+                "expr": {
+                  "ResourcePackageItem": {
+                    "PackageName": "SharedResources",
+                    "PackageType": 2,
+                    "ItemName": "usa.states.topo"
+                  }
+                }
+              }
+            }
+          },
+          "projectionEnum": {
+            "expr": {
+              "Literal": {
+                "Value": "'albersUsa'"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "projectionOrdering": {
+    "Category": [
+      0
+    ],
+    "Tooltips": [
+      1,
+      3,
+      4,
+      2
+    ],
+    "Value": [
+      4
+    ]
+  },
+  "queryMetadata": {
+    "Select": [
+      {
+        "Restatement": "State or Province",
+        "Name": "Accounts.Street Hierarchy.State or Province",
+        "Type": 2048,
+        "DataCategory": 16
+      },
+      {
+        "Restatement": "State or Province",
+        "Name": "Min(Accounts.Street Hierarchy.State or Province)",
+        "Type": 2048,
+        "DataCategory": 16
+      },
+      {
+        "Restatement": "Rev Goal",
+        "Name": "Owners.Rev Goal",
+        "Type": 3,
+        "Format": "\\$#,0.###############;(\\$#,0.###############);\\$#,0.###############"
+      },
+      {
+        "Restatement": "Revenue Won",
+        "Name": "Opportunities.Revenue Won",
+        "Type": 3,
+        "Format": "\\$#,0.00;(\\$#,0.00);\\$#,0.00"
+      },
+      {
+        "Restatement": "Revenue In Pipeline",
+        "Name": "Opportunities.Revenue In Pipeline",
+        "Type": 1,
+        "Format": "\\$#,0.00;(\\$#,0.00);\\$#,0.00"
+      }
+    ]
+  },
+  "visualElements": [
+    {
+      "DataRoles": [
+        {
+          "Name": "Category",
+          "Projection": 0,
+          "isActive": false
+        },
+        {
+          "Name": "Tooltips",
+          "Projection": 1,
+          "isActive": false
+        },
+        {
+          "Name": "Tooltips",
+          "Projection": 3,
+          "isActive": false
+        },
+        {
+          "Name": "Tooltips",
+          "Projection": 4,
+          "isActive": false
+        },
+        {
+          "Name": "Tooltips",
+          "Projection": 2,
+          "isActive": false
+        },
+        {
+          "Name": "Value",
+          "Projection": 4,
+          "isActive": false
+        }
+      ]
+    }
+  ],
+  "selects": [
+    {
+      "displayName": "State or Province",
+      "queryName": "Accounts.Street Hierarchy.State or Province",
+      "roles": {
+        "Category": true
+      },
+      "type": {
+        "category": "StateOrProvince",
+        "underlyingType": 7013377
+      },
+      "expr": {
+        "HierarchyLevel": {
+          "Expression": {
+            "Hierarchy": {
+              "Expression": {
+                "SourceRef": {
+                  "Entity": "Accounts"
+                }
+              },
+              "Hierarchy": "Street Hierarchy"
+            }
+          },
+          "Level": "State or Province"
+        }
+      }
+    },
+    {
+      "displayName": "State or Province",
+      "queryName": "Min(Accounts.Street Hierarchy.State or Province)",
+      "roles": {
+        "Tooltips": true
+      },
+      "type": {
+        "category": "StateOrProvince",
+        "underlyingType": 7013377
+      },
+      "expr": {
+        "Aggregation": {
+          "Expression": {
+            "HierarchyLevel": {
+              "Expression": {
+                "Hierarchy": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Accounts"
+                    }
+                  },
+                  "Hierarchy": "Street Hierarchy"
+                }
+              },
+              "Level": "State or Province"
+            }
+          },
+          "Function": 3
+        }
+      }
+    },
+    {
+      "displayName": "Rev Goal",
+      "format": "\\$#,0.###############;(\\$#,0.###############);\\$#,0.###############",
+      "queryName": "Owners.Rev Goal",
+      "roles": {
+        "Tooltips": true
+      },
+      "type": {
+        "category": null,
+        "underlyingType": 260
+      },
+      "expr": {
+        "Measure": {
+          "Expression": {
+            "SourceRef": {
+              "Entity": "Owners"
+            }
+          },
+          "Property": "Rev Goal"
+        }
+      }
+    },
+    {
+      "displayName": "Revenue Won",
+      "format": "\\$#,0.00;(\\$#,0.00);\\$#,0.00",
+      "queryName": "Opportunities.Revenue Won",
+      "roles": {
+        "Tooltips": true
+      },
+      "type": {
+        "category": null,
+        "underlyingType": 260
+      },
+      "expr": {
+        "Measure": {
+          "Expression": {
+            "SourceRef": {
+              "Entity": "Opportunities"
+            }
+          },
+          "Property": "Revenue Won"
+        }
+      }
+    },
+    {
+      "displayName": "Revenue In Pipeline",
+      "format": "\\$#,0.00;(\\$#,0.00);\\$#,0.00",
+      "queryName": "Opportunities.Revenue In Pipeline",
+      "roles": {
+        "Tooltips": true,
+        "Value": true
+      },
+      "sort": 2,
+      "sortOrder": 0,
+      "type": {
+        "category": null,
+        "underlyingType": 259
+      },
+      "expr": {
+        "Measure": {
+          "Expression": {
+            "SourceRef": {
+              "Entity": "Opportunities"
+            }
+          },
+          "Property": "Revenue In Pipeline"
+        }
+      }
+    }
+  ]
+}

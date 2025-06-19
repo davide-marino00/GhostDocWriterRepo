@@ -1,0 +1,167 @@
+[
+  {
+    "expression": {
+      "Column": {
+        "Expression": {
+          "SourceRef": {
+            "Entity": "Opportunities"
+          }
+        },
+        "Property": "Status"
+      }
+    },
+    "type": "Categorical",
+    "howCreated": 1,
+    "isHiddenInViewMode": true
+  },
+  {
+    "expression": {
+      "Column": {
+        "Expression": {
+          "SourceRef": {
+            "Entity": "Products"
+          }
+        },
+        "Property": "Product"
+      }
+    },
+    "type": "Categorical",
+    "howCreated": 0,
+    "isHiddenInViewMode": true
+  },
+  {
+    "expression": {
+      "Column": {
+        "Expression": {
+          "SourceRef": {
+            "Entity": "Products"
+          }
+        },
+        "Property": "Product Category"
+      }
+    },
+    "type": "Categorical",
+    "howCreated": 0,
+    "isHiddenInViewMode": true
+  },
+  {
+    "expression": {
+      "Column": {
+        "Expression": {
+          "SourceRef": {
+            "Entity": "Owners"
+          }
+        },
+        "Property": "Owner"
+      }
+    },
+    "type": "Categorical",
+    "howCreated": 0,
+    "isHiddenInViewMode": true
+  },
+  {
+    "expression": {
+      "Column": {
+        "Expression": {
+          "SourceRef": {
+            "Entity": "Owners"
+          }
+        },
+        "Property": "Manager"
+      }
+    },
+    "type": "Categorical",
+    "howCreated": 0,
+    "isHiddenInViewMode": true
+  },
+  {
+    "expression": {
+      "Column": {
+        "Expression": {
+          "SourceRef": {
+            "Entity": "Industries"
+          }
+        },
+        "Property": "Industry"
+      }
+    },
+    "type": "Categorical",
+    "howCreated": 0,
+    "isHiddenInViewMode": true
+  },
+  {
+    "expression": {
+      "Column": {
+        "Expression": {
+          "SourceRef": {
+            "Entity": "Accounts"
+          }
+        },
+        "Property": "State or Province"
+      }
+    },
+    "type": "Categorical",
+    "howCreated": 1,
+    "isHiddenInViewMode": true
+  },
+  {
+    "expression": {
+      "Column": {
+        "Expression": {
+          "SourceRef": {
+            "Entity": "Territories"
+          }
+        },
+        "Property": "Region"
+      }
+    },
+    "type": "Categorical",
+    "howCreated": 0,
+    "isHiddenInViewMode": true
+  },
+  {
+    "expression": {
+      "Column": {
+        "Expression": {
+          "SourceRef": {
+            "Entity": "Territories"
+          }
+        },
+        "Property": "Territory"
+      }
+    },
+    "type": "Categorical",
+    "howCreated": 0,
+    "isHiddenInViewMode": true
+  },
+  {
+    "expression": {
+      "Column": {
+        "Expression": {
+          "SourceRef": {
+            "Entity": "Opportunities"
+          }
+        },
+        "Property": "Purchase Process"
+      }
+    },
+    "type": "Categorical",
+    "howCreated": 1,
+    "isHiddenInViewMode": true
+  },
+  {
+    "expression": {
+      "Column": {
+        "Expression": {
+          "SourceRef": {
+            "Entity": "Opportunities"
+          }
+        },
+        "Property": "Decision Maker Identified"
+      }
+    },
+    "type": "Categorical",
+    "howCreated": 1,
+    "isHiddenInViewMode": true
+  }
+]

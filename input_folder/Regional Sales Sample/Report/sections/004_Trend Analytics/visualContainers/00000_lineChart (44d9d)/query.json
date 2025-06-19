@@ -1,0 +1,383 @@
+{
+  "Commands": [
+    {
+      "SemanticQueryDataShapeCommand": {
+        "Query": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "o",
+              "Entity": "Opportunities",
+              "Type": 0
+            },
+            {
+              "Name": "o1",
+              "Entity": "Opportunity Calendar",
+              "Type": 0
+            }
+          ],
+          "Select": [
+            {
+              "Column": {
+                "Expression": {
+                  "TransformTableRef": {
+                    "Source": "output0"
+                  }
+                },
+                "Property": "Opportunities.Revenue Won"
+              },
+              "Name": "Opportunities.Revenue Won"
+            },
+            {
+              "Column": {
+                "Expression": {
+                  "TransformTableRef": {
+                    "Source": "output0"
+                  }
+                },
+                "Property": "Opportunity Calendar.Date"
+              },
+              "Name": "Opportunity Calendar.Date"
+            },
+            {
+              "Column": {
+                "Expression": {
+                  "TransformTableRef": {
+                    "Source": "output0"
+                  }
+                },
+                "Property": "ExpectedValue"
+              },
+              "Name": "ExpectedValue"
+            },
+            {
+              "Column": {
+                "Expression": {
+                  "TransformTableRef": {
+                    "Source": "output0"
+                  }
+                },
+                "Property": "ExpectedLow"
+              },
+              "Name": "ExpectedLow"
+            },
+            {
+              "Column": {
+                "Expression": {
+                  "TransformTableRef": {
+                    "Source": "output0"
+                  }
+                },
+                "Property": "ExpectedHigh"
+              },
+              "Name": "ExpectedHigh"
+            },
+            {
+              "Column": {
+                "Expression": {
+                  "TransformTableRef": {
+                    "Source": "output0"
+                  }
+                },
+                "Property": "RawScore"
+              },
+              "Name": "RawScore"
+            },
+            {
+              "Column": {
+                "Expression": {
+                  "TransformTableRef": {
+                    "Source": "output0"
+                  }
+                },
+                "Property": "Anomaly"
+              },
+              "Name": "Anomaly"
+            },
+            {
+              "Column": {
+                "Expression": {
+                  "TransformTableRef": {
+                    "Source": "output0"
+                  }
+                },
+                "Property": "BatchStart"
+              },
+              "Name": "BatchStart"
+            },
+            {
+              "Column": {
+                "Expression": {
+                  "TransformTableRef": {
+                    "Source": "output0"
+                  }
+                },
+                "Property": "BatchEnd"
+              },
+              "Name": "BatchEnd"
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "Comparison": {
+                  "ComparisonKind": 2,
+                  "Left": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Source": "o1"
+                        }
+                      },
+                      "Property": "RELATIVE MONTH"
+                    }
+                  },
+                  "Right": {
+                    "Literal": {
+                      "Value": "-20L"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "Condition": {
+                "And": {
+                  "Left": {
+                    "Comparison": {
+                      "ComparisonKind": 2,
+                      "Left": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Source": "o1"
+                            }
+                          },
+                          "Property": "RELATIVE MONTH"
+                        }
+                      },
+                      "Right": {
+                        "Literal": {
+                          "Value": "-16L"
+                        }
+                      }
+                    }
+                  },
+                  "Right": {
+                    "Comparison": {
+                      "ComparisonKind": 3,
+                      "Left": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Source": "o1"
+                            }
+                          },
+                          "Property": "RELATIVE MONTH"
+                        }
+                      },
+                      "Right": {
+                        "Literal": {
+                          "Value": "0L"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "Transform": [
+            {
+              "Name": "SampleAndDetectAnomaly",
+              "Algorithm": "SampleAndDetectAnomaly",
+              "Input": {
+                "Parameters": [
+                  {
+                    "Literal": {
+                      "Value": "0.73D"
+                    },
+                    "Name": "Sensitivity"
+                  },
+                  {
+                    "Literal": {
+                      "Value": "3500L"
+                    },
+                    "Name": "SampleSizePerSeries"
+                  }
+                ],
+                "Table": {
+                  "Name": "input0",
+                  "Columns": [
+                    {
+                      "Expression": {
+                        "Measure": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Source": "o"
+                            }
+                          },
+                          "Property": "Revenue Won"
+                        },
+                        "Name": "Opportunities.Revenue Won"
+                      },
+                      "Role": "ValueColumnRole"
+                    },
+                    {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Source": "o1"
+                            }
+                          },
+                          "Property": "Date"
+                        },
+                        "Name": "Opportunity Calendar.Date"
+                      },
+                      "Role": "TimeSeriesColumnRole"
+                    }
+                  ]
+                }
+              },
+              "Output": {
+                "Table": {
+                  "Name": "output0",
+                  "Columns": [
+                    {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "TransformTableRef": {
+                              "Source": "input0"
+                            }
+                          },
+                          "Property": "Opportunities.Revenue Won"
+                        },
+                        "Name": "Opportunities.Revenue Won"
+                      }
+                    },
+                    {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "TransformTableRef": {
+                              "Source": "input0"
+                            }
+                          },
+                          "Property": "Opportunity Calendar.Date"
+                        },
+                        "Name": "Opportunity Calendar.Date"
+                      }
+                    },
+                    {
+                      "Expression": {
+                        "TransformOutputRoleRef": {
+                          "Role": "ExpectedValueRole"
+                        },
+                        "Name": "ExpectedValue"
+                      },
+                      "Role": "anomalyDetection.ExpectedValue"
+                    },
+                    {
+                      "Expression": {
+                        "TransformOutputRoleRef": {
+                          "Role": "ExpectedLowRole"
+                        },
+                        "Name": "ExpectedLow"
+                      },
+                      "Role": "anomalyDetection.ExpectedLow"
+                    },
+                    {
+                      "Expression": {
+                        "TransformOutputRoleRef": {
+                          "Role": "ExpectedHighRole"
+                        },
+                        "Name": "ExpectedHigh"
+                      },
+                      "Role": "anomalyDetection.ExpectedHigh"
+                    },
+                    {
+                      "Expression": {
+                        "TransformOutputRoleRef": {
+                          "Role": "RawScoreRole"
+                        },
+                        "Name": "RawScore"
+                      },
+                      "Role": "anomalyDetection.RawScore"
+                    },
+                    {
+                      "Expression": {
+                        "TransformOutputRoleRef": {
+                          "Role": "AnomalyRole"
+                        },
+                        "Name": "Anomaly"
+                      },
+                      "Role": "anomalyDetection.Anomaly"
+                    },
+                    {
+                      "Expression": {
+                        "TransformOutputRoleRef": {
+                          "Role": "BatchStartRole"
+                        },
+                        "Name": "BatchStart"
+                      },
+                      "Role": "anomalyDetection.BatchStart"
+                    },
+                    {
+                      "Expression": {
+                        "TransformOutputRoleRef": {
+                          "Role": "BatchEndRole"
+                        },
+                        "Name": "BatchEnd"
+                      },
+                      "Role": "anomalyDetection.BatchEnd"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "Binding": {
+          "Primary": {
+            "Groupings": [
+              {
+                "Projections": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8
+                ]
+              }
+            ]
+          },
+          "DataReduction": {
+            "DataVolume": 4,
+            "Primary": {
+              "BinnedLineSample": {
+                "Count": 4900,
+                "WarningCount": 3500
+              }
+            }
+          },
+          "SuppressedJoinPredicates": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "Version": 1
+        }
+      }
+    }
+  ]
+}

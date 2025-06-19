@@ -1,0 +1,70 @@
+﻿table Territories
+
+	column Region
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Region
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation Format = <Format Format="Text" />
+
+	column Territory
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Territory
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation Format = <Format Format="Text" />
+
+	column Country
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: Country
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation Format = <Format Format="Text" />
+
+		annotation PBI_ChangedProperties = ["IsHidden"]
+
+	column TerritorySeq
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: TerritorySeq
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation Format = <Format Format="Text" />
+
+		annotation PBI_ChangedProperties = ["IsHidden"]
+
+	column 'State Or Province'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: State Or Province
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation Format = <Format Format="Text" />
+
+	partition Territories-cce59963-af31-4ea3-b1a5-c2b42f20283f = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(Web.Contents("https://microsoft-my.sharepoint.com/personal/misewell_microsoft_com/Documents/Documents/GitHub/ContosoBI/Contoso%20-%20Sales%20-%20Current%20Release/Contoso%20-%20Dynamics%20365%20Sales%20Source%20Data.xlsx"), null, true),
+				    TerritoriesTbl_Table = Source{[Item="TerritoriesTbl",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(TerritoriesTbl_Table,{{"Country", type text}, {"State Or Province", type text}, {"Region", type text}, {"Territory", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Factor", "ParentTerritorySeq", "ParentTerritoryFactor", "Distribution%", "DistributionAccumulation"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_QueryRelationships = {"columnCount":4,"keyColumnNames":[],"queryRelationships":[],"columnIdentities":["Section1/Territories/Changed Type.{Country,0}","Section1/Territories/Changed Type.{State Or Province Abbreviation,1}","Section1/Territories/Changed Type.{Region,2}","Section1/Territories/Changed Type.{Territory,3}"],"ColumnCount":4,"KeyColumnNames":[],"ColumnIdentities":["Section1/Territories/Changed Type.{Country,0}","Section1/Territories/Changed Type.{State Or Province Abbreviation,1}","Section1/Territories/Changed Type.{Region,2}","Section1/Territories/Changed Type.{Territory,3}"],"RelationshipInfo":[]}
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_ChangedProperties = ["IsHidden"]
+

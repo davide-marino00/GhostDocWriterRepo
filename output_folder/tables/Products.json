@@ -1,0 +1,82 @@
+{
+  "name": "Products",
+  "isHidden": false,
+  "description": null,
+  "annotations": [],
+  "columns": [
+    {
+      "name": "Product",
+      "dataType": "string",
+      "sourceColumn": "Product",
+      "formatString": null,
+      "isHidden": false,
+      "summarizeBy": "none",
+      "description": null,
+      "annotations": [
+        {
+          "name": "SummarizationSetBy",
+          "value": "Automatic"
+        },
+        {
+          "name": "Format",
+          "value": "<Format Format=\"Text\" />"
+        }
+      ],
+      "llm_description": null
+    },
+    {
+      "name": "ProductSeq",
+      "dataType": "int64",
+      "sourceColumn": "ProductSeq",
+      "formatString": "0",
+      "isHidden": false,
+      "summarizeBy": "none",
+      "description": null,
+      "annotations": [
+        {
+          "name": "SummarizationSetBy",
+          "value": "Automatic"
+        },
+        {
+          "name": "Format",
+          "value": "<Format Format=\"NumberWhole\" Accuracy=\"0\" />"
+        },
+        {
+          "name": "PBI_ChangedProperties",
+          "value": "[\"IsHidden\"]"
+        }
+      ],
+      "llm_description": null
+    },
+    {
+      "name": "Product Category",
+      "dataType": "string",
+      "sourceColumn": "Product Category",
+      "formatString": null,
+      "isHidden": false,
+      "summarizeBy": "none",
+      "description": null,
+      "annotations": [
+        {
+          "name": "SummarizationSetBy",
+          "value": "Automatic"
+        },
+        {
+          "name": "Format",
+          "value": "<Format Format=\"Text\" />"
+        },
+        {
+          "name": "PBI_QueryRelationships",
+          "value": "{\"columnCount\":5,\"keyColumnNames\":[],\"queryRelationships\":[],\"columnIdentities\":[\"Section1/Products/Changed Type.{ProductSeq,0}\",\"Section1/Products/Changed Type.{Product,1}\",\"Section1/Products/Changed Type.{Product LOB,2}\",\"Section1/Products/Changed Type.{MinOppValue,3}\",\"Section1/Products/Changed Type.{MaxOppValue,4}\"],\"ColumnCount\":5,\"KeyColumnNames\":[],\"ColumnIdentities\":[\"Section1/Products/Changed Type.{ProductSeq,0}\",\"Section1/Products/Changed Type.{Product,1}\",\"Section1/Products/Changed Type.{Product LOB,2}\",\"Section1/Products/Changed Type.{MinOppValue,3}\",\"Section1/Products/Changed Type.{MaxOppValue,4}\"],\"RelationshipInfo\":[]}"
+        },
+        {
+          "name": "PBI_ResultType",
+          "value": "Table"
+        }
+      ],
+      "llm_description": null
+    }
+  ],
+  "measures": [],
+  "llm_description": null
+}

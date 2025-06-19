@@ -129,6 +129,7 @@ def _load_model_summary(parsed_dir: Path) -> Dict[str, Any]:
         print(f"Loaded model summary from {summary_file_path.name}")
     return model_summary
 
+
 def _load_all_tables(parsed_dir: Path) -> List[Table]:
     """Loads and deserializes all table data from their JSON files."""
     tables = []
@@ -144,9 +145,14 @@ def _load_all_tables(parsed_dir: Path) -> List[Table]:
             if not table_dict:
                 continue
             
-            # Deserialize columns, measures, and annotations
+            instantiated_columns = []
             raw_columns = table_dict.get('columns', [])
-            instantiated_columns = [Column(**col) for col in raw_columns] # Simplified for this example
+            for col_dict in raw_columns:
+                if 'daxExpression' in col_dict:
+                    instantiated_columns.append(CalculatedColumn(**col_dict))
+                else:
+                    instantiated_columns.append(Column(**col_dict))
+            
             
             raw_measures = table_dict.get('measures', [])
             instantiated_measures = [Measure(**mea) for mea in raw_measures]
@@ -154,7 +160,6 @@ def _load_all_tables(parsed_dir: Path) -> List[Table]:
             raw_table_annotations = table_dict.pop('annotations', [])
             table_annotations = [Annotation(**ann) for ann in raw_table_annotations]
             
-            # Create Table object
             table_dict.pop('columns', None); table_dict.pop('measures', None)
             table_obj = Table(
                 **table_dict, 
@@ -170,9 +175,10 @@ def _load_all_tables(parsed_dir: Path) -> List[Table]:
     print(f"Loaded data for {len(tables)} tables.")
     return tables
 
+# In src/generate_documentation.py
 
 def _load_report_layout(parsed_dir: Path) -> Tuple[List[ReportPage], List[ReportFilter]]:
-    """Loads all report page and report-level filter data."""
+    """Loads all report page and report-level filter data from the intermediate JSON."""
     report_pages: List[ReportPage] = []
     report_level_filters: List[ReportFilter] = []
     
@@ -183,35 +189,67 @@ def _load_report_layout(parsed_dir: Path) -> Tuple[List[ReportPage], List[Report
     if not report_layout_data:
         return report_pages, report_level_filters
 
-    # Load Report Level Filters
+    # --- Correctly Load and Deserialize Report Level Filters ---
     raw_report_filters = report_layout_data.get('reportLevelFilters', [])
     for filter_dict in raw_report_filters:
         try:
-            target_obj = FilterTarget(**filter_dict.pop('target', {}))
-            report_level_filters.append(ReportFilter(**filter_dict, target=target_obj))
+            # Use the robust parser from the report parsing script
+            target = parse_filter_target(filter_dict.get('expression'))
+            report_level_filters.append(ReportFilter(
+                name=filter_dict.get('name'),
+                filter_type=filter_dict.get('type'),
+                level='Report',
+                target=target,
+                filter_definition=filter_dict.get('filter')
+            ))
         except Exception as e:
             print(f"ERROR deserializing a report-level filter: {e} - Data: {filter_dict}")
-    
-    # Load Pages and their contents
+
     raw_pages = report_layout_data.get('pages', [])
     for page_dict in raw_pages:
         try:
             # Page Filters
             raw_page_filters = page_dict.pop('page_level_filters', [])
-            page_filter_objects = [ReportFilter(**f) for f in raw_page_filters] # Simplified
+            page_filter_objects = []
+            for pf_dict in raw_page_filters:
+                 target = parse_filter_target(pf_dict.get('expression'))
+                 page_filter_objects.append(ReportFilter(
+                     name=pf_dict.get('name'), filter_type=pf_dict.get('type'), level='Page', target=target, filter_definition=pf_dict.get('filter')
+                 ))
             
             # Visuals
             raw_visuals = page_dict.pop('visuals', [])
-            visual_objects = [Visual(**v) for v in raw_visuals] # Simplified
-            
+            visual_objects = []
+            for v_dict in raw_visuals:
+                 # Visual Filters
+                 raw_visual_filters = v_dict.pop('visual_level_filters', [])
+                 visual_filter_objects = []
+                 for vf_dict in raw_visual_filters:
+                      target = parse_filter_target(vf_dict.get('expression'))
+                      visual_filter_objects.append(ReportFilter(
+                          name=vf_dict.get('name'), filter_type=vf_dict.get('type'), level='Visual', target=target, filter_definition=vf_dict.get('filter')
+                      ))
+                 # Field Mappings
+                 raw_mappings = v_dict.pop('field_mappings', [])
+                 mapping_objects = [VisualFieldMapping(**m) for m in raw_mappings]
+
+                 # Create Visual Object
+                 visual_objects.append(Visual(
+                     **v_dict,
+                     visual_level_filters=visual_filter_objects,
+                     field_mappings=mapping_objects
+                 ))
+
+            # Create Page Object
             page_obj = ReportPage(
-                **page_dict, 
-                page_level_filters=page_filter_objects, 
+                **page_dict,
+                page_level_filters=page_filter_objects,
                 visuals=visual_objects
             )
             report_pages.append(page_obj)
         except Exception as e:
             print(f"ERROR processing page dictionary: {e}")
+            traceback.print_exc()
 
     print(f"Finished loading report layout. Loaded {len(report_level_filters)} report filters and {len(report_pages)} pages.")
     return report_pages, report_level_filters

@@ -1,0 +1,305 @@
+{
+  "Commands": [
+    {
+      "SemanticQueryDataShapeCommand": {
+        "Query": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "o",
+              "Entity": "Opportunities",
+              "Type": 0
+            },
+            {
+              "Name": "o1",
+              "Entity": "Opportunity Calendar",
+              "Type": 0
+            }
+          ],
+          "Select": [
+            {
+              "Column": {
+                "Expression": {
+                  "TransformTableRef": {
+                    "Source": "output0"
+                  }
+                },
+                "Property": "Opportunity Calendar.Date"
+              },
+              "Name": "Opportunity Calendar.Date"
+            },
+            {
+              "Column": {
+                "Expression": {
+                  "TransformTableRef": {
+                    "Source": "output0"
+                  }
+                },
+                "Property": "Opportunities.Revenue Won"
+              },
+              "Name": "Opportunities.Revenue Won"
+            },
+            {
+              "Column": {
+                "Expression": {
+                  "TransformTableRef": {
+                    "Source": "output0"
+                  }
+                },
+                "Property": "forecastValue"
+              },
+              "Name": "forecastValue"
+            },
+            {
+              "Column": {
+                "Expression": {
+                  "TransformTableRef": {
+                    "Source": "output0"
+                  }
+                },
+                "Property": "confidenceHighBound"
+              },
+              "Name": "confidenceHighBound"
+            },
+            {
+              "Column": {
+                "Expression": {
+                  "TransformTableRef": {
+                    "Source": "output0"
+                  }
+                },
+                "Property": "confidenceLowBound"
+              },
+              "Name": "confidenceLowBound"
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "Comparison": {
+                  "ComparisonKind": 2,
+                  "Left": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Source": "o1"
+                        }
+                      },
+                      "Property": "RELATIVE MONTH"
+                    }
+                  },
+                  "Right": {
+                    "Literal": {
+                      "Value": "-20L"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "Condition": {
+                "And": {
+                  "Left": {
+                    "Comparison": {
+                      "ComparisonKind": 2,
+                      "Left": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Source": "o1"
+                            }
+                          },
+                          "Property": "RELATIVE MONTH"
+                        }
+                      },
+                      "Right": {
+                        "Literal": {
+                          "Value": "-16L"
+                        }
+                      }
+                    }
+                  },
+                  "Right": {
+                    "Comparison": {
+                      "ComparisonKind": 3,
+                      "Left": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Source": "o1"
+                            }
+                          },
+                          "Property": "RELATIVE MONTH"
+                        }
+                      },
+                      "Right": {
+                        "Literal": {
+                          "Value": "0L"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "Transform": [
+            {
+              "Name": "Forecast",
+              "Algorithm": "Forecast",
+              "Input": {
+                "Parameters": [
+                  {
+                    "Literal": {
+                      "Value": "2D"
+                    },
+                    "Name": "Unit"
+                  },
+                  {
+                    "Literal": {
+                      "Value": "6D"
+                    },
+                    "Name": "ForecastLength"
+                  },
+                  {
+                    "Literal": {
+                      "Value": "0D"
+                    },
+                    "Name": "IgnoreLast"
+                  },
+                  {
+                    "Literal": {
+                      "Value": "0.8D"
+                    },
+                    "Name": "ConfidenceLevel"
+                  },
+                  {
+                    "Literal": {
+                      "Value": "200D"
+                    },
+                    "Name": "MaxSeasonality"
+                  }
+                ],
+                "Table": {
+                  "Name": "input0",
+                  "Columns": [
+                    {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Source": "o1"
+                            }
+                          },
+                          "Property": "Date"
+                        },
+                        "Name": "Opportunity Calendar.Date"
+                      },
+                      "Role": "X"
+                    },
+                    {
+                      "Expression": {
+                        "Measure": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Source": "o"
+                            }
+                          },
+                          "Property": "Revenue Won"
+                        },
+                        "Name": "Opportunities.Revenue Won"
+                      },
+                      "Role": "Y"
+                    }
+                  ]
+                }
+              },
+              "Output": {
+                "Table": {
+                  "Name": "output0",
+                  "Columns": [
+                    {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "TransformTableRef": {
+                              "Source": "input0"
+                            }
+                          },
+                          "Property": "Opportunity Calendar.Date"
+                        },
+                        "Name": "Opportunity Calendar.Date"
+                      }
+                    },
+                    {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "TransformTableRef": {
+                              "Source": "input0"
+                            }
+                          },
+                          "Property": "Opportunities.Revenue Won"
+                        },
+                        "Name": "Opportunities.Revenue Won"
+                      }
+                    },
+                    {
+                      "Expression": {
+                        "TransformOutputRoleRef": {
+                          "Role": "Forecast"
+                        },
+                        "Name": "forecastValue"
+                      },
+                      "Role": "forecast.ForecastValue"
+                    },
+                    {
+                      "Expression": {
+                        "TransformOutputRoleRef": {
+                          "Role": "UpperBound"
+                        },
+                        "Name": "confidenceHighBound"
+                      },
+                      "Role": "forecast.ConfidenceHighBound"
+                    },
+                    {
+                      "Expression": {
+                        "TransformOutputRoleRef": {
+                          "Role": "LowerBound"
+                        },
+                        "Name": "confidenceLowBound"
+                      },
+                      "Role": "forecast.ConfidenceLowBound"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "Binding": {
+          "Primary": {
+            "Groupings": [
+              {
+                "Projections": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4
+                ]
+              }
+            ]
+          },
+          "DataReduction": {
+            "DataVolume": 4,
+            "Primary": {
+              "BinnedLineSample": {}
+            }
+          },
+          "Version": 1
+        }
+      }
+    }
+  ]
+}

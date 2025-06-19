@@ -221,20 +221,23 @@ def parse_field_mappings(
     Parses field mappings for a visual, trying the primary strategy (dataTransforms)
     first, and then falling back to the secondary strategy (config).
     """
-    # Primary Strategy: Try to get mappings from the more detailed dataTransforms.json
     mappings = _parse_mappings_from_transforms(visual_transforms)
     
-    # Fallback Strategy: If the primary strategy yields no results, try the config.json projections
     if not mappings:
         mappings = _parse_mappings_from_config(visual_config)
         
     if not mappings:
-        visual_name = visual_config.get('name', 'Unknown') if visual_config else "Unknown"
-        print(f"    >>>> WARNING: No field mappings extracted for visual {visual_name} <<<<")
+        non_data_visual_types = ['image', 'shape', 'textbox', 'actionButton']
+        
+        visual_type = ""
+        if visual_config:
+            visual_type = visual_config.get('singleVisual', {}).get('visualType', "")
+
+        if visual_type not in non_data_visual_types:
+            visual_name = visual_config.get('name', 'Unknown') if visual_config else "Unknown"
+            print(f"    >>>> WARNING: No field mappings extracted for visual {visual_name} (Type: {visual_type}) <<<<")
 
     return mappings
-
-
 
 
 def parse_visual_title(visual_config: Optional[Dict[str, Any]]) -> Optional[str]:

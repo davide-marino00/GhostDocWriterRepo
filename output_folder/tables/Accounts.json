@@ -1,0 +1,218 @@
+{
+  "name": "Accounts",
+  "isHidden": false,
+  "description": null,
+  "annotations": [],
+  "columns": [
+    {
+      "name": "Account Name",
+      "dataType": "string",
+      "sourceColumn": "Account Name",
+      "formatString": null,
+      "isHidden": false,
+      "summarizeBy": "none",
+      "description": null,
+      "annotations": [
+        {
+          "name": "SummarizationSetBy",
+          "value": "Automatic"
+        },
+        {
+          "name": "Format",
+          "value": "<Format Format=\"Text\" />"
+        }
+      ],
+      "llm_description": null
+    },
+    {
+      "name": "State or Province",
+      "dataType": "string",
+      "sourceColumn": "State or Province",
+      "formatString": null,
+      "isHidden": false,
+      "summarizeBy": "none",
+      "description": null,
+      "annotations": [
+        {
+          "name": "SummarizationSetBy",
+          "value": "Automatic"
+        },
+        {
+          "name": "Format",
+          "value": "<Format Format=\"Text\" />"
+        }
+      ],
+      "llm_description": null
+    },
+    {
+      "name": "Country",
+      "dataType": "string",
+      "sourceColumn": "Country",
+      "formatString": null,
+      "isHidden": false,
+      "summarizeBy": "none",
+      "description": null,
+      "annotations": [
+        {
+          "name": "SummarizationSetBy",
+          "value": "Automatic"
+        },
+        {
+          "name": "Format",
+          "value": "<Format Format=\"Text\" />"
+        }
+      ],
+      "llm_description": null
+    },
+    {
+      "name": "AccountID",
+      "dataType": "string",
+      "sourceColumn": "AccountID",
+      "formatString": null,
+      "isHidden": false,
+      "summarizeBy": "none",
+      "description": null,
+      "annotations": [
+        {
+          "name": "SummarizationSetBy",
+          "value": "Automatic"
+        },
+        {
+          "name": "Format",
+          "value": "<Format Format=\"Text\" />"
+        },
+        {
+          "name": "PBI_ChangedProperties",
+          "value": "[\"IsHidden\"]"
+        }
+      ],
+      "llm_description": null
+    },
+    {
+      "name": "AccountSeq",
+      "dataType": "int64",
+      "sourceColumn": "AccountSeq",
+      "formatString": "0",
+      "isHidden": false,
+      "summarizeBy": "none",
+      "description": null,
+      "annotations": [
+        {
+          "name": "SummarizationSetBy",
+          "value": "Automatic"
+        },
+        {
+          "name": "Format",
+          "value": "<Format Format=\"NumberWhole\" Accuracy=\"0\" />"
+        },
+        {
+          "name": "PBI_ChangedProperties",
+          "value": "[\"IsHidden\"]"
+        }
+      ],
+      "llm_description": null
+    },
+    {
+      "name": "IndustrySeq",
+      "dataType": "int64",
+      "sourceColumn": "IndustrySeq",
+      "formatString": "0",
+      "isHidden": false,
+      "summarizeBy": "none",
+      "description": null,
+      "annotations": [
+        {
+          "name": "SummarizationSetBy",
+          "value": "Automatic"
+        },
+        {
+          "name": "Format",
+          "value": "<Format Format=\"NumberWhole\" Accuracy=\"0\" />"
+        },
+        {
+          "name": "PBI_ChangedProperties",
+          "value": "[\"IsHidden\"]"
+        }
+      ],
+      "llm_description": null
+    },
+    {
+      "name": "AccountOwnerSeq",
+      "dataType": "int64",
+      "sourceColumn": "AccountOwnerSeq",
+      "formatString": "0",
+      "isHidden": false,
+      "summarizeBy": "sum",
+      "description": null,
+      "annotations": [
+        {
+          "name": "SummarizationSetBy",
+          "value": "Automatic"
+        },
+        {
+          "name": "Format",
+          "value": "<Format Format=\"NumberWhole\" Accuracy=\"0\" />"
+        },
+        {
+          "name": "PBI_ChangedProperties",
+          "value": "[\"IsHidden\"]"
+        }
+      ],
+      "llm_description": null
+    },
+    {
+      "name": "Account Number",
+      "dataType": "string",
+      "sourceColumn": "Account Number",
+      "formatString": null,
+      "isHidden": false,
+      "summarizeBy": "none",
+      "description": null,
+      "annotations": [
+        {
+          "name": "SummarizationSetBy",
+          "value": "Automatic"
+        },
+        {
+          "name": "Format",
+          "value": "<Format Format=\"Text\" />"
+        }
+      ],
+      "llm_description": null
+    },
+    {
+      "name": "TerritorySeq",
+      "dataType": "int64",
+      "sourceColumn": "TerritorySeq",
+      "formatString": "0",
+      "isHidden": false,
+      "summarizeBy": "none",
+      "description": null,
+      "annotations": [
+        {
+          "name": "SummarizationSetBy",
+          "value": "Automatic"
+        },
+        {
+          "name": "Format",
+          "value": "<Format Format=\"NumberWhole\" Accuracy=\"0\" />"
+        },
+        {
+          "name": "PBI_ChangedProperties",
+          "value": "[\"IsHidden\"]"
+        },
+        {
+          "name": "PBI_QueryRelationships",
+          "value": "{\"columnCount\":19,\"keyColumnNames\":[],\"queryRelationships\":[],\"columnIdentities\":[\"Section1/Accounts/Changed Type.{AccountSeq,0}\",\"Section1/Accounts/Changed Type.{Account Name,1}\",\"Section1/Accounts/Changed Type.{AccountID,2}\",\"Section1/Accounts/Changed Type.{Street,3}\",\"Section1/Accounts/Changed Type.{City,4}\",\"Section1/Accounts/Changed Type.{State or Province,5}\",\"Section1/Accounts/Changed Type.{Postal Code,6}\",\"Section1/Accounts/Changed Type.{Country,7}\",\"Section1/Accounts/Changed Type.{Latitude,8}\",\"Section1/Accounts/Changed Type.{Longitude,9}\",\"Section1/Accounts/Changed Type.{Phone,10}\",\"Section1/Accounts/Changed Type.{Number of Employees,11}\",\"Section1/Accounts/Changed Type.{Annual Revenue,12}\",\"Section1/Accounts/Changed Type.{AccountOwnerSeq,13}\",\"Section1/Accounts/Changed Type.{IndustrySeq,14}\",\"Section1/Accounts/Changed Type.{Account Owner,15}\",\"Section1/Accounts/Changed Type.{Industry,16}\",\"Section1/Accounts/Changed Type.{Territory,17}\",\"Section1/Accounts/Changed Type.{Region,18}\"],\"ColumnCount\":19,\"KeyColumnNames\":[],\"ColumnIdentities\":[\"Section1/Accounts/Changed Type.{AccountSeq,0}\",\"Section1/Accounts/Changed Type.{Account Name,1}\",\"Section1/Accounts/Changed Type.{AccountID,2}\",\"Section1/Accounts/Changed Type.{Street,3}\",\"Section1/Accounts/Changed Type.{City,4}\",\"Section1/Accounts/Changed Type.{State or Province,5}\",\"Section1/Accounts/Changed Type.{Postal Code,6}\",\"Section1/Accounts/Changed Type.{Country,7}\",\"Section1/Accounts/Changed Type.{Latitude,8}\",\"Section1/Accounts/Changed Type.{Longitude,9}\",\"Section1/Accounts/Changed Type.{Phone,10}\",\"Section1/Accounts/Changed Type.{Number of Employees,11}\",\"Section1/Accounts/Changed Type.{Annual Revenue,12}\",\"Section1/Accounts/Changed Type.{AccountOwnerSeq,13}\",\"Section1/Accounts/Changed Type.{IndustrySeq,14}\",\"Section1/Accounts/Changed Type.{Account Owner,15}\",\"Section1/Accounts/Changed Type.{Industry,16}\",\"Section1/Accounts/Changed Type.{Territory,17}\",\"Section1/Accounts/Changed Type.{Region,18}\"],\"RelationshipInfo\":[]}"
+        },
+        {
+          "name": "PBI_ResultType",
+          "value": "Table"
+        }
+      ],
+      "llm_description": null
+    }
+  ],
+  "measures": [],
+  "llm_description": null
+}

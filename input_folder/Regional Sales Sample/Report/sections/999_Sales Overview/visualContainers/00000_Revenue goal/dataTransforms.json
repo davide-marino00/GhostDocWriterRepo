@@ -1,0 +1,194 @@
+{
+  "objects": {
+    "indicator": [
+      {
+        "properties": {
+          "fontSize": {
+            "expr": {
+              "Literal": {
+                "Value": "16D"
+              }
+            }
+          },
+          "horizontalAlignment": {
+            "expr": {
+              "Literal": {
+                "Value": "'left'"
+              }
+            }
+          },
+          "verticalAlignment": {
+            "expr": {
+              "Literal": {
+                "Value": "'middle'"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "trendline": [
+      {
+        "properties": {
+          "show": {
+            "expr": {
+              "Literal": {
+                "Value": "false"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "goals": [
+      {
+        "properties": {
+          "fontSize": {
+            "expr": {
+              "Literal": {
+                "Value": "9D"
+              }
+            }
+          },
+          "goalFontFamily": {
+            "expr": {
+              "Literal": {
+                "Value": "'''Segoe UI'', wf_segoe-ui_normal, helvetica, arial, sans-serif'"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "status": [
+      {
+        "properties": {
+          "goodColor": {
+            "solid": {
+              "color": {
+                "expr": {
+                  "ThemeDataColor": {
+                    "ColorId": 6,
+                    "Percent": 0
+                  }
+                }
+              }
+            }
+          },
+          "neutralColor": {
+            "solid": {
+              "color": {
+                "expr": {
+                  "ThemeDataColor": {
+                    "ColorId": 6,
+                    "Percent": 0
+                  }
+                }
+              }
+            }
+          },
+          "badColor": {
+            "solid": {
+              "color": {
+                "expr": {
+                  "ThemeDataColor": {
+                    "ColorId": 7,
+                    "Percent": 0
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "projectionOrdering": {
+    "Indicator": [
+      0
+    ],
+    "TrendLine": [
+      1
+    ]
+  },
+  "queryMetadata": {
+    "Select": [
+      {
+        "Restatement": "Rev Goal",
+        "Name": "Owners.Rev Goal",
+        "Type": 3,
+        "Format": "\\$#,0.###############;(\\$#,0.###############);\\$#,0.###############"
+      },
+      {
+        "Restatement": "Blank",
+        "Name": "Opportunities.Blank",
+        "Type": 3,
+        "Format": "0"
+      }
+    ]
+  },
+  "visualElements": [
+    {
+      "DataRoles": [
+        {
+          "Name": "Indicator",
+          "Projection": 0,
+          "isActive": false
+        },
+        {
+          "Name": "TrendLine",
+          "Projection": 1,
+          "isActive": false
+        }
+      ]
+    }
+  ],
+  "selects": [
+    {
+      "displayName": "Rev Goal",
+      "format": "\\$#,0.###############;(\\$#,0.###############);\\$#,0.###############",
+      "queryName": "Owners.Rev Goal",
+      "roles": {
+        "Indicator": true
+      },
+      "type": {
+        "category": null,
+        "underlyingType": 260
+      },
+      "expr": {
+        "Measure": {
+          "Expression": {
+            "SourceRef": {
+              "Entity": "Owners"
+            }
+          },
+          "Property": "Rev Goal"
+        }
+      }
+    },
+    {
+      "displayName": "Blank",
+      "format": "0",
+      "queryName": "Opportunities.Blank",
+      "roles": {
+        "TrendLine": true
+      },
+      "sort": 1,
+      "sortOrder": 0,
+      "type": {
+        "category": null,
+        "underlyingType": 260
+      },
+      "expr": {
+        "Column": {
+          "Expression": {
+            "SourceRef": {
+              "Entity": "Opportunities"
+            }
+          },
+          "Property": "Blank"
+        }
+      }
+    }
+  ]
+}

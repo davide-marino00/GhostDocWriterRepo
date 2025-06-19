@@ -1,0 +1,68 @@
+{
+  "version": "5.25",
+  "themeCollection": {
+    "baseTheme": {
+      "name": "CY21SU04",
+      "version": "5.20",
+      "type": 2
+    },
+    "customTheme": {
+      "name": "Fidex8576514545124847.json",
+      "version": "5.22",
+      "type": 1
+    }
+  },
+  "activeSectionIndex": 0,
+  "defaultDrillFilterOtherVisuals": true,
+  "slowDataSourceSettings": {
+    "isCrossHighlightingDisabled": false,
+    "isSlicerSelectionsButtonEnabled": false,
+    "isFilterSelectionsButtonEnabled": false,
+    "isFieldWellButtonEnabled": false,
+    "isApplyAllButtonEnabled": false
+  },
+  "linguisticSchemaSyncVersion": 2,
+  "settings": {
+    "useStylableVisualContainerHeader": true,
+    "exportDataMode": 1,
+    "useNewFilterPaneExperience": true,
+    "allowChangeFilterTypes": true,
+    "allowDataPointLassoSelect": true,
+    "filterPaneHiddenInEditMode": false
+  },
+  "objects": {
+    "section": [
+      {
+        "properties": {
+          "verticalAlignment": {
+            "expr": {
+              "Literal": {
+                "Value": "'Middle'"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "outspacePane": [
+      {
+        "properties": {
+          "expanded": {
+            "expr": {
+              "Literal": {
+                "Value": "true"
+              }
+            }
+          },
+          "visible": {
+            "expr": {
+              "Literal": {
+                "Value": "false"
+              }
+            }
+          }
+        }
+      }
+    ]
+  }
+}

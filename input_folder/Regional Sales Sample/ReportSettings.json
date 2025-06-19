@@ -1,0 +1,14 @@
+{
+  "Version": 2,
+  "ReportSettings": {
+    "ShowHiddenFields": true,
+    "IsQnaEnabledForLiveConnect": true,
+    "IsQnaEnabledForThisFile": true
+  },
+  "QueriesSettings": {
+    "TypeDetectionEnabled": true,
+    "RelationshipImportEnabled": true,
+    "RunBackgroundAnalysis": true,
+    "Version": "2.72.5556.321"
+  }
+}

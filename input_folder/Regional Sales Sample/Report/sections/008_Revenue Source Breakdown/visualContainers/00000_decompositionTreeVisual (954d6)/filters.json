@@ -1,0 +1,95 @@
+[
+  {
+    "name": "Filter9eafa29b773622144b40",
+    "filter": {
+      "Version": 2,
+      "From": [
+        {
+          "Name": "c",
+          "Entity": "Campaigns",
+          "Type": 0
+        }
+      ],
+      "Where": [
+        {
+          "Condition": {
+            "Not": {
+              "Expression": {
+                "In": {
+                  "Expressions": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "c"
+                          }
+                        },
+                        "Property": "Campaign"
+                      }
+                    }
+                  ],
+                  "Values": [
+                    [
+                      {
+                        "Literal": {
+                          "Value": "null"
+                        }
+                      }
+                    ]
+                  ]
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "type": "Exclude",
+    "howCreated": 4,
+    "filterExpressionMetadata": {
+      "expressions": [
+        {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Campaigns"
+              }
+            },
+            "Property": "Campaign"
+          }
+        }
+      ],
+      "cachedValueItems": [
+        {
+          "identities": [
+            {
+              "scopeId": {
+                "Comparison": {
+                  "ComparisonKind": 0,
+                  "Left": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Campaigns"
+                        }
+                      },
+                      "Property": "Campaign"
+                    }
+                  },
+                  "Right": {
+                    "Literal": {
+                      "Value": "null"
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "valueMap": {
+            "0": "(Blank)"
+          }
+        }
+      ]
+    }
+  }
+]

@@ -1,0 +1,116 @@
+{
+  "relationships": [
+    {
+      "source": "db4e5eed33a1f6bec037",
+      "target": "9977560f84a487275f20",
+      "type": 3
+    },
+    {
+      "source": "f4ef9aeaa37645adde86",
+      "target": "9977560f84a487275f20",
+      "type": 3
+    },
+    {
+      "source": "db4e5eed33a1f6bec037",
+      "target": "5245dfb1a52da9fcc8c4",
+      "type": 1
+    },
+    {
+      "source": "db4e5eed33a1f6bec037",
+      "target": "f4ef9aeaa37645adde86",
+      "type": 1
+    },
+    {
+      "source": "db4e5eed33a1f6bec037",
+      "target": "90b98cca54dd8f762bb3",
+      "type": 1
+    },
+    {
+      "source": "db4e5eed33a1f6bec037",
+      "target": "f37cb3116b6b7130b995",
+      "type": 1
+    },
+    {
+      "source": "90b98cca54dd8f762bb3",
+      "target": "f37cb3116b6b7130b995",
+      "type": 1
+    },
+    {
+      "source": "90b98cca54dd8f762bb3",
+      "target": "5245dfb1a52da9fcc8c4",
+      "type": 1
+    }
+  ],
+  "objects": {
+    "background": [
+      {
+        "properties": {
+          "transparency": {
+            "expr": {
+              "Literal": {
+                "Value": "0D"
+              }
+            }
+          },
+          "color": {
+            "solid": {
+              "color": {
+                "expr": {
+                  "ThemeDataColor": {
+                    "ColorId": 9,
+                    "Percent": 0
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    ],
+    "outspace": [
+      {
+        "properties": {
+          "transparency": {
+            "expr": {
+              "Literal": {
+                "Value": "0D"
+              }
+            }
+          },
+          "image": {
+            "image": {
+              "name": {
+                "expr": {
+                  "Literal": {
+                    "Value": "''"
+                  }
+                }
+              },
+              "url": {
+                "expr": {
+                  "Literal": {
+                    "Value": "''"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    ],
+    "outspacePane": [
+      {
+        "properties": {
+          "width": {
+            "expr": {
+              "Literal": {
+                "Value": "183L"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "filterSortOrder": 3
+}

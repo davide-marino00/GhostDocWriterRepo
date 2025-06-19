@@ -1,0 +1,21 @@
+{
+  "name": "cb0cc9f15187bcd69a2d",
+  "layouts": [
+    {
+      "id": 0,
+      "position": {
+        "height": 73.787029623698956,
+        "width": 1280.0016449756915,
+        "x": 0,
+        "y": 0,
+        "z": 4000,
+        "tabOrder": -4001
+      }
+    }
+  ],
+  "singleVisualGroup": {
+    "displayName": "Header Background",
+    "groupMode": 0,
+    "isHidden": false
+  }
+}

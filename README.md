@@ -43,7 +43,8 @@ First, extract the metadata from your .pbix file. We will use the open-source pb
 
 1.  **Download and Extract pbi-tools**  Download the latest version from the official GitHub releases: [pbi-tools v1.2.0](https://github.com/pbi-tools/pbi-tools/releases/download/1.2.0/pbi-tools.1.2.0.zip). Extract the contents into a folder on your computer.
     
-2.  **Example for Windows:**  Bash.\\pbi-tools.exe extract "C:\\Users\\yourusername\\Documents\\yourreport.pbix"This command will create a new folder (e.g., yourreport). Move this newly created folder into the input\_folder within the GhostDocWriter project directory.
+2.  **Example for Windows:**  Bash.\\  ```pbi-tools.exe extract "C:\\Users\\yourusername\\Documents\\yourreport.pbix"```  
+This command will create a new folder (e.g., yourreport). Move this newly created folder into the input\_folder within the GhostDocWriter project directory.
     
 
 ### Step 2: Set Up Azure OpenAI Service

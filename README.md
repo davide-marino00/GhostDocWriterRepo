@@ -80,8 +80,8 @@ Provide your credentials to the script using an environment file.
 
 Finally, set up the Python environment and run the script.
 
-1. ```python -m venv venv.\\venv\\Scripts\\activate``` # On Windows           
-         ```source venv/bin/activate``` # On macOS/Linux                 
+1. ```python -m venv venv && venv\Scripts\activate``` # On Windows                         
+         ```python3 -m venv venv && source venv/bin/activate``` # On macOS/Linux                      
     
 2. ```pip install -r requirements.txt```
     

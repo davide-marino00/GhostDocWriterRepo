@@ -329,164 +329,186 @@ async def generate_model_overview(llm: AzureChatOpenAI,
         print(f"  Error generating model overview: {e}"); overview = f"(Error generating overview: {e})"
     return overview
 
-# --- Async Enrichment Function ---
+# --- LLM Enrichment Helper Functions ---
+
+async def _enrich_item(chain: RunnableSequence, params: dict, target_obj: Any, field_name: str, semaphore: asyncio.Semaphore):
+    """
+    Acquires a semaphore, calls an LLM chain for a single item, and assigns the result.
+    This was formerly the nested helper _enrich_item_with_semaphore.
+    """
+    result_text = f"(Enrichment skipped for {field_name})"
+    try:
+        async with semaphore:
+            # print(f"    Attempting LLM call for {field_name} on {getattr(target_obj, 'name', 'N/A')}")
+            result = await chain.ainvoke(params)
+            result_text = str(result).strip()
+    except Exception as e:
+        result_text = f"(Error during enrichment for {field_name}: {e})"
+        print(f"    ERROR enriching {field_name} for {getattr(target_obj, 'name', 'N/A')}: {e}")
+    finally:
+        setattr(target_obj, field_name, result_text)
+
+def _schedule_table_enrichment_tasks(table: Table, chains: dict, semaphore: asyncio.Semaphore) -> list:
+    """Creates all the async enrichment tasks for a single table."""
+    if table.isHidden:
+        return []
+
+    print(f"\nProcessing Visible Table: {table.name}")
+    all_tasks = []
+    
+    # --- Table Description Task ---
+    visible_cols = [col for col in table.columns if not col.isHidden]
+    example_cols_str = ", ".join([f"{col.name} ({col.dataType})" for col in visible_cols[:10]]) or "N/A"
+    all_tasks.append(_enrich_item(
+        chains['table'], 
+        {"table_name": table.name, "column_examples": example_cols_str},
+        table, "llm_description", semaphore
+    ))
+
+    # --- Column and Calculated Column Tasks ---
+    for column in visible_cols:
+        all_tasks.append(_enrich_item(
+            chains['column'],
+            {"column_name": column.name, "data_type": column.dataType, "table_name": table.name,
+             "table_description": lambda t=table: t.llm_description or "N/A"},
+            column, "llm_description", semaphore
+        ))
+        if isinstance(column, CalculatedColumn) and column.daxExpression:
+            all_tasks.append(_enrich_item(
+                chains['dax'],
+                {"item_name": f"Calculated Column: {column.name}", "dax_code": column.daxExpression},
+                column, "llm_dax_explanation", semaphore
+            ))
+
+    # --- Measure Tasks ---
+    visible_measures = [m for m in table.measures if not m.isHidden]
+    for measure in visible_measures:
+        if measure.daxExpression:
+            all_tasks.append(_enrich_item(
+                chains['dax'],
+                {"item_name": f"Measure: {measure.name}", "dax_code": measure.daxExpression},
+                measure, "llm_dax_explanation", semaphore
+            ))
+        else:
+            measure.llm_dax_explanation = "(No DAX expression found)"
+            
+    return all_tasks
+
+
+# --- Main LLM Enrichment Function (Orchestrator) ---
+
 async def enrich_data_with_llm(llm: AzureChatOpenAI, tables: List[Table]):
-    """Enriches MODEL data. Uses config for concurrency limit."""
+    """
+    Enriches table, column, and measure data with descriptions and explanations
+    from an LLM, managing concurrency.
+    """
     print("\n--- Enriching MODEL data with LLM (Async + Semaphore) ---")
     if not llm:
-        print("  LLM not available, skipping enrichment."); return
+        print("  LLM not available, skipping enrichment.")
+        return
+        
     if any("Error: Could not load" in tpl for tpl in [TABLE_DESC_TEMPLATE_STR, COLUMN_DESC_TEMPLATE_STR, DAX_EXPLAIN_TEMPLATE_STR]):
         print("  Skipping enrichment due to errors loading prompt templates.")
         return
 
-    # Use config variable for concurrency
+    # --- Setup Chains and Concurrency Limiter ---
+    output_parser = StrOutputParser()
+    chains = {
+        'table': TABLE_DESC_TEMPLATE | llm | output_parser,
+        'column': COLUMN_DESC_TEMPLATE | llm | output_parser,
+        'dax': DAX_EXPLAIN_TEMPLATE | llm | output_parser
+    }
     semaphore = asyncio.Semaphore(config.LLM_CONCURRENCY_LIMIT)
     print(f"  Concurrency limited to: {config.LLM_CONCURRENCY_LIMIT} parallel LLM calls")
 
-    output_parser = StrOutputParser()
-    table_chain: RunnableSequence = TABLE_DESC_TEMPLATE | llm | output_parser
-    column_chain: RunnableSequence = COLUMN_DESC_TEMPLATE | llm | output_parser
-    dax_chain: RunnableSequence = DAX_EXPLAIN_TEMPLATE | llm | output_parser
+    # --- Schedule All Tasks ---
+    all_enrichment_tasks = []
+    for table in tables:
+        table_tasks = _schedule_table_enrichment_tasks(table, chains, semaphore)
+        all_enrichment_tasks.extend(table_tasks)
 
-    # Corrected nested helper function
-    async def _enrich_item_with_semaphore(chain: RunnableSequence, params: dict, target_obj: Any, field_name: str):
-        """Acquires semaphore, calls LLM chain, handles errors, assigns result."""
-        result_text = f"(Enrichment skipped for {field_name})" # Default value
-        try:
-            async with semaphore: # Indented within try
-                # print(f"    Attempting LLM call for {field_name} on {getattr(target_obj, 'name', 'N/A')}") # Debug
-                result = await chain.ainvoke(params)
-                result_text = str(result).strip()
-                # print(f"    Finished LLM call for {field_name} on {getattr(target_obj, 'name', 'N/A')}") # Debug
-        except Exception as e:
-            result_text = f"(Error during enrichment for {field_name}: {e})"
-            print(f"    ERROR enriching {field_name} for {getattr(target_obj, 'name', 'N/A')}: {e}")
-        finally:
-             setattr(target_obj, field_name, result_text)
-
-    all_tasks = []
-    for i, table in enumerate(tables):
-        if table.isHidden: continue
-        print(f"\nProcessing Visible Table {i+1}/{len(tables)}: {table.name}")
-        # Schedule Table Description Task
-        visible_cols = [col for col in table.columns if not col.isHidden]; 
-        example_cols = [f"{col.name} ({col.dataType})" for col in visible_cols[:10]]; 
-        example_cols_str = ", ".join(example_cols) if example_cols else "N/A"
-        all_tasks.append(_enrich_item_with_semaphore(
-            table_chain, {"table_name": table.name, 
-                          "column_examples": example_cols_str}, 
-                          table, "llm_description"))
-        # Schedule Column/Measure Tasks
-        for column in visible_cols:
-            all_tasks.append(_enrich_item_with_semaphore(
-                column_chain, 
-                {"column_name": column.name,
-                 "data_type": column.dataType,
-                 "table_name": table.name,
-                 "table_description": lambda t=table: t.llm_description or "N/A"},
-                 column, "llm_description"))
-            if isinstance(column, CalculatedColumn) and column.daxExpression: 
-                all_tasks.append(_enrich_item_with_semaphore(
-                    dax_chain, {"item_name": f"Calculated Column: {column.name}",
-                                "dax_code": column.daxExpression},
-                                column, "llm_dax_explanation"))
-        visible_measures = [m for m in table.measures if not m.isHidden]
-        for measure in visible_measures:
-            if measure.daxExpression:
-                all_tasks.append(_enrich_item_with_semaphore(
-                    dax_chain, {"item_name": f"Measure: {measure.name}",
-                                "dax_code": measure.daxExpression},
-                                measure, "llm_dax_explanation"))
-            else:
-                measure.llm_dax_explanation = "(No DAX expression found)"
-    # Run all collected tasks concurrently
-    if all_tasks: 
-        print(f"\nRunning {len(all_tasks)} enrichment tasks concurrently across all tables (Limit: {config.LLM_CONCURRENCY_LIMIT})..."); 
-        await asyncio.gather(*all_tasks); 
-        print(f"Finished all concurrent enrichment tasks.")
-    else: 
+    # --- Run All Tasks Concurrently ---
+    if all_enrichment_tasks:
+        print(f"\nRunning {len(all_enrichment_tasks)} enrichment tasks concurrently across all tables...")
+        await asyncio.gather(*all_enrichment_tasks)
+        print("Finished all concurrent enrichment tasks.")
+    else:
         print("No enrichment tasks to run.")
+        
     print("\n--- LLM Model Enrichment Complete ---")
 
-# In generate_documentation.py
+
+
+# --- Filter Enrichment Helper Functions ---
+
+async def _enrich_single_filter(filt: ReportFilter, chain: RunnableSequence, semaphore: asyncio.Semaphore):
+    """
+    Enriches a single filter object with an LLM-generated explanation.
+    This was formerly the nested helper _enrich_filter_with_semaphore.
+    """
+    # Skip if there's no definition to explain, or if it already has one.
+    if not filt.filter_definition or filt.llm_explanation:
+        return
+
+    target_desc = "this filter"
+    if filt.target and filt.target.entity and filt.target.property:
+        target_desc = f"the target `{filt.target.entity}`.`{filt.target.property}`"
+    elif filt.target and filt.target.entity:
+        target_desc = f"the target entity `{filt.target.entity}`"
+
+    try:
+        filter_def_str = json.dumps(filt.filter_definition, indent=2)
+    except Exception:
+        filter_def_str = str(filt.filter_definition)
+
+    params = {
+        "target_description": target_desc,
+        "filter_definition_json": filter_def_str
+    }
+    await _enrich_item(chain, params, filt, "llm_explanation", semaphore)
+
+
+# --- Main Filter Enrichment Function (Orchestrator) ---
 
 async def enrich_filters_with_llm(llm: AzureChatOpenAI, report_filters: List[ReportFilter], pages: List[ReportPage]):
+    """
+    Enriches all filter objects (report, page, and visual level) with
+    LLM-generated explanations.
+    """
     print("\n--- Enriching Filters with LLM Explanations (Async + Semaphore) ---")
-    if not llm: 
-        print("  LLM not available, skipping filter enrichment."); 
+    if not llm:
+        print("  LLM not available, skipping filter enrichment.")
         return
     if "Error: Could not load" in FILTER_EXPLAIN_TEMPLATE_STR:
         print("  Skipping filter enrichment due to error loading prompt template.")
         return
 
-    # Use the same semaphore logic as data enrichment
+    # --- Setup Chain and Concurrency Limiter ---
+    output_parser = StrOutputParser()
+    filter_chain: RunnableSequence = FILTER_EXPLAIN_TEMPLATE | llm | output_parser
     semaphore = asyncio.Semaphore(config.LLM_CONCURRENCY_LIMIT)
     print(f"  Concurrency limited to: {config.LLM_CONCURRENCY_LIMIT} parallel LLM calls")
 
-    output_parser = StrOutputParser()
-    filter_chain: RunnableSequence = FILTER_EXPLAIN_TEMPLATE | llm | output_parser
-
-    # Nested helper function (similar to data enrichment)
-    async def _enrich_filter_with_semaphore(filt: ReportFilter):
-        # Only enrich if there's a definition and no explanation yet
-        if not filt.filter_definition or filt.llm_explanation:
-            return # Skip if no definition or already has explanation
-
-        # Optionally, only enrich 'Advanced' types or complex ones
-        # if filt.filter_type != 'Advanced': return
-
-        target_desc = "this filter"
-        if filt.target and filt.target.entity and filt.target.property:
-            target_desc = f"the target `{filt.target.entity}`.`{filt.target.property}`"
-        elif filt.target and filt.target.entity:
-             target_desc = f"the target entity `{filt.target.entity}`"
-
-        # Convert definition dict to JSON string for the prompt
-        try:
-            filter_def_str = json.dumps(filt.filter_definition, indent=2)
-        except Exception:
-             filter_def_str = str(filt.filter_definition) # Fallback
-
-        params = {
-            "target_description": target_desc,
-            "filter_definition_json": filter_def_str
-        }
-        result_text = f"(Explanation generation skipped for filter on {target_desc})"
-        try:
-            async with semaphore:
-                # print(f"    Attempting LLM call for filter explanation on {target_desc}") # Debug
-                result = await filter_chain.ainvoke(params)
-                result_text = str(result).strip()
-                # print(f"    Finished LLM call for filter explanation on {target_desc}") # Debug
-        except Exception as e:
-            result_text = f"(Error generating explanation for filter on {target_desc}: {e})"
-            print(f"    ERROR enriching filter explanation for {target_desc}: {e}")
-        finally:
-             filt.llm_explanation = result_text # Assign successful explanation or error message
-
-    # Collect all filter enrichment tasks
-    all_tasks = []
-    print("  Scheduling report-level filter enrichment...")
-    for filt in report_filters:
-        all_tasks.append(_enrich_filter_with_semaphore(filt))
-
-    print("  Scheduling page and visual-level filter enrichment...")
+    # --- Collect All Filters ---
+    all_filters_to_process = []
+    all_filters_to_process.extend(report_filters)
     for page in pages:
-        for filt in page.page_level_filters:
-             all_tasks.append(_enrich_filter_with_semaphore(filt))
+        all_filters_to_process.extend(page.page_level_filters)
         for visual in page.visuals:
-            for filt in visual.visual_level_filters:
-                 all_tasks.append(_enrich_filter_with_semaphore(filt))
+            all_filters_to_process.extend(visual.visual_level_filters)
+            
+    if not all_filters_to_process:
+        print("No filters found to enrich.")
+        print("\n--- LLM Filter Enrichment Complete ---")
+        return
+        
+    # --- Schedule and Run All Tasks ---
+    print(f"Scheduling {len(all_filters_to_process)} filter enrichment tasks...")
+    enrichment_tasks = [_enrich_single_filter(filt, filter_chain, semaphore) for filt in all_filters_to_process]
 
-    # Run all collected tasks concurrently
-    if all_tasks:
-        print(f"\nRunning {len(all_tasks)} filter enrichment tasks concurrently (Limit: {config.LLM_CONCURRENCY_LIMIT})...")
-        await asyncio.gather(*all_tasks)
-        print(f"Finished all concurrent filter enrichment tasks.")
-    else:
-        print("No filter enrichment tasks to run.")
+    await asyncio.gather(*enrichment_tasks)
+    print("Finished all concurrent filter enrichment tasks.")
     print("\n--- LLM Filter Enrichment Complete ---")
-
 
 # --- Markdown Assembly Helper Functions ---
 

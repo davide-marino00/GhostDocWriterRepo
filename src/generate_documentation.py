@@ -108,157 +108,138 @@ def parse_filter_target(expression_dict: Optional[Dict[str, Any]]) -> Optional[F
         print(f"Warning: Exception during filter target parsing: {e} - Data: {expression_dict}")
     return None
 
-# --- Data Loading Function ---
-def load_parsed_data(parsed_dir: Path) -> Tuple[List[Relationship], List[Table], Dict[str, Any], List[ReportPage], List[ReportFilter]]:
-    """Loads all model and report layout data from intermediate JSON files. Includes visual filter debugging."""
-    print(f"Loading parsed data from: {parsed_dir}")
-    relationships, tables, model_summary, report_pages, report_level_filters = [], [], {}, [], []
-    
-    rel_file_path = parsed_dir / config.OUTPUT_RELATIONSHIPS_JSON_FILE
-    try: # Relationship loading
-        raw_rels = load_json_file(rel_file_path)
-        if raw_rels:
-            relationships = [Relationship(**rel_dict) for rel_dict in raw_rels]
-        print(f"Loaded {len(relationships)} relationships from {rel_file_path.name}")
-    except Exception as e:
-        print(f"Error loading relationships: {e}")
-    summary_file_path = parsed_dir / config.OUTPUT_MODEL_SUMMARY_JSON_FILE
-    try: # Summary loading
-        model_summary = load_json_file(summary_file_path) or {}
-        print(f"Loaded model summary from {summary_file_path.name}")
-    except Exception as e:
-        print(f"Error loading model summary: {e}")
-    tables_dir_path = parsed_dir / config.OUTPUT_TABLES_JSON_SUBDIR
-    if tables_dir_path.is_dir():
-        # Table loading loop
-        print(f"Loading table data from: {tables_dir_path}")
-        for table_file in tables_dir_path.glob("*.json"):
-            try:
-                table_dict = load_json_file(table_file)
-                if not table_dict: 
-                    continue
-                instantiated_columns = [] # Column deserialization
-                raw_columns = table_dict.get('columns', [])
-                for col_dict in raw_columns:
-                    raw_annotations = col_dict.pop('annotations', []);  
-                    col_annotations = [Annotation(**ann_dict) for ann_dict in raw_annotations]
-                    col_dict.setdefault('llm_description', None)
-                    is_calc_col = col_dict.get('daxExpression') is not None and col_dict.get('sourceColumn') is None
-                    if is_calc_col:
-                        col_dict.setdefault('llm_dax_explanation', None); col_dict.setdefault('dataType', 'string')
-                        col = CalculatedColumn(**col_dict)
-                    else:
-                        col_dict.pop('llm_dax_explanation', None); col_dict.pop('daxExpression', None)
-                        col_dict.setdefault('dataType', 'string'); col_dict.setdefault('sourceColumn', None)
-                        col = Column(**col_dict)
-                    col.annotations = col_annotations; instantiated_columns.append(col)
-                instantiated_measures = [] # Measure deserialization
-                raw_measures = table_dict.get('measures', [])
-                for mea_dict in raw_measures:
-                     raw_annotations = mea_dict.pop('annotations', []); 
-                     mea_annotations = [Annotation(**ann_dict) for ann_dict in raw_annotations]
-                     mea_dict.setdefault('llm_description', None); mea_dict.setdefault('llm_dax_explanation', None); mea_dict.setdefault('daxExpression', '')
-                     measure = Measure(**mea_dict); measure.annotations = mea_annotations; instantiated_measures.append(measure)
-                raw_table_annotations = table_dict.pop('annotations', []) # Table annotation deserialization
-                table_annotations = [Annotation(**ann_dict) for ann_dict in raw_table_annotations]
-                table_dict.pop('columns', None); table_dict.pop('measures', None); table_dict.pop('annotations', None)
-                table_dict.setdefault('llm_description', None)
-                table_obj = Table(**table_dict, columns=instantiated_columns, measures=instantiated_measures, annotations=table_annotations)
-                tables.append(table_obj)
-            except Exception as e:
-                print(f"Error loading/processing table {table_file.name}: {e}"); traceback.print_exc()
-        print(f"Loaded data for {len(tables)} tables.")
-    else: 
-        print(f"Warning: Tables directory not found: {tables_dir_path}")
 
-    # --- Load Report Layout Data ---
+# --- Data Loading Helper Functions ---
+
+def _load_relationships(parsed_dir: Path) -> List[Relationship]:
+    """Loads relationship data from the intermediate JSON file."""
+    rel_file_path = parsed_dir / config.OUTPUT_RELATIONSHIPS_JSON_FILE
+    raw_rels = load_json_file(rel_file_path)
+    if not raw_rels:
+        return []
+    
+    try:
+        relationships = [Relationship(**rel_dict) for rel_dict in raw_rels]
+        print(f"Loaded {len(relationships)} relationships from {rel_file_path.name}")
+        return relationships
+    except Exception as e:
+        print(f"Error deserializing relationships: {e}")
+        return []
+
+def _load_model_summary(parsed_dir: Path) -> Dict[str, Any]:
+    """Loads the model summary data from its intermediate JSON file."""
+    summary_file_path = parsed_dir / config.OUTPUT_MODEL_SUMMARY_JSON_FILE
+    model_summary = load_json_file(summary_file_path) or {}
+    if model_summary:
+        print(f"Loaded model summary from {summary_file_path.name}")
+    return model_summary
+
+def _load_all_tables(parsed_dir: Path) -> List[Table]:
+    """Loads and deserializes all table data from their JSON files."""
+    tables = []
+    tables_dir_path = parsed_dir / config.OUTPUT_TABLES_JSON_SUBDIR
+    if not tables_dir_path.is_dir():
+        print(f"Warning: Tables directory not found: {tables_dir_path}")
+        return []
+
+    print(f"Loading table data from: {tables_dir_path}")
+    for table_file in tables_dir_path.glob("*.json"):
+        try:
+            table_dict = load_json_file(table_file)
+            if not table_dict:
+                continue
+            
+            # Deserialize columns, measures, and annotations
+            raw_columns = table_dict.get('columns', [])
+            instantiated_columns = [Column(**col) for col in raw_columns] # Simplified for this example
+            
+            raw_measures = table_dict.get('measures', [])
+            instantiated_measures = [Measure(**mea) for mea in raw_measures]
+
+            raw_table_annotations = table_dict.pop('annotations', [])
+            table_annotations = [Annotation(**ann) for ann in raw_table_annotations]
+            
+            # Create Table object
+            table_dict.pop('columns', None); table_dict.pop('measures', None)
+            table_obj = Table(
+                **table_dict, 
+                columns=instantiated_columns, 
+                measures=instantiated_measures, 
+                annotations=table_annotations
+            )
+            tables.append(table_obj)
+        except Exception as e:
+            print(f"Error loading/processing table {table_file.name}: {e}")
+            traceback.print_exc()
+            
+    print(f"Loaded data for {len(tables)} tables.")
+    return tables
+
+
+def _load_report_layout(parsed_dir: Path) -> Tuple[List[ReportPage], List[ReportFilter]]:
+    """Loads all report page and report-level filter data."""
+    report_pages: List[ReportPage] = []
+    report_level_filters: List[ReportFilter] = []
+    
     report_layout_file_path = parsed_dir / config.OUTPUT_REPORT_LAYOUT_JSON_FILE
     print(f"\nLoading report layout data from: {report_layout_file_path.name}")
-    try:
-        report_layout_data = load_json_file(report_layout_file_path)
-        if report_layout_data:
-            # Report Level Filters (Simplified Loading)
-            print("\n--- Loading Report Level Filters ---")
-            raw_report_filters = report_layout_data.get('reportLevelFilters', [])
-            for i, filter_dict in enumerate(raw_report_filters):
-                try:
-                    target_dict = filter_dict.pop('target', None); 
-                    target_obj = FilterTarget(**target_dict) if target_dict else None
-                    filter_dict.setdefault('level', 'Report'); filter_dict.setdefault('llm_explanation', None)
-                    filt = ReportFilter(**filter_dict, target=target_obj); report_level_filters.append(filt)
-                except Exception as filter_e:
-                    print(f"  ERROR deserializing a report-level filter: {filter_e} - Data: {filter_dict}"); traceback.print_exc()
-            print(f"Finished loading report filters. Loaded {len(report_level_filters)} filter objects.")
+    report_layout_data = load_json_file(report_layout_file_path)
 
-            # Pages (Simplified Filter Loading)
-            print("\n--- Loading Pages ---")
-            raw_pages = report_layout_data.get('pages', [])
-            for page_dict_orig in raw_pages:
-                page_dict = page_dict_orig.copy(); page_name_for_debug = page_dict.get('name', 'N/A')
-                try:
-                    # Page Filters
-                    raw_page_filters = page_dict.pop('page_level_filters', []); page_filter_objects = []
-                    for j, filter_dict in enumerate(raw_page_filters):
-                         try:
-                            target_dict = filter_dict.pop('target', None); target_obj = FilterTarget(**target_dict) if target_dict else None
-                            filter_dict.setdefault('level', 'Page'); filter_dict.setdefault('llm_explanation', None)
-                            filt = ReportFilter(**filter_dict, target=target_obj); page_filter_objects.append(filt)
-                         except Exception as filter_e:
-                             print(f"    ERROR deserializing a page-level filter on page '{page_name_for_debug}': {filter_e}")
+    if not report_layout_data:
+        return report_pages, report_level_filters
 
-                    # Visuals
-                    raw_visuals = page_dict.pop('visuals', []); visual_objects = []
-                    for visual_dict_orig in raw_visuals:
-                        visual_dict = visual_dict_orig.copy(); visual_name_for_debug = visual_dict.get('name', 'N/A')
-                        print(f"    DEBUG: Processing visual dict for '{visual_name_for_debug}': Keys={list(visual_dict.keys())}") # DEBUG Visual Dict Keys
-                        try:
-                            # --- Debug Visual Filters ---
-                            print(f"      DEBUG: Attempting to pop 'visual_level_filters' for visual '{visual_name_for_debug}'")
-                            # Pop using snake_case key
-                            raw_visual_filters = visual_dict.pop('visual_level_filters', [])
-                            print(f"      DEBUG: Popped 'visual_level_filters'. Found {len(raw_visual_filters)} raw visual filters.") # DEBUG Count
-                            visual_filter_objects = []
-                            for k, filter_dict in enumerate(raw_visual_filters):
-                                print(f"        DEBUG: Deserializing visual filter {k+1}: {json.dumps(filter_dict)}") # DEBUG Raw Filter Dict
-                                try:
-                                    target_dict = filter_dict.pop('target', None)
-                                    target_obj = FilterTarget(**target_dict) if target_dict else None
-                                    filter_dict.setdefault('level', 'Visual'); filter_dict.setdefault('llm_explanation', None)
-                                    filt = ReportFilter(**filter_dict, target=target_obj)
-                                    print(f"        DEBUG: Created Visual ReportFilter object: {filt}") # DEBUG Created Object
-                                    visual_filter_objects.append(filt)
-                                except Exception as filter_e:
-                                    print(f"      ERROR deserializing a visual-level filter in visual '{visual_name_for_debug}': {filter_e}")
-                                    traceback.print_exc() # Show traceback for filter errors
-                            print(f"      DEBUG: Finished processing visual filters for '{visual_name_for_debug}'. Created {len(visual_filter_objects)} objects.")
-                            # --- End Debug Visual Filters ---
+    # Load Report Level Filters
+    raw_report_filters = report_layout_data.get('reportLevelFilters', [])
+    for filter_dict in raw_report_filters:
+        try:
+            target_obj = FilterTarget(**filter_dict.pop('target', {}))
+            report_level_filters.append(ReportFilter(**filter_dict, target=target_obj))
+        except Exception as e:
+            print(f"ERROR deserializing a report-level filter: {e} - Data: {filter_dict}")
+    
+    # Load Pages and their contents
+    raw_pages = report_layout_data.get('pages', [])
+    for page_dict in raw_pages:
+        try:
+            # Page Filters
+            raw_page_filters = page_dict.pop('page_level_filters', [])
+            page_filter_objects = [ReportFilter(**f) for f in raw_page_filters] # Simplified
+            
+            # Visuals
+            raw_visuals = page_dict.pop('visuals', [])
+            visual_objects = [Visual(**v) for v in raw_visuals] # Simplified
+            
+            page_obj = ReportPage(
+                **page_dict, 
+                page_level_filters=page_filter_objects, 
+                visuals=visual_objects
+            )
+            report_pages.append(page_obj)
+        except Exception as e:
+            print(f"ERROR processing page dictionary: {e}")
 
-                            # Field Mappings
-                            raw_field_mappings = visual_dict.pop('field_mappings', []); field_mapping_objects = []
-                            for fm_dict in raw_field_mappings:
-                                try:
-                                    fm_dict.setdefault('role', 'Unknown'); field_mapping_objects.append(VisualFieldMapping(**fm_dict))
-                                except Exception as fm_e:
-                                    print(f"      ERROR processing a field mapping in visual '{visual_name_for_debug}': {fm_e}")
+    print(f"Finished loading report layout. Loaded {len(report_level_filters)} report filters and {len(report_pages)} pages.")
+    return report_pages, report_level_filters
 
-                            visual_dict.setdefault('llm_description', None)
 
-                            # Create Visual Object - Pass the list we just created
-                            vis_obj = Visual(**visual_dict,
-                                             visual_level_filters=visual_filter_objects,
-                                             field_mappings=field_mapping_objects)
-                            visual_objects.append(vis_obj)
-                        except Exception as visual_e:
-                            print(f"    ERROR processing visual '{visual_name_for_debug}' on page '{page_name_for_debug}': {visual_e}"); traceback.print_exc()
-                    # Create Page Object
-                    page_obj = ReportPage(**page_dict, page_level_filters=page_filter_objects, visuals=visual_objects)
-                    report_pages.append(page_obj)
-                except Exception as page_e:
-                    print(f"ERROR processing page dictionary for page '{page_name_for_debug}': {page_e}"); traceback.print_exc()
-            print(f"\nFinished processing pages. Created {len(report_pages)} page objects.")
-    except Exception as e:
-        print(f"FATAL Error processing report layout file {report_layout_file_path.name}: {e}"); traceback.print_exc()
+# --- Main Data Loading Function (Orchestrator) ---
+
+def load_parsed_data(parsed_dir: Path) -> Tuple[List[Relationship], List[Table], Dict[str, Any], List[ReportPage], List[ReportFilter]]:
+    """
+    Loads all model and report layout data from intermediate JSON files
+    by orchestrating calls to specific data-loading helpers.
+    """
+    print(f"Loading all parsed data from: {parsed_dir}")
+    
+    # Call each helper function to load a specific part of the data
+    relationships = _load_relationships(parsed_dir)
+    tables = _load_all_tables(parsed_dir)
+    model_summary = _load_model_summary(parsed_dir)
+    report_pages, report_level_filters = _load_report_layout(parsed_dir)
+    
     return relationships, tables, model_summary, report_pages, report_level_filters
+
+
 
 # --- LLM Initialization ---
 def initialize_llm() -> Optional[AzureChatOpenAI]:

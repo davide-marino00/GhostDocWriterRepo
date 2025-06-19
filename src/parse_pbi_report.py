@@ -148,121 +148,94 @@ def parse_filters(filter_list_json: Optional[List[Dict[str, Any]]], level: str) 
             traceback.print_exc()
             continue
     return filters
+# --- Field Mapping Helper Functions ---
 
-# Use the version with extensive debugging prints
-def parse_field_mappings(visual_config: Optional[Dict[str, Any]],
-                         visual_transforms: Optional[Dict[str, Any]]) -> List[VisualFieldMapping]:
-    """
-    Parses field mappings from visual config (config.json) and dataTransforms (dataTransforms.json).
-    Prefers using dataTransforms.selects if available, otherwise falls back to config.projections.
-    Includes extensive debugging prints.
-    """
+def _parse_mappings_from_transforms(visual_transforms: Optional[Dict[str, Any]]) -> List[VisualFieldMapping]:
+    """Primary Strategy: Parses field mappings from the dataTransforms.json 'selects' array."""
     mappings = []
-    visual_name_for_debug = visual_config.get('name') if visual_config else "Unknown"
-    print(f"\n    --- Debugging parse_field_mappings for Visual: {visual_name_for_debug} ---")
+    if not visual_transforms or 'selects' not in visual_transforms:
+        return mappings
 
-    # --- Check Inputs ---
-    has_transforms = visual_transforms is not None
-    has_selects = has_transforms and 'selects' in visual_transforms and visual_transforms['selects']
-    has_config = visual_config is not None
-    has_projections = has_config and 'projections' in visual_config.get('singleVisual', {})
+    for select_item in visual_transforms.get('selects', []):
+        try:
+            field_role = next((role for role, active in select_item.get('roles', {}).items() if active), "Unknown")
+            query_name = select_item.get('queryName')
+            display_name = select_item.get('displayName')
 
-    print(f"    DEBUG: Has visual_transforms? {has_transforms}")
-    print(f"    DEBUG: Has non-empty 'selects' in visual_transforms? {bool(has_selects)}") # Print True/False
-    print(f"    DEBUG: Has visual_config? {has_config}")
-    print(f"    DEBUG: Has 'projections' in visual_config? {has_projections}")
+            if not query_name:
+                continue
 
-    # --- Primary Method: Use dataTransforms.json ---
-    if has_transforms and has_selects:
-        print(f"    DEBUG: Entering PRIMARY path (using dataTransforms.selects)")
-        selects_list = visual_transforms.get('selects', [])
-        print(f"    DEBUG: Found {len(selects_list)} items in 'selects' array.")
-        for i, select_item in enumerate(selects_list):
-            # Limit printing very large select items
-            select_item_str = json.dumps(select_item)
-            if len(select_item_str) > 500:
-                select_item_str = select_item_str[:500] + "..."
-            print(f"      DEBUG: Processing select item {i+1}: {select_item_str}")
-            try:
-                # Extract the primary role
-                field_role = next(
-                    (role for role, is_active in select_item.get('roles', {}).items() if is_active), "Unknown")
-                query_name = select_item.get('queryName')
-                display_name = select_item.get('displayName')
-
-                print(f"        DEBUG: Extracted Role='{field_role}', Query='{query_name}', Display='{display_name}'")
-
-                if not query_name:
-                     print(f"        WARNING: Missing queryName in select item {i+1}. Skipping.")
-                     continue
-
-                mapping = VisualFieldMapping(
-                    role=str(field_role), # Ensure string
-                    query_ref=query_name,
-                    display_name=display_name
-                )
-                print(f"        DEBUG: Created Mapping Object: {mapping}")
-                mappings.append(mapping)
-            except Exception as e:
-                 print(f"    WARNING: Error processing select item {i+1} in dataTransforms for visual {visual_name_for_debug}: {e} - Data: {select_item}")
-                 traceback.print_exc() # Show details
-
-    # --- Fallback Method: Use config.json ---
-    elif has_config and has_projections:
-        print(f"    DEBUG: Entering FALLBACK path (using config.json projections)")
-        projections = visual_config['singleVisual'].get('projections', {})
-        column_properties = visual_config['singleVisual'].get('columnProperties', {})
-        print(f"    DEBUG: Projections found: {list(projections.keys())}")
-
-        for role, fields_in_role in projections.items():
-            if isinstance(fields_in_role, list):
-                print(f"      DEBUG: Processing role '{role}' with {len(fields_in_role)} fields.")
-                for j, field_projection in enumerate(fields_in_role):
-                    # Limit printing large projection items
-                    field_proj_str = json.dumps(field_projection)
-                    if len(field_proj_str) > 500:
-                        field_proj_str = field_proj_str[:500] + "..."
-                    print(f"        DEBUG: Processing field projection {j+1} in role '{role}': {field_proj_str}")
-                    if not isinstance(field_projection, dict):
-                         print(f"        WARNING: Field projection item {j+1} in role '{role}' is not a dict. Skipping.")
-                         continue
-
-                    query_ref = field_projection.get('queryRef')
-                    print(f"          DEBUG: Found queryRef: {query_ref}")
-
-                    if query_ref:
-                        display_name = query_ref # Default
-                        if column_properties and query_ref in column_properties:
-                             prop_display_name = column_properties[query_ref].get('displayName')
-                             if prop_display_name:
-                                 display_name = prop_display_name
-                                 print(f"          DEBUG: Found displayName in columnProperties: {display_name}")
-                        try:
-                            mapping = VisualFieldMapping(
-                                role=str(role), # Ensure string
-                                query_ref=query_ref,
-                                display_name=display_name
-                            )
-                            print(f"          DEBUG: Created Mapping Object: {mapping}")
-                            mappings.append(mapping)
-                        except Exception as e:
-                            print(f"    WARNING: Error creating VisualFieldMapping from projection for visual {visual_name_for_debug}: {e} - Role: {role}, Data: {field_projection}")
-                            traceback.print_exc() # Show details
-                    else:
-                        print(f"        WARNING: No queryRef found in field projection {j+1} for role '{role}'.")
-            else:
-                 print(f"      WARNING: Content for role '{role}' is not a list. Skipping role.")
-
-    # --- No Mappings Found Path ---
-    else:
-         print(f"    DEBUG: NEITHER dataTransforms/selects NOR config/projections found usable data for visual {visual_name_for_debug}")
-
-    # --- Final Result ---
-    print(f"    --- Finished parse_field_mappings for Visual: {visual_name_for_debug} ---")
-    print(f"    DEBUG: Final mappings list count: {len(mappings)}")
-    if not mappings:
-         print(f"    >>>> WARNING: No field mappings extracted for visual {visual_name_for_debug} <<<<")
+            mappings.append(VisualFieldMapping(
+                role=str(field_role),
+                query_ref=query_name,
+                display_name=display_name
+            ))
+        except Exception as e:
+            print(f"    WARNING: Error processing select item in dataTransforms: {e}")
+            continue
     return mappings
+
+def _parse_mappings_from_config(visual_config: Optional[Dict[str, Any]]) -> List[VisualFieldMapping]:
+    """Fallback Strategy: Parses field mappings from the config.json 'projections' object."""
+    mappings = []
+    if not visual_config or 'projections' not in visual_config.get('singleVisual', {}):
+        return mappings
+
+    projections = visual_config['singleVisual'].get('projections', {})
+    column_properties = visual_config['singleVisual'].get('columnProperties', {})
+
+    for role, fields_in_role in projections.items():
+        if not isinstance(fields_in_role, list):
+            continue
+        
+        for field_projection in fields_in_role:
+            try:
+                if not isinstance(field_projection, dict):
+                    continue
+                
+                query_ref = field_projection.get('queryRef')
+                if not query_ref:
+                    continue
+
+                # Use the display name from columnProperties if available, otherwise default to the query reference
+                display_name = column_properties.get(query_ref, {}).get('displayName', query_ref)
+                
+                mappings.append(VisualFieldMapping(
+                    role=str(role),
+                    query_ref=query_ref,
+                    display_name=display_name
+                ))
+            except Exception as e:
+                print(f"    WARNING: Error processing projection for role '{role}': {e}")
+                continue
+    return mappings
+
+
+# --- Main Field Mapping Function (Orchestrator) ---
+
+def parse_field_mappings(
+    visual_config: Optional[Dict[str, Any]],
+    visual_transforms: Optional[Dict[str, Any]]
+) -> List[VisualFieldMapping]:
+    """
+    Parses field mappings for a visual, trying the primary strategy (dataTransforms)
+    first, and then falling back to the secondary strategy (config).
+    """
+    # Primary Strategy: Try to get mappings from the more detailed dataTransforms.json
+    mappings = _parse_mappings_from_transforms(visual_transforms)
+    
+    # Fallback Strategy: If the primary strategy yields no results, try the config.json projections
+    if not mappings:
+        mappings = _parse_mappings_from_config(visual_config)
+        
+    if not mappings:
+        visual_name = visual_config.get('name', 'Unknown') if visual_config else "Unknown"
+        print(f"    >>>> WARNING: No field mappings extracted for visual {visual_name} <<<<")
+
+    return mappings
+
+
+
 
 def parse_visual_title(visual_config: Optional[Dict[str, Any]]) -> Optional[str]:
     """Extracts visual title from config JSON."""

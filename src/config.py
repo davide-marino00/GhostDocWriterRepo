@@ -3,10 +3,14 @@ import sys
 from pathlib import Path
 from dotenv import load_dotenv
 
+# --- Path Configuration (Robust for src-layout) ---
+# This now correctly finds the project root directory, one level up from this script.
+ROOT_DIR = Path(__file__).parent.parent.resolve()
+
 # --- Load Environment Variables ----
 print("Attempting to load environment variables from .env file...")
-# Look for .env in the same directory as this script.
-dotenv_path = Path(__file__).parent / '.env'
+# Look for .env in the project root directory
+dotenv_path = ROOT_DIR / '.env'
 if dotenv_path.is_file():
     load_dotenv(dotenv_path=dotenv_path, override=True, verbose=True)
     print(".env file loaded.")
@@ -15,13 +19,13 @@ else:
 
 
 # --- Path Configuration (Loaded from Environment - REQUIRED) ---
-SCRIPT_DIR = Path(__file__).parent.resolve()
 input_path_str = os.getenv("PBI_EXTRACT_ROOT_DIR")
 output_path_str = os.getenv("OUTPUT_DIR")
 
-# If paths are set, make them absolute based on the script's location.
-PBI_EXTRACT_ROOT_DIR = (SCRIPT_DIR / input_path_str).resolve() if input_path_str else None
-OUTPUT_DIR = (SCRIPT_DIR / output_path_str).resolve() if output_path_str else None
+# If paths are set, make them absolute based on the project's root location.
+PBI_EXTRACT_ROOT_DIR = (ROOT_DIR / input_path_str).resolve() if input_path_str else None
+OUTPUT_DIR = (ROOT_DIR / output_path_str).resolve() if output_path_str else None
+
 # All filenames and directory names are now loaded from .env for full control.
 # Sensible defaults are provided so the script works out-of-the-box.
 MODEL_DIR_NAME = os.getenv("MODEL_DIR_NAME", "Model")
@@ -44,8 +48,11 @@ OUTPUT_FORMATS = ['md']
 FINAL_MARKDOWN_FILENAME = os.getenv("FINAL_MARKDOWN_FILENAME", "Ghostwritten.md")
 FINAL_JSON_FILENAME = os.getenv("FINAL_JSON_FILENAME", "Ghostwritten.json")
 
+# Note: The logic for these two variables was slightly different from the others.
+# This ensures they are constructed correctly using the now-defined OUTPUT_DIR.
 OUTPUT_MARKDOWN_FILE = OUTPUT_DIR / FINAL_MARKDOWN_FILENAME if OUTPUT_DIR else None
 OUTPUT_FULL_DATA_JSON_FILE = OUTPUT_DIR / FINAL_JSON_FILENAME if OUTPUT_DIR else None
+
 
 # --- Azure OpenAI Configuration (Loaded from Environment - REQUIRED) ---
 AZURE_OPENAI_ENDPOINT = os.getenv("AZURE_OPENAI_ENDPOINT")
@@ -60,7 +67,7 @@ LLM_REQUEST_TIMEOUT = int(os.getenv("LLM_REQUEST_TIMEOUT", 60))
 LLM_CONCURRENCY_LIMIT = int(os.getenv("LLM_CONCURRENCY_LIMIT", 3))
 
 # --- Prompt Template Files ---
-PROMPT_TEMPLATE_DIR = SCRIPT_DIR
+PROMPT_TEMPLATE_DIR = ROOT_DIR # Use the project root to find the templates
 PROMPT_TABLE_DESC_FILE = PROMPT_TEMPLATE_DIR / "prompt_table_desc.txt"
 PROMPT_COLUMN_DESC_FILE = PROMPT_TEMPLATE_DIR / "prompt_column_desc.txt"
 PROMPT_DAX_EXPLAIN_FILE = PROMPT_TEMPLATE_DIR / "prompt_dax_explain.txt"
@@ -103,14 +110,15 @@ def validate_config():
         valid = False
     elif not OUTPUT_DIR.exists():
         print(f"  INFO: Output directory '{OUTPUT_DIR}' does not exist. It will be created.")
+        Path(OUTPUT_DIR).mkdir(parents=True, exist_ok=True) # Ensure it's created if it doesn't exist
     else:
         print(f"  OK: Output directory found at '{OUTPUT_DIR}'.")
 
     # Check Required Azure Credentials
     print("Checking Azure OpenAI Credentials from .env file...")
-    creds = {"Endpoint": AZURE_OPENAI_ENDPOINT, 
-             "API Key": AZURE_OPENAI_API_KEY, 
-             "API Version": AZURE_OPENAI_API_VERSION, 
+    creds = {"Endpoint": AZURE_OPENAI_ENDPOINT,
+             "API Key": AZURE_OPENAI_API_KEY,
+             "API Version": AZURE_OPENAI_API_VERSION,
              "Chat Deployment Name": AZURE_OPENAI_CHAT_DEPLOYMENT_NAME}
     missing_creds = [name for name, value in creds.items() if not value]
     if missing_creds:
@@ -123,9 +131,9 @@ def validate_config():
     # Check Prompt Template Files
     print("Checking Prompt Template Files...")
     prompt_files = {
-        "Table Description": PROMPT_TABLE_DESC_FILE, 
+        "Table Description": PROMPT_TABLE_DESC_FILE,
         "Column Description": PROMPT_COLUMN_DESC_FILE,
-        "DAX Explanation": PROMPT_DAX_EXPLAIN_FILE, 
+        "DAX Explanation": PROMPT_DAX_EXPLAIN_FILE,
         "Model Overview": PROMPT_MODEL_OVERVIEW_FILE
     }
     missing_prompts = [f"{name} ({path.name})" for name, path in prompt_files.items() if not path.is_file()]
@@ -139,8 +147,14 @@ def validate_config():
     print("--- Validation Complete ---")
     if not valid:
         print("\nConfiguration is invalid. Please check your .env file and folder structure.")
-        sys.exit(1)
+        # This was sys.exit(1), but returning False is cleaner for the pipeline script to handle.
+        return False
     return valid
 
+# This part is for running the file directly, which we don't do anymore, but it's fine to leave.
+# The validate_config function will now return True or False. The sys.exit(1) was moved to run_pipeline.py
 if __name__ == "__main__":
-    validate_config()
+    if not validate_config():
+        sys.exit(1)
+    else:
+        print("\nConfig validation successful when run directly.")

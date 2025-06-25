@@ -6,24 +6,22 @@ import traceback
 from pathlib import Path
 
 try:
-    import config
+    from . import config
 except ImportError:
     print("ERROR: config.py not found. Make sure it's in the same directory.")
     sys.exit(1)
 
-# --- Module Imports ---
-script_dir = Path(__file__).parent.resolve()
-if str(script_dir) not in sys.path:
-    sys.path.append(str(script_dir))
+
 try:
-    import parse_pbi_model
-    import parse_pbi_report
-    import generate_documentation
+    from . import parse_pbi_model
+    from . import parse_pbi_report
+    from . import generate_documentation
 except ImportError as e:
-    print(f"ERROR: Could not import necessary script modules.")
-    print(f"       Ensure parse_pbi_model.py, parse_pbi_report.py, generate_documentation.py,")
-    print(f"       and pbi_data_models.py are in the directory: {script_dir}")
-    print(f"Import Error: {e}")
+    print(f"ERROR: Could not import a necessary script module.")
+    print(f"       Please ensure all script files (parse_*, generate_*, etc.) are in the 'src' directory.")
+    print(f"       Also, ensure you are running the pipeline as a module from the project's root folder:")
+    print(f"       python -m src.run_pipeline")
+    print(f"\nOriginal Import Error: {e}")
     sys.exit(1)
 except Exception as e:
     print(f"An unexpected error occurred during module import: {e}")

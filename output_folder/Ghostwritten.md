@@ -1,6 +1,6 @@
 # Power BI Model & Report Documentation
 
-*Generated on: 2025-06-19 16:06:02*
+*Generated on: 2025-06-25 12:20:55*
 
 ## Table of Contents
 
@@ -36,7 +36,9 @@
 
 ## <a name="overview"></a>Overview
 
-(Error generating overview: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}})
+The Power BI data model appears to be designed for a sales and marketing domain, likely focused on managing customer relationships, tracking sales opportunities, and analyzing campaign effectiveness. The presence of tables such as 'Accounts', 'Contacts', 'Opportunities', and 'Campaigns' suggests a comprehensive system for managing customer interactions and sales processes. The relationships between these tables indicate a structured approach to linking accounts with their respective contacts, opportunities, and the industries they belong to, facilitating a holistic view of customer engagement and sales performance.
+
+Additionally, the inclusion of 'Opportunity Calendar' and 'Opportunity Forecast Adjustment' tables implies a focus on sales forecasting and timeline management, allowing users to track and adjust sales opportunities over time. The 'Products' and 'Territories' tables further enhance the model by providing insights into product performance across different geographical areas. Overall, this data model is likely aimed at empowering sales and marketing teams with actionable insights to optimize their strategies and drive revenue growth.
 
 ---
 
@@ -61,120 +63,139 @@ The following relationships link the tables:
 
 #### <a name="table-accounts"></a>Table: `Accounts`
 
-(Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}})
+The 'Accounts' table serves as a comprehensive repository of customer account information, detailing key attributes such as account identifiers, geographic locations, and ownership, which enables businesses to analyze customer demographics, manage relationships, and optimize sales strategies across various territories and industries.
 
 ##### Columns
 
 | Name | Data Type | Description (Generated) |
 |------|-----------|-------------------------|
-| `Account Name` | `string` | (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}}) |
-| `Account Number` | `string` | (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}}) |
-| `AccountID` | `string` | (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}}) |
-| `AccountOwnerSeq` | `int64` | (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}}) |
-| `AccountSeq` | `int64` | (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}}) |
-| `Country` | `string` | (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}}) |
-| `IndustrySeq` | `int64` | (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}}) |
-| `State or Province` | `string` | (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}}) |
-| `TerritorySeq` | `int64` | (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}}) |
+| `Account Name` | `string` | The 'Account Name' column stores the names of customer accounts, serving as a key identifier for managing and referencing account-related information within the Accounts table. |
+| `Account Number` | `string` | The 'Account Number' column stores unique identifiers for each account, facilitating efficient tracking and management of customer accounts within the Accounts table. |
+| `AccountID` | `string` | The 'AccountID' column (string) uniquely identifies each account within the Accounts table, facilitating efficient tracking and management of customer information. |
+| `AccountOwnerSeq` | `int64` | The 'AccountOwnerSeq' column (int64) uniquely identifies the sequence number of the owner associated with each account, facilitating efficient tracking and management of account ownership. |
+| `AccountSeq` | `int64` | Column Description: The 'AccountSeq' column (int64) uniquely identifies each account in the Accounts table, serving as a sequential reference for account management and tracking. |
+| `Country` | `string` | The 'Country' column in the 'Accounts' table stores the name of the country associated with each account, facilitating geographic analysis and reporting. |
+| `IndustrySeq` | `int64` | The 'IndustrySeq' column (int64) in the 'Accounts' table uniquely identifies the sequence number associated with the industry classification of each account, facilitating efficient categorization and analysis of account data. |
+| `State or Province` | `string` | Column Description: This column captures the state or province associated with each account, facilitating regional analysis and reporting for business operations. |
+| `TerritorySeq` | `int64` | Column Description: The 'TerritorySeq' column (int64) uniquely identifies the sequence number of the territory associated with each account, facilitating efficient territory management and reporting. |
 
 ---
 
 #### <a name="table-campaigns"></a>Table: `Campaigns`
 
-(Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}})
+The 'Campaigns' table serves as a central repository for tracking marketing initiatives, detailing each campaign's unique identifier, type, and name, enabling businesses to analyze performance and optimize marketing strategies effectively.
 
 ##### Columns
 
 | Name | Data Type | Description (Generated) |
 |------|-----------|-------------------------|
-| `Campaign` | `string` | (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}}) |
-| `Campaign Type` | `string` | (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}}) |
-| `CampaignSeq` | `int64` | (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}}) |
+| `Campaign` | `string` | The 'Campaign' column stores the names or identifiers of marketing campaigns, enabling the tracking and management of various promotional efforts within the Campaigns table. |
+| `Campaign Type` | `string` | The 'Campaign Type' column categorizes the various marketing initiatives within the Campaigns table, enabling targeted analysis and reporting based on the nature of each campaign. |
+| `CampaignSeq` | `int64` | Column Description: The 'CampaignSeq' column (int64) uniquely identifies the sequence number of each marketing campaign within the 'Campaigns' table, facilitating the organization and retrieval of campaign data. |
 
 ---
 
 #### <a name="table-contacts"></a>Table: `Contacts`
 
-(Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}})
+The 'Contacts' table serves as a centralized repository for managing key stakeholder information within the organization, capturing essential details such as individual names, job titles, and their associated account sequences to facilitate effective communication and relationship management. This table supports business operations by enabling teams to easily access and analyze contact data for improved outreach and engagement strategies.
 
 ##### Columns
 
 | Name | Data Type | Description (Generated) |
 |------|-----------|-------------------------|
-| `AccountSeq` | `int64` | (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}}) |
-| `Contact` | `string` | (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}}) |
-| `ContactSeq` | `int64` | (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}}) |
-| `Job Title` | `string` | (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}}) |
+| `AccountSeq` | `int64` | The 'AccountSeq' column (int64) in the 'Contacts' table uniquely identifies the sequence number of the associated account, facilitating the organization and retrieval of contact information linked to specific accounts. |
+| `Contact` | `string` | The 'Contact' column stores the names or identifiers of individuals or organizations associated with each entry in the Contacts table, facilitating effective communication and relationship management. |
+| `ContactSeq` | `int64` | Column Description: The 'ContactSeq' column serves as a unique sequential identifier for each contact entry in the Contacts table, facilitating efficient data retrieval and management. |
+| `Job Title` | `string` | The 'Job Title' column captures the professional designation of each contact, facilitating targeted communication and relationship management within the Contacts table. |
 
 ---
 
 #### <a name="table-industries"></a>Table: `Industries`
 
-(Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}})
+The 'Industries' table serves as a reference dataset that categorizes various sectors of the economy, enabling businesses to analyze performance metrics and trends across different industries. The inclusion of an industry sequence number facilitates efficient sorting and organization of industry data for reporting and analytical purposes.
 
 ##### Columns
 
 | Name | Data Type | Description (Generated) |
 |------|-----------|-------------------------|
-| `Industry` | `string` | (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}}) |
-| `IndustrySeq` | `int64` | (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}}) |
+| `Industry` | `string` | Column Description: This column captures the specific sector or field of economic activity to which a business or organization belongs, facilitating industry classification and analysis. |
+| `IndustrySeq` | `int64` | The 'IndustrySeq' column (int64) serves as a unique identifier for each industry entry in the 'Industries' table, facilitating efficient data retrieval and management. |
 
 ---
 
 #### <a name="table-opportunities"></a>Table: `Opportunities`
 
-(Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}})
+The 'Opportunities' table captures critical information about potential sales deals, enabling businesses to track the progress of each opportunity through the purchase process, assess the likelihood of closing, and evaluate the potential revenue impact. By analyzing key metrics such as sales stage, decision maker identification, and probability of closure, organizations can optimize their sales strategies and improve forecasting accuracy.
 
 ##### Columns
 
 | Name | Data Type | Description (Generated) |
 |------|-----------|-------------------------|
-| `AccountSeq` | `int64` | (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}}) |
-| `CampaignSeq` | `int64` | (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}}) |
-| `CloseDate` | `dateTime` | (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}}) |
-| `DateDiff-Days` | `int64` | (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}}) |
-| `DaysToClose` | `int64` | (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}}) |
-| `Decision Maker Identified` | `boolean` | (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}}) |
-| `Discount` | `double` | (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}}) |
-| `Opportunity Created On` | `dateTime` | (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}}) |
-| `OpportunitySeq` | `int64` | (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}}) |
-| `Probability` | `double` | (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}}) |
-| `Probability (raw)` | `double` | (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}}) |
-| `ProductSeq` | `int64` | (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}}) |
-| `Purchase Process` | `string` | (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}}) |
-| `Rating` | `string` | (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}}) |
-| `Sales Stage` | `string` | (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}}) |
-| `Status` | `string` | (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}}) |
-| `SystemUserSeq` | `int64` | (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}}) |
-| `Value` | `int64` | (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}}) |
+| `AccountSeq` | `int64` | The 'AccountSeq' column (int64) in the 'Opportunities' table uniquely identifies the sequence number of the associated account, facilitating the tracking and management of opportunities linked to specific accounts. |
+| `CampaignSeq` | `int64` | The 'CampaignSeq' column (int64) in the 'Opportunities' table uniquely identifies the sequence number of the marketing campaign associated with each opportunity, facilitating tracking and analysis of campaign effectiveness. |
+| `CloseDate` | `dateTime` | The 'CloseDate' column in the 'Opportunities' table represents the scheduled date and time when a sales opportunity is expected to be finalized or closed. |
+| `DateDiff-Days` | `int64` | Column Description: The 'DateDiff-Days' column represents the number of days between key dates in the opportunity lifecycle, facilitating analysis of time intervals for decision-making and performance evaluation. |
+| `DaysToClose` | `int64` | The 'DaysToClose' column represents the estimated number of days required to finalize a sales opportunity, providing insights into the sales cycle duration for better forecasting and resource allocation. |
+| `Decision Maker Identified` | `boolean` | Indicates whether a decision maker has been identified for the opportunity, facilitating targeted engagement strategies. |
+| `Discount` | `double` | The 'Discount' column (double) in the 'Opportunities' table represents the monetary reduction applied to the total value of an opportunity, facilitating the assessment of pricing strategies and revenue projections. |
+| `Opportunity Created On` | `dateTime` | The 'Opportunity Created On' column records the date and time when each sales opportunity was initiated, providing essential context for tracking the lifecycle and performance of opportunities within the sales pipeline. |
+| `OpportunitySeq` | `int64` | Column Description: The 'OpportunitySeq' column (int64) uniquely identifies each opportunity in the Opportunities table, serving as a sequential reference for tracking and managing sales prospects. |
+| `Probability` | `double` | The 'Probability' column (double) in the 'Opportunities' table represents the likelihood, expressed as a percentage, of successfully closing a sales opportunity, aiding in prioritization and forecasting efforts. |
+| `Probability (raw)` | `double` | The 'Probability (raw)' column represents the unadjusted likelihood, expressed as a double value, of successfully closing each opportunity within the Opportunities table. |
+| `ProductSeq` | `int64` | Column Description: The 'ProductSeq' column (int64) uniquely identifies the sequence of products associated with each opportunity, facilitating the tracking and management of product offerings within the sales pipeline. |
+| `Purchase Process` | `string` | The 'Purchase Process' column captures the current stage or steps involved in the buyer's journey for each opportunity, providing insights into the progression and status of potential sales. |
+| `Rating` | `string` | The 'Rating' column captures qualitative assessments of each opportunity, allowing stakeholders to gauge potential value and prioritize actions accordingly. |
+| `Sales Stage` | `string` | The 'Sales Stage' column indicates the current phase of the sales process for each opportunity, helping to track progress and forecast potential revenue. |
+| `Status` | `string` | The 'Status' column indicates the current stage or condition of each opportunity, helping to track progress and prioritize actions within the sales pipeline. |
+| `SystemUserSeq` | `int64` | Column Description: The 'SystemUserSeq' column (int64) uniquely identifies the system user associated with each opportunity, facilitating user-specific tracking and management within the Opportunities table. |
+| `Value` | `int64` | The 'Value' column (int64) in the 'Opportunities' table represents the monetary worth associated with each opportunity, facilitating financial analysis and decision-making. |
 
 ##### Calculated Columns
 
 **`Blank`** (`string`)
 
-- **Description:** (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}})
+- **Description:** The 'Blank' column in the Opportunities table is intended to hold placeholder or optional string values that may be used for future data enrichment or categorization tasks.
 - **DAX Expression:**
 ```dax
 BLANK()
 ```
-- **DAX Explanation (Generated):** (Error during enrichment for llm_dax_explanation: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}})
+- **DAX Explanation (Generated):** The DAX expression `BLANK()` is used to create a calculated column that contains no value, essentially representing a blank or empty state. 
+
+In business terms, when you use `BLANK()` in a calculated column, you are indicating that there is no relevant data or information to display for that particular row in your dataset. This can be useful in various scenarios, such as:
+
+1. **Placeholder for Missing Data**: If certain conditions are not met or if there is no applicable data for a specific entry, using `BLANK()` allows you to clearly show that the value is intentionally left empty rather than displaying a misleading zero or text.
+
+2. **Data Cleansing**: It helps in cleaning up your data by explicitly marking rows that should not have a value, making it easier to identify and handle these cases in reports or visualizations.
+
+3. **Conditional Logic**: You might use `BLANK()` in conjunction with other DAX functions to create more complex logic, where certain calculations only return a value under specific conditions, and return blank otherwise.
+
+Overall, `BLANK()` is a straightforward way to manage and represent the absence of data in your calculations, ensuring clarity and accuracy in your reports.
 
 **`Days Remaining In Pipeline`** (`string`)
 
-- **Description:** (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}})
+- **Description:** Column Description: This column indicates the number of days left for each opportunity to progress through the sales pipeline, helping stakeholders prioritize and manage their sales efforts effectively.
 - **DAX Expression:**
 ```dax
 IF(Opportunities[Status]="Open", DATEDIFF(TODAY(),Opportunities[CloseDate],DAY),0)
 ```
-- **DAX Explanation (Generated):** (Error during enrichment for llm_dax_explanation: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}})
+- **DAX Explanation (Generated):** This DAX code snippet is used to create a calculated column called 'Days Remaining In Pipeline' for a dataset of opportunities. Here's a breakdown of what it does in simple business terms:
+
+1. **Condition Check**: The expression starts with an `IF` statement that checks if the status of an opportunity is "Open". This means it only considers opportunities that are currently active and not yet closed.
+
+2. **Calculating Days Remaining**: If the opportunity is "Open", the code calculates the number of days remaining until the opportunity's close date. It does this using the `DATEDIFF` function, which finds the difference between today's date (`TODAY()`) and the opportunity's `CloseDate`. The result is expressed in days.
+
+3. **Returning Zero for Closed Opportunities**: If the opportunity is not "Open" (meaning it is either closed or in another status), the expression returns a value of 0. This indicates that there are no days remaining in the pipeline for opportunities that are not active.
+
+### Summary:
+In summary, this DAX expression calculates how many days are left until an open opportunity is expected to close. If the opportunity is closed or not active, it simply returns 0. This helps businesses track how much time is left to potentially convert open opportunities into sales.
 
 **`Days Remaining In Pipeline (bins)`** (`string`)
 
-- **Description:** (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}})
+- **Description:** Column Description: This column categorizes the remaining days in the sales pipeline into predefined bins, facilitating quick assessment of opportunity urgency and prioritization for sales teams.
 
 **`Weeks Open`** (`string`)
 
-- **Description:** (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}})
+- **Description:** The 'Weeks Open' column indicates the duration, in weeks, that each opportunity has been active or available for engagement, represented as a string for flexibility in formatting.
 
 ##### Measures
 
@@ -184,7 +205,24 @@ IF(Opportunities[Status]="Open", DATEDIFF(TODAY(),Opportunities[CloseDate],DAY),
 ```dax
 [Count of Won]/([Count of Won]+[Count of Lost])
 ```
-- **DAX Explanation (Generated):** (Error during enrichment for llm_dax_explanation: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}})
+- **DAX Explanation (Generated):** The DAX expression you provided calculates the "Close %" measure, which represents the percentage of successful sales or deals that were won compared to the total number of deals (both won and lost).
+
+Here's a breakdown of the components:
+
+1. **[Count of Won]**: This part counts the number of deals that were successfully closed (won).
+
+2. **[Count of Lost]**: This part counts the number of deals that were not successful (lost).
+
+3. **([Count of Won] + [Count of Lost])**: This adds together the number of won and lost deals to get the total number of deals that were considered.
+
+4. **[Count of Won] / ([Count of Won] + [Count of Lost])**: Finally, this divides the number of won deals by the total number of deals (won + lost). 
+
+### What It Achieves:
+- The result of this calculation is a decimal value that represents the proportion of deals that were won out of all deals. 
+- To express it as a percentage, you would typically multiply the result by 100.
+- This measure helps businesses understand their success rate in closing deals. A higher percentage indicates a more effective sales process, while a lower percentage may suggest areas for improvement in sales strategies or customer engagement.
+
+In summary, the "Close %" measure provides insight into the effectiveness of the sales team by showing how many deals were successfully closed compared to the total number of deals pursued.
 
 **`Count of Lost`**
 
@@ -197,7 +235,18 @@ COUNTAX(
 			    Opportunities[OpportunitySeq]
 			    )
 ```
-- **DAX Explanation (Generated):** (Error during enrichment for llm_dax_explanation: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}})
+- **DAX Explanation (Generated):** This DAX code snippet is designed to calculate the number of opportunities that have a status of "Lost" within a dataset called "Opportunities." Here's a breakdown of what each part of the code does in simple business terms:
+
+1. **COUNTAX**: This function counts the number of rows that meet certain criteria. In this case, it will count the opportunities that are filtered based on their status.
+
+2. **FILTER**: This function is used to create a subset of the data. It looks at the "Opportunities" table and filters it down to only those rows where the "Status" column equals "Lost." Essentially, it narrows down the dataset to just the opportunities that have been marked as lost.
+
+3. **KEEPCFILTERS**: This function ensures that any existing filters applied to the "Opportunities" table remain in effect while applying the new filter for lost opportunities. This means that if there are other filters (like date ranges or sales regions) already applied, they will still be considered in the calculation.
+
+4. **Opportunities[OpportunitySeq]**: This refers to a specific column in the "Opportunities" table, which likely contains a unique identifier for each opportunity. The COUNTAX function will count the number of these unique identifiers in the filtered dataset.
+
+### Summary:
+In summary, this DAX measure calculates the total number of opportunities that have been marked as "Lost," while respecting any other filters that may be applied to the data. This helps businesses understand how many potential sales they have lost over a specific period or under certain conditions, allowing for better analysis and decision-making.
 
 **`Count of Won`**
 
@@ -210,7 +259,18 @@ COUNTAX(
 			    Opportunities[OpportunitySeq]
 			    )
 ```
-- **DAX Explanation (Generated):** (Error during enrichment for llm_dax_explanation: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}})
+- **DAX Explanation (Generated):** This DAX code snippet is designed to calculate the total number of opportunities that have been marked as "Won" in a dataset, specifically from a table called `Opportunities`. Here's a breakdown of what each part does in simple business terms:
+
+1. **COUNTAX**: This function counts the number of rows that meet certain criteria. In this case, it will count the opportunities that are filtered based on their status.
+
+2. **FILTER**: This function is used to create a subset of the `Opportunities` table. It filters the data to include only those rows where the `Status` column equals "Won". Essentially, it narrows down the list to just the opportunities that have been successfully closed.
+
+3. **KEEPIFILTERS**: This function ensures that any existing filters applied to the `Opportunities` table remain in effect while adding the new filter for "Won" opportunities. This is important because it allows the measure to respect any other context or filters that might be applied in a report or dashboard.
+
+4. **Opportunities[OpportunitySeq]**: This is the column being counted. It represents a unique identifier for each opportunity. By counting this column, the measure effectively counts how many opportunities have the status "Won".
+
+### Summary:
+In summary, this DAX measure counts the number of opportunities that have been successfully won, while also respecting any other filters that might be applied to the data. This helps businesses understand how many deals they have successfully closed, which is crucial for sales performance analysis.
 
 **`Forecast`**
 
@@ -218,7 +278,23 @@ COUNTAX(
 ```dax
 ([Revenue Won]+[Revenue In Pipeline])
 ```
-- **DAX Explanation (Generated):** (Error during enrichment for llm_dax_explanation: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}})
+- **DAX Explanation (Generated):** This DAX expression is a simple calculation that combines two key components of revenue for a business:
+
+1. **Revenue Won**: This represents the total amount of revenue that has already been secured or confirmed from sales. It includes all the deals that have been successfully closed and are expected to generate income.
+
+2. **Revenue In Pipeline**: This refers to the potential revenue that is expected from deals that are currently in progress but have not yet been finalized. This could include negotiations, proposals, or any sales opportunities that are likely to close in the future.
+
+### What the Expression Achieves:
+
+The expression `([Revenue Won] + [Revenue In Pipeline])` calculates the total expected revenue by adding the revenue that has already been won to the revenue that is still in the pipeline. 
+
+### In Business Terms:
+
+- **Total Expected Revenue**: This measure gives a comprehensive view of the revenue situation by showing both what has been achieved and what is anticipated. 
+- **Forecasting**: By combining these two figures, the business can better forecast its financial performance, helping in planning and decision-making.
+- **Sales Performance Insight**: It provides insights into the effectiveness of the sales team and the health of the sales pipeline, allowing management to assess current performance and future potential.
+
+In summary, this DAX expression helps businesses understand their total revenue potential by considering both confirmed sales and future opportunities.
 
 **`Forecast %`**
 
@@ -226,7 +302,20 @@ COUNTAX(
 ```dax
 (([Revenue Won]+[Revenue In Pipeline]))/ [Rev Goal]
 ```
-- **DAX Explanation (Generated):** (Error during enrichment for llm_dax_explanation: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}})
+- **DAX Explanation (Generated):** This DAX code snippet calculates a measure called 'Forecast %', which represents the percentage of revenue that is expected to be achieved compared to a predefined revenue goal. Here’s a breakdown of what each part of the expression does:
+
+1. **Revenue Won**: This is the total revenue that has already been successfully secured or closed. It represents the sales that have been finalized.
+
+2. **Revenue In Pipeline**: This refers to the potential revenue from deals that are currently in progress but have not yet been finalized. It includes opportunities that are expected to close in the future.
+
+3. **Rev Goal**: This is the revenue target or goal that the business aims to achieve within a specific period.
+
+### What the Expression Does:
+- The expression adds together the **Revenue Won** and **Revenue In Pipeline** to get a total of expected revenue.
+- It then divides this total by the **Rev Goal** to calculate what percentage of the revenue goal has been achieved or is expected to be achieved.
+
+### In Simple Terms:
+The 'Forecast %' measure tells you how much of your revenue target you have already achieved (through closed deals) and how much you expect to achieve (from ongoing deals). It gives a clear picture of your progress towards your revenue goal, expressed as a percentage. For example, if the result is 75%, it means you are on track to achieve 75% of your revenue goal based on current and expected sales.
 
 **`Forecast by Win/Loss Ratio`**
 
@@ -234,7 +323,16 @@ COUNTAX(
 ```dax
 [Revenue Open] * [Close %]
 ```
-- **DAX Explanation (Generated):** (Error during enrichment for llm_dax_explanation: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}})
+- **DAX Explanation (Generated):** The DAX expression you've provided is a simple calculation that combines two measures: `[Revenue Open]` and `[Close %]`. Here's a breakdown of what it does in straightforward business terms:
+
+1. **[Revenue Open]**: This measure likely represents the total revenue that is currently open or available for potential sales. It could be the revenue from deals that are still in the pipeline and have not yet been finalized.
+
+2. **[Close %]**: This measure represents the percentage likelihood that the open revenue will be successfully closed or converted into actual sales. It reflects the probability of winning those deals.
+
+3. **Calculation**: The expression multiplies these two measures together:
+   - By multiplying the total open revenue by the close percentage, the expression calculates the expected revenue that is likely to be realized from the open opportunities. 
+
+In summary, this DAX expression estimates the potential revenue that a business can expect to earn from its current open deals, based on the likelihood of closing those deals successfully. It helps in forecasting revenue and understanding the effectiveness of the sales pipeline.
 
 **`Opportunity Count`**
 
@@ -253,7 +351,20 @@ CALCULATE (
 			        )
 			    )
 ```
-- **DAX Explanation (Generated):** (Error during enrichment for llm_dax_explanation: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}})
+- **DAX Explanation (Generated):** This DAX code snippet is designed to calculate the number of opportunities in a sales pipeline that are currently open. Let's break it down step by step in simple business terms:
+
+1. **CALCULATE Function**: This function is used to modify the context in which data is evaluated. In this case, it is being used to count specific records based on certain conditions.
+
+2. **COUNT Function**: The `COUNT(Opportunities[Value])` part counts the number of entries in the "Value" column of the "Opportunities" table. This means it is counting how many opportunities have a value associated with them.
+
+3. **FILTER Function**: The `FILTER(Opportunities, ...)` part is used to narrow down the opportunities to only those that meet specific criteria. 
+
+4. **Opportunities[Status] = "Open"**: This condition within the FILTER function specifies that we only want to include opportunities that have a status of "Open." This means we are interested in opportunities that are still active and have not been closed or lost.
+
+5. **Commented Out Condition**: The line `--  && Opportunities[PipelineStep] IN { "3-Pipeline", "4-Mandate", "5-Close" }` is commented out, which means it is not currently being used in the calculation. If it were active, it would further filter the opportunities to only include those that are at specific stages in the pipeline (3-Pipeline, 4-Mandate, or 5-Close). However, since it is commented out, the measure currently only considers the "Open" status.
+
+### Summary:
+In summary, this DAX measure calculates the total number of active (open) sales opportunities in the pipeline. It helps businesses understand how many potential deals are still in play, which is crucial for sales forecasting and pipeline management.
 
 **`Revenue In Pipeline`**
 
@@ -271,7 +382,17 @@ VAR Revenue =
 			RETURN
 			    Revenue + ( Revenue * ( 'Opportunity Forecast Adjustment'[Forecast Adjustment Value] / 100 ) )
 ```
-- **DAX Explanation (Generated):** (Error during enrichment for llm_dax_explanation: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}})
+- **DAX Explanation (Generated):** This DAX code snippet calculates a measure called "Revenue In Pipeline," which represents the potential revenue from sales opportunities that are currently open and at a certain stage in the sales process. Here’s a breakdown of what it does in simple business terms:
+
+1. **Identify Open Opportunities**: The code first looks at a table called `Opportunities`, which contains various sales opportunities. It filters this table to only include opportunities that are currently "Open" and have a sales stage that is considered advanced (specifically, where the first character of the `Sales Stage` is 2 or higher).
+
+2. **Calculate Total Value**: For the filtered opportunities, it sums up their values (the potential revenue associated with each opportunity). This total is stored in a variable called `Revenue`.
+
+3. **Adjust for Forecasting**: After calculating the total revenue from the open opportunities, the code applies a forecast adjustment. This adjustment is taken from another table called `Opportunity Forecast Adjustment`, which contains a percentage value that represents how much the forecasted revenue should be adjusted (either increased or decreased).
+
+4. **Final Calculation**: The final result adds the original calculated revenue to the adjusted amount (which is the original revenue multiplied by the forecast adjustment percentage). This gives a final figure that reflects both the current potential revenue and any adjustments based on forecasting.
+
+In summary, this DAX measure calculates the expected revenue from open sales opportunities, factoring in adjustments based on forecasted changes, providing a more accurate picture of potential future revenue.
 
 **`Revenue Open`**
 
@@ -286,7 +407,15 @@ CALCULATE(
 			     FILTER(Opportunities, Opportunities[Status] = "Won")
 			 )
 ```
-- **DAX Explanation (Generated):** (Error during enrichment for llm_dax_explanation: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}})
+- **DAX Explanation (Generated):** This DAX code snippet is used to create a measure called 'Revenue Won', which calculates the total revenue from opportunities that have been marked as "Won". Here’s a breakdown of what it does in simple business terms:
+
+1. **SUMX Function**: The `SUMX` function is used to iterate over a table—in this case, the `Opportunities` table. For each opportunity, it takes the value from the `Opportunities[Value]` column and sums them up. Essentially, it calculates the total value of all opportunities.
+
+2. **FILTER Function**: The `FILTER` function is applied to the `Opportunities` table to narrow down the data. It only includes those opportunities where the `Opportunities[Status]` is equal to "Won". This means that only the opportunities that have been successfully closed and marked as won will be considered in the calculation.
+
+3. **CALCULATE Function**: The `CALCULATE` function modifies the context in which the data is evaluated. It takes the result of the `SUMX` function and applies the filter created by the `FILTER` function. This means that the total revenue calculated will only include the values from opportunities that have been won.
+
+In summary, this DAX measure calculates the total revenue generated from all opportunities that have been successfully closed as "Won". It helps businesses understand how much revenue they have secured from their sales efforts.
 
 **`Revenue Won Average Deal Size`**
 
@@ -294,56 +423,77 @@ CALCULATE(
 ```dax
 AVERAGEX(Opportunities,[Revenue Won])
 ```
-- **DAX Explanation (Generated):** (Error during enrichment for llm_dax_explanation: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}})
+- **DAX Explanation (Generated):** The DAX expression you've provided calculates the average deal size of revenue won from opportunities. Let's break it down:
+
+1. **AVERAGEX**: This is a DAX function that calculates the average of a set of values. It takes two arguments: a table (or a set of rows) and an expression that defines what to average.
+
+2. **Opportunities**: This refers to a table or a dataset that contains information about various sales opportunities. Each row in this table represents a different sales opportunity.
+
+3. **[Revenue Won]**: This is a measure or a column within the Opportunities table that represents the revenue that has been successfully won from each opportunity. It indicates how much money was generated from each sale that was closed.
+
+Putting it all together, the expression `AVERAGEX(Opportunities,[Revenue Won])` calculates the average revenue won across all the opportunities in the dataset. 
+
+### In simple business terms:
+This measure helps a business understand how much revenue, on average, is generated from each successful sale. By knowing the average deal size, the company can better assess its sales performance, set realistic sales targets, and make informed decisions about future sales strategies.
 
 ---
 
 #### <a name="table-opportunity-calendar"></a>Table: `Opportunity Calendar`
 
-(Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}})
+The 'Opportunity Calendar' table serves as a comprehensive time-based reference for tracking and analyzing business opportunities, enabling users to filter and segment data by various time dimensions such as day, week, month, and year. This facilitates strategic planning and performance assessment by aligning opportunity data with specific timeframes for enhanced decision-making.
 
 ##### Columns
 
 | Name | Data Type | Description (Generated) |
 |------|-----------|-------------------------|
-| `Date` | `string` | (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}}) |
-| `DAY` | `string` | (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}}) |
-| `DaySeq` | `string` | (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}}) |
-| `MONTH` | `string` | (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}}) |
-| `MONTH NUMBER` | `string` | (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}}) |
-| `RELATIVE 07 DAY PERIOD` | `string` | (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}}) |
-| `RELATIVE 30 DAY PERIOD` | `string` | (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}}) |
-| `RELATIVE DAY` | `string` | (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}}) |
-| `RELATIVE MONTH` | `string` | (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}}) |
-| `RELATIVE WEEK` | `string` | (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}}) |
-| `WEEK` | `string` | (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}}) |
-| `YEAR` | `string` | (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}}) |
-| `YEAR MONTH` | `string` | (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}}) |
-| `YEAR MONTH NUMBER` | `string` | (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}}) |
-| `YEAR WEEK` | `string` | (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}}) |
+| `Date` | `string` | The 'Date' column in the Opportunity Calendar table represents the scheduled date for each enrichment task, formatted as a string to facilitate easy integration and display in various reporting tools. |
+| `DAY` | `string` | The 'DAY' column in the 'Opportunity Calendar' table represents the specific day of the week or month associated with each scheduled opportunity, facilitating effective planning and resource allocation for enrichment tasks. |
+| `DaySeq` | `string` | The 'DaySeq' column represents a sequential identifier for each day in the Opportunity Calendar, facilitating the organization and tracking of scheduled events or tasks. |
+| `MONTH` | `string` | The 'MONTH' column (string) in the 'Opportunity Calendar' table represents the name of the month associated with each scheduled opportunity, facilitating time-based analysis and planning for enrichment tasks. |
+| `MONTH NUMBER` | `string` | The 'MONTH NUMBER' column (string) in the 'Opportunity Calendar' table represents the numerical designation of each month, facilitating the organization and analysis of opportunities by their corresponding month in a calendar year. |
+| `RELATIVE 07 DAY PERIOD` | `string` | The 'RELATIVE 07 DAY PERIOD' column in the Opportunity Calendar table captures a string representation of a specific seven-day timeframe relative to key opportunity dates, facilitating the scheduling and tracking of related tasks and events. |
+| `RELATIVE 30 DAY PERIOD` | `string` | The 'RELATIVE 30 DAY PERIOD' column indicates the timeframe, expressed as a string, that reflects the last 30 days relative to the current date for scheduling and tracking opportunity-related activities in the Opportunity Calendar. |
+| `RELATIVE DAY` | `string` | The 'RELATIVE DAY' column in the Opportunity Calendar table represents a string identifier that indicates the specific day relative to a defined event or timeframe, facilitating the scheduling and tracking of related tasks. |
+| `RELATIVE MONTH` | `string` | The 'RELATIVE MONTH' column in the Opportunity Calendar table indicates the month relative to the current date, facilitating the scheduling and tracking of opportunity-related activities over time. |
+| `RELATIVE WEEK` | `string` | The 'RELATIVE WEEK' column indicates the week number relative to a specified reference date, facilitating the scheduling and tracking of opportunity-related activities within the Opportunity Calendar. |
+| `WEEK` | `string` | The 'WEEK' column (string) in the 'Opportunity Calendar' table represents the specific week identifier for scheduling and tracking enrichment tasks related to business opportunities. |
+| `YEAR` | `string` | The 'YEAR' column (string) in the Opportunity Calendar table represents the specific year associated with each scheduled opportunity, facilitating time-based analysis and planning for enrichment tasks. |
+| `YEAR MONTH` | `string` | The 'YEAR MONTH' column (string) in the Opportunity Calendar table represents the specific year and month for scheduling and tracking enrichment tasks related to business opportunities. |
+| `YEAR MONTH NUMBER` | `string` | The 'YEAR MONTH NUMBER' column (string) in the Opportunity Calendar table represents a concatenated identifier of the year and month, facilitating the organization and tracking of opportunities over time. |
+| `YEAR WEEK` | `string` | The 'YEAR WEEK' column represents the specific year and week number for each opportunity, facilitating the scheduling and tracking of calendar events related to sales activities. |
 
 ---
 
 #### <a name="table-opportunity-forecast-adjustment"></a>Table: `Opportunity Forecast Adjustment`
 
-(Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}})
+The 'Opportunity Forecast Adjustment' table is designed to capture and manage modifications to sales forecasts, enabling businesses to refine their revenue projections based on updated insights or strategic decisions. This table facilitates better decision-making by providing a clear record of adjustments made to forecasted opportunities, ensuring alignment with organizational goals.
 
 ##### Columns
 
 | Name | Data Type | Description (Generated) |
 |------|-----------|-------------------------|
-| `Forecast Adjustment` | `string` | (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}}) |
+| `Forecast Adjustment` | `string` | The 'Forecast Adjustment' column captures qualitative notes or explanations regarding modifications made to the projected sales forecasts for specific opportunities. |
 
 ##### Calculated Columns
 
 **`Blank`** (`string`)
 
-- **Description:** (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}})
+- **Description:** The 'Blank' column in the 'Opportunity Forecast Adjustment' table is intended for future use or notes, allowing for flexibility in data entry without impacting the overall forecasting metrics.
 - **DAX Expression:**
 ```dax
 1
 ```
-- **DAX Explanation (Generated):** (Error during enrichment for llm_dax_explanation: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}})
+- **DAX Explanation (Generated):** The DAX expression you provided is simply the number `1`. 
+
+In the context of a calculated column in a data model, this means that for every row in the table where this calculated column is created, the value of that column will be `1`. 
+
+### What it achieves:
+- **Uniform Value**: Every row will have the same value of `1`, which can be useful for various purposes, such as:
+  - **Counting**: If you want to count the number of rows later, you can sum this column to get the total number of rows.
+  - **Flagging**: It can serve as a flag or marker to indicate that a row exists or to differentiate it from other rows that might have different values.
+  - **Joining or Grouping**: It can be used in calculations where you need a constant value for grouping or joining with other tables.
+
+In summary, this DAX expression creates a calculated column where every entry is `1`, which can be leveraged for counting or as a simple indicator across all rows in the dataset.
 
 ##### Measures
 
@@ -353,7 +503,19 @@ AVERAGEX(Opportunities,[Revenue Won])
 ```dax
 CONCATENATE("Use the slicer to adjust the forecast, current value is ", 'Opportunity Forecast Adjustment'[Forecast Adjustment Value])
 ```
-- **DAX Explanation (Generated):** (Error during enrichment for llm_dax_explanation: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}})
+- **DAX Explanation (Generated):** This DAX code snippet is designed to create a text message that provides guidance to users about how to interact with a forecast adjustment feature in a report or dashboard.
+
+Here's a breakdown of what it does:
+
+1. **CONCATENATE Function**: The function is used to combine two pieces of text into one continuous string. In this case, it combines a fixed message with a dynamic value.
+
+2. **Fixed Message**: The first part of the text is a static message: "Use the slicer to adjust the forecast, current value is ". This part informs the user that they can use a slicer (a filtering tool) to modify the forecast.
+
+3. **Dynamic Value**: The second part of the text pulls in a value from a specific data field: `'Opportunity Forecast Adjustment'[Forecast Adjustment Value]`. This field likely contains the current forecast adjustment value that has been set or calculated.
+
+4. **Overall Purpose**: The entire expression results in a message that tells users what they can do (adjust the forecast using the slicer) and provides them with the current value of the forecast adjustment. 
+
+In simple terms, this DAX expression helps users understand how to interact with the forecast adjustment feature by showing them the current adjustment value and encouraging them to use the slicer to make changes.
 
 **`Forecast Adjustment Value`**
 
@@ -361,22 +523,36 @@ CONCATENATE("Use the slicer to adjust the forecast, current value is ", 'Opportu
 ```dax
 SELECTEDVALUE('Opportunity Forecast Adjustment'[Forecast Adjustment], 0)
 ```
-- **DAX Explanation (Generated):** (Error during enrichment for llm_dax_explanation: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}})
+- **DAX Explanation (Generated):** The DAX expression you provided is used to retrieve a specific value from a column in a data table, and it has a fallback option if no value is selected. Here’s a breakdown of what it does in simple business terms:
+
+1. **Context of Use**: This expression is likely used in a report or dashboard where users can select different forecast adjustments related to opportunities in a business context, such as sales forecasts.
+
+2. **SELECTEDVALUE Function**: The `SELECTEDVALUE` function is designed to return the value of a column when there is a single value selected. If there are multiple values selected or no value selected at all, it will return a default value instead.
+
+3. **Column Reference**: In this case, the column being referenced is `'Opportunity Forecast Adjustment'[Forecast Adjustment]`. This means the function is looking at the "Forecast Adjustment" column in the "Opportunity Forecast Adjustment" table.
+
+4. **Default Value**: The second part of the function, `0`, is the default value that will be returned if no specific forecast adjustment is selected. This means that if a user hasn’t made a selection, the measure will assume a value of zero.
+
+### What It Achieves:
+- **Single Value Retrieval**: The expression effectively retrieves the currently selected forecast adjustment value for opportunities. If a user has selected a specific adjustment, that value will be used in calculations.
+- **Fallback to Zero**: If no adjustment is selected, it ensures that the measure does not break or return an error; instead, it defaults to zero, which can be useful for calculations that depend on this value.
+
+In summary, this DAX expression helps in dynamically capturing user-selected forecast adjustments while ensuring that the calculations remain robust by providing a default value when necessary.
 
 ---
 
 #### <a name="table-owners"></a>Table: `Owners`
 
-(Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}})
+The 'Owners' table serves to track the ownership and management structure within the organization, detailing each owner's identity alongside their respective manager and system user identifiers. This information is crucial for understanding accountability and facilitating communication across teams.
 
 ##### Columns
 
 | Name | Data Type | Description (Generated) |
 |------|-----------|-------------------------|
-| `Manager` | `string` | (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}}) |
-| `Owner` | `string` | (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}}) |
-| `systemuserid` | `string` | (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}}) |
-| `SystemUserSeq` | `int64` | (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}}) |
+| `Manager` | `string` | The 'Manager' column identifies the individual responsible for overseeing the ownership and operational activities associated with each entry in the Owners table. |
+| `Owner` | `string` | The 'Owner' column identifies the individual or entity responsible for managing or overseeing the associated records within the Owners table. |
+| `systemuserid` | `string` | The 'systemuserid' column stores the unique identifier for each owner in the Owners table, facilitating the tracking and management of ownership relationships within the system. |
+| `SystemUserSeq` | `int64` | Column Description: The 'SystemUserSeq' column (int64) uniquely identifies the sequence number of the system user associated with each owner record in the Owners table. |
 
 ##### Measures
 
@@ -398,37 +574,52 @@ VAR RevenueInPipeline =
 			RETURN
 			IF(BaseGoal > 0, BaseGoal, MROUND(([Revenue Won]+ (RevenueInPipeline*.60)),100000))
 ```
-- **DAX Explanation (Generated):** (Error during enrichment for llm_dax_explanation: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}})
+- **DAX Explanation (Generated):** This DAX code snippet is designed to calculate a revenue goal for a business based on current opportunities and past performance. Let's break it down step by step in simple business terms:
+
+1. **Revenue in Pipeline Calculation**:
+   - The first part of the code calculates the total potential revenue from opportunities that are currently "Open" and have a sales stage that is considered advanced (indicated by the first character of the sales stage being 2 or higher).
+   - It uses the `SUMX` function to sum up the values of these opportunities, which means it is looking at each opportunity's value and adding them together to get a total.
+
+2. **Base Goal Calculation**:
+   - The second part of the code calculates a "Base Goal" for revenue. This is done by taking the total revenue that has already been won (`Revenue Won`) and adding 60% of the revenue in the pipeline calculated earlier.
+   - The result is then rounded to the nearest million using the `MROUND` function. This rounding helps in setting a more manageable and realistic revenue target.
+
+3. **Final Goal Output**:
+   - Finally, the code checks if the calculated `Base Goal` is greater than zero. If it is, that value is returned as the final measure.
+   - If the `Base Goal` is not greater than zero, it defaults to a slightly different calculation, rounding the same revenue figure to the nearest hundred thousand instead.
+
+### Summary:
+In summary, this DAX measure calculates a revenue goal by considering both the revenue already won and a portion of the potential revenue from open opportunities. It ensures that the goal is presented in a rounded format for clarity and practicality. The end result is a target that reflects both past performance and current sales potential, helping the business set realistic revenue expectations.
 
 ---
 
 #### <a name="table-products"></a>Table: `Products`
 
-(Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}})
+The 'Products' table serves as a comprehensive inventory catalog, detailing each product's unique identifier, sequence number, and associated category, enabling businesses to efficiently manage and analyze their product offerings for improved sales strategies and inventory control.
 
 ##### Columns
 
 | Name | Data Type | Description (Generated) |
 |------|-----------|-------------------------|
-| `Product` | `string` | (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}}) |
-| `Product Category` | `string` | (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}}) |
-| `ProductSeq` | `int64` | (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}}) |
+| `Product` | `string` | Column Description: The 'Product' column contains the names of items available for sale, serving as a key identifier for inventory management and sales tracking within the Products table. |
+| `Product Category` | `string` | The 'Product Category' column categorizes each product within the 'Products' table, enabling efficient organization and retrieval of items based on their classification. |
+| `ProductSeq` | `int64` | Column Description: The 'ProductSeq' column serves as a unique sequential identifier for each product in the 'Products' table, facilitating efficient data retrieval and management. |
 
 ---
 
 #### <a name="table-territories"></a>Table: `Territories`
 
-(Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}})
+The 'Territories' table provides a structured overview of geographical divisions within a business's operational landscape, detailing regions, countries, and states or provinces. This information is essential for analyzing market coverage, optimizing sales strategies, and enhancing regional performance assessments.
 
 ##### Columns
 
 | Name | Data Type | Description (Generated) |
 |------|-----------|-------------------------|
-| `Country` | `string` | (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}}) |
-| `Region` | `string` | (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}}) |
-| `State Or Province` | `string` | (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}}) |
-| `Territory` | `string` | (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}}) |
-| `TerritorySeq` | `string` | (Error during enrichment for llm_description: Error code: 404 - {'error': {'code': '404', 'message': 'Resource not found'}}) |
+| `Country` | `string` | Column Description: This column stores the name of the country associated with each territory, facilitating geographic categorization and analysis of regional data. |
+| `Region` | `string` | The 'Region' column identifies the geographical area associated with each territory, facilitating regional analysis and strategic planning. |
+| `State Or Province` | `string` | Column Description: This column captures the name of the state or province associated with each territory, facilitating regional analysis and reporting. |
+| `Territory` | `string` | The 'Territory' column identifies specific geographic regions or areas assigned for sales, marketing, or operational purposes within the Territories table. |
+| `TerritorySeq` | `string` | The 'TerritorySeq' column stores a unique string identifier for each territory, facilitating efficient tracking and management of territorial assignments within the organization. |
 
 ---
 

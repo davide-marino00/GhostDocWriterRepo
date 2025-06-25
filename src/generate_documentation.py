@@ -17,8 +17,6 @@ from langchain_core.runnables import RunnableSequence
 from . import config
 from . import markdown_generator
 
-
-
 try:
     from .pbi_data_models import (
         Table, Column, CalculatedColumn, Measure, Relationship, Annotation,
@@ -284,6 +282,13 @@ def initialize_llm() -> Optional[AzureChatOpenAI]:
                 config.AZURE_OPENAI_CHAT_DEPLOYMENT_NAME]):
         print("Error: Missing Azure OpenAI environment variables (loaded from config).")
         return None
+        # --- ADD THIS DEBUGGING BLOCK ---
+    print("\n--- DEBUGGING AZURE PARAMETERS ---")
+    print(f"Endpoint being sent: '{config.AZURE_OPENAI_ENDPOINT}'")
+    print(f"Deployment Name being sent: '{config.AZURE_OPENAI_CHAT_DEPLOYMENT_NAME}'")
+    print(f"API Version being sent: '{config.AZURE_OPENAI_API_VERSION}'")
+    print("------------------------------------\n")
+    # --- END OF DEBUGGING BLOCK ---
     try:
         llm = AzureChatOpenAI(
             azure_deployment=config.AZURE_OPENAI_CHAT_DEPLOYMENT_NAME,
@@ -352,7 +357,6 @@ async def generate_model_overview(llm: AzureChatOpenAI,
             to_table_visible = any(t.name == rel.toTable and not t.isHidden for t in tables)
             if rel.isActive and from_table_visible and to_table_visible:
                 if len(rel_summaries) >= 10: rel_summaries.append("..."); 
-                break
                 rel_summaries.append(f"'{rel.fromTable}' -> '{rel.toTable}' (on {rel.fromColumn}/{rel.toColumn})")
         relationship_summary_str = "\n".join(f"- {s}" for s in rel_summaries) or "- (No active relationships between visible tables found)"
         print("  Invoking LLM for overview (async)...")

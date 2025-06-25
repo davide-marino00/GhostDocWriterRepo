@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # GhostDocWriter: AI-Powered Power BI Documentation
 
 **An AI-powered tool to automatically generate documentation for your Power BI models using Azure OpenAI and TMDL metadata.**

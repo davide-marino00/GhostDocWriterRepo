@@ -16,68 +16,7 @@
             "entity": "Opportunity Calendar",
             "property": "RELATIVE MONTH"
           },
-          "filter_definition": {
-            "Version": 2,
-            "From": [
-              {
-                "Name": "o",
-                "Entity": "Opportunity Calendar",
-                "Type": 0
-              }
-            ],
-            "Where": [
-              {
-                "Condition": {
-                  "And": {
-                    "Left": {
-                      "Comparison": {
-                        "ComparisonKind": 2,
-                        "Left": {
-                          "Column": {
-                            "Expression": {
-                              "SourceRef": {
-                                "Source": "o"
-                              }
-                            },
-                            "Property": "RELATIVE MONTH"
-                          }
-                        },
-                        "Right": {
-                          "Literal": {
-                            "Value": "-8L"
-                          }
-                        }
-                      }
-                    },
-                    "Right": {
-                      "Not": {
-                        "Expression": {
-                          "Comparison": {
-                            "ComparisonKind": 0,
-                            "Left": {
-                              "Column": {
-                                "Expression": {
-                                  "SourceRef": {
-                                    "Source": "o"
-                                  }
-                                },
-                                "Property": "RELATIVE MONTH"
-                              }
-                            },
-                            "Right": {
-                              "Literal": {
-                                "Value": "null"
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            ]
-          },
+          "filter_definition": "(`RELATIVE MONTH` > -8 AND NOT (`RELATIVE MONTH` = null))",
           "llm_explanation": null
         },
         {
@@ -88,7 +27,7 @@
             "entity": "Opportunities",
             "property": "Sales Stage"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         },
         {
@@ -99,7 +38,7 @@
             "entity": "Products",
             "property": "Product Category"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         },
         {
@@ -110,7 +49,7 @@
             "entity": "Owners",
             "property": "Owner"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         },
         {
@@ -121,7 +60,7 @@
             "entity": "Products",
             "property": "Product"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         },
         {
@@ -132,7 +71,7 @@
             "entity": "Products",
             "property": "Product Category"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         }
       ],
@@ -270,40 +209,7 @@
                 "entity": "Opportunity Calendar",
                 "property": "RELATIVE MONTH"
               },
-              "filter_definition": {
-                "Version": 2,
-                "From": [
-                  {
-                    "Name": "o",
-                    "Entity": "Opportunity Calendar",
-                    "Type": 0
-                  }
-                ],
-                "Where": [
-                  {
-                    "Condition": {
-                      "Comparison": {
-                        "ComparisonKind": 3,
-                        "Left": {
-                          "Column": {
-                            "Expression": {
-                              "SourceRef": {
-                                "Source": "o"
-                              }
-                            },
-                            "Property": "RELATIVE MONTH"
-                          }
-                        },
-                        "Right": {
-                          "Literal": {
-                            "Value": "0L"
-                          }
-                        }
-                      }
-                    }
-                  }
-                ]
-              },
+              "filter_definition": "`RELATIVE MONTH` >= 0",
               "llm_explanation": null
             }
           ],
@@ -344,40 +250,7 @@
                 "entity": "Owners",
                 "property": "[Rev Goal]"
               },
-              "filter_definition": {
-                "Version": 2,
-                "From": [
-                  {
-                    "Name": "o",
-                    "Entity": "Owners",
-                    "Type": 0
-                  }
-                ],
-                "Where": [
-                  {
-                    "Condition": {
-                      "Comparison": {
-                        "ComparisonKind": 1,
-                        "Left": {
-                          "Measure": {
-                            "Expression": {
-                              "SourceRef": {
-                                "Source": "o"
-                              }
-                            },
-                            "Property": "Rev Goal"
-                          }
-                        },
-                        "Right": {
-                          "Literal": {
-                            "Value": "0M"
-                          }
-                        }
-                      }
-                    }
-                  }
-                ]
-              },
+              "filter_definition": "`?` <> 0M",
               "llm_explanation": null
             }
           ],
@@ -436,40 +309,7 @@
                 "entity": "Owners",
                 "property": "[Rev Goal]"
               },
-              "filter_definition": {
-                "Version": 2,
-                "From": [
-                  {
-                    "Name": "o",
-                    "Entity": "Owners",
-                    "Type": 0
-                  }
-                ],
-                "Where": [
-                  {
-                    "Condition": {
-                      "Comparison": {
-                        "ComparisonKind": 1,
-                        "Left": {
-                          "Measure": {
-                            "Expression": {
-                              "SourceRef": {
-                                "Source": "o"
-                              }
-                            },
-                            "Property": "Rev Goal"
-                          }
-                        },
-                        "Right": {
-                          "Literal": {
-                            "Value": "0M"
-                          }
-                        }
-                      }
-                    }
-                  }
-                ]
-              },
+              "filter_definition": "`?` <> 0M",
               "llm_explanation": null
             }
           ],
@@ -1653,68 +1493,7 @@
             "entity": "Opportunity Calendar",
             "property": "RELATIVE MONTH"
           },
-          "filter_definition": {
-            "Version": 2,
-            "From": [
-              {
-                "Name": "o",
-                "Entity": "Opportunity Calendar",
-                "Type": 0
-              }
-            ],
-            "Where": [
-              {
-                "Condition": {
-                  "And": {
-                    "Left": {
-                      "Comparison": {
-                        "ComparisonKind": 2,
-                        "Left": {
-                          "Column": {
-                            "Expression": {
-                              "SourceRef": {
-                                "Source": "o"
-                              }
-                            },
-                            "Property": "RELATIVE MONTH"
-                          }
-                        },
-                        "Right": {
-                          "Literal": {
-                            "Value": "-18L"
-                          }
-                        }
-                      }
-                    },
-                    "Right": {
-                      "Not": {
-                        "Expression": {
-                          "Comparison": {
-                            "ComparisonKind": 0,
-                            "Left": {
-                              "Column": {
-                                "Expression": {
-                                  "SourceRef": {
-                                    "Source": "o"
-                                  }
-                                },
-                                "Property": "RELATIVE MONTH"
-                              }
-                            },
-                            "Right": {
-                              "Literal": {
-                                "Value": "null"
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            ]
-          },
+          "filter_definition": "(`RELATIVE MONTH` > -18 AND NOT (`RELATIVE MONTH` = null))",
           "llm_explanation": null
         },
         {
@@ -1725,7 +1504,7 @@
             "entity": "Opportunities",
             "property": "Sales Stage"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         },
         {
@@ -1736,7 +1515,7 @@
             "entity": "Products",
             "property": "Product Category"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         },
         {
@@ -1747,7 +1526,7 @@
             "entity": "Owners",
             "property": "Owner"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         },
         {
@@ -1758,7 +1537,7 @@
             "entity": "Products",
             "property": "Product"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         },
         {
@@ -1769,7 +1548,7 @@
             "entity": "Products",
             "property": "Product Category"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         },
         {
@@ -1780,7 +1559,7 @@
             "entity": "Industries",
             "property": "Industry"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         },
         {
@@ -1791,72 +1570,7 @@
             "entity": "Industries",
             "property": "IndustrySeq"
           },
-          "filter_definition": {
-            "Version": 2,
-            "From": [
-              {
-                "Name": "i",
-                "Entity": "Industries",
-                "Type": 0
-              }
-            ],
-            "Where": [
-              {
-                "Condition": {
-                  "And": {
-                    "Left": {
-                      "Not": {
-                        "Expression": {
-                          "Comparison": {
-                            "ComparisonKind": 0,
-                            "Left": {
-                              "Column": {
-                                "Expression": {
-                                  "SourceRef": {
-                                    "Source": "i"
-                                  }
-                                },
-                                "Property": "IndustrySeq"
-                              }
-                            },
-                            "Right": {
-                              "Literal": {
-                                "Value": "0L"
-                              }
-                            }
-                          }
-                        }
-                      }
-                    },
-                    "Right": {
-                      "Not": {
-                        "Expression": {
-                          "Comparison": {
-                            "ComparisonKind": 0,
-                            "Left": {
-                              "Column": {
-                                "Expression": {
-                                  "SourceRef": {
-                                    "Source": "i"
-                                  }
-                                },
-                                "Property": "IndustrySeq"
-                              }
-                            },
-                            "Right": {
-                              "Literal": {
-                                "Value": "null"
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            ]
-          },
+          "filter_definition": "(NOT (`IndustrySeq` = 0) AND NOT (`IndustrySeq` = null))",
           "llm_explanation": null
         }
       ],
@@ -2347,7 +2061,7 @@
                 "entity": "Owners",
                 "property": "Manager"
               },
-              "filter_definition": {},
+              "filter_definition": "(All values)",
               "llm_explanation": null
             },
             {
@@ -2358,40 +2072,7 @@
                 "entity": "Opportunity Calendar",
                 "property": "RELATIVE MONTH"
               },
-              "filter_definition": {
-                "Version": 2,
-                "From": [
-                  {
-                    "Name": "o",
-                    "Entity": "Opportunity Calendar",
-                    "Type": 0
-                  }
-                ],
-                "Where": [
-                  {
-                    "Condition": {
-                      "Comparison": {
-                        "ComparisonKind": 3,
-                        "Left": {
-                          "Column": {
-                            "Expression": {
-                              "SourceRef": {
-                                "Source": "o"
-                              }
-                            },
-                            "Property": "RELATIVE MONTH"
-                          }
-                        },
-                        "Right": {
-                          "Literal": {
-                            "Value": "0L"
-                          }
-                        }
-                      }
-                    }
-                  }
-                ]
-              },
+              "filter_definition": "`RELATIVE MONTH` >= 0",
               "llm_explanation": null
             }
           ],
@@ -2492,7 +2173,7 @@
                 "entity": "Accounts",
                 "property": "Account Name"
               },
-              "filter_definition": {},
+              "filter_definition": "(All values)",
               "llm_explanation": null
             },
             {
@@ -2503,7 +2184,7 @@
                 "entity": "Opportunities",
                 "property": "[Close %]"
               },
-              "filter_definition": {},
+              "filter_definition": "(All values)",
               "llm_explanation": null
             },
             {
@@ -2514,93 +2195,7 @@
                 "entity": "Industries",
                 "property": "Industry"
               },
-              "filter_definition": {
-                "Version": 2,
-                "From": [
-                  {
-                    "Name": "subquery",
-                    "Expression": {
-                      "Subquery": {
-                        "Query": {
-                          "Version": 2,
-                          "From": [
-                            {
-                              "Name": "i",
-                              "Entity": "Industries",
-                              "Type": 0
-                            },
-                            {
-                              "Name": "o",
-                              "Entity": "Opportunities",
-                              "Type": 0
-                            }
-                          ],
-                          "Select": [
-                            {
-                              "Column": {
-                                "Expression": {
-                                  "SourceRef": {
-                                    "Source": "i"
-                                  }
-                                },
-                                "Property": "Industry"
-                              },
-                              "Name": "field"
-                            }
-                          ],
-                          "OrderBy": [
-                            {
-                              "Direction": 2,
-                              "Expression": {
-                                "Measure": {
-                                  "Expression": {
-                                    "SourceRef": {
-                                      "Source": "o"
-                                    }
-                                  },
-                                  "Property": "Revenue Won"
-                                }
-                              }
-                            }
-                          ],
-                          "Top": 5
-                        }
-                      }
-                    },
-                    "Type": 2
-                  },
-                  {
-                    "Name": "i",
-                    "Entity": "Industries",
-                    "Type": 0
-                  }
-                ],
-                "Where": [
-                  {
-                    "Condition": {
-                      "In": {
-                        "Expressions": [
-                          {
-                            "Column": {
-                              "Expression": {
-                                "SourceRef": {
-                                  "Source": "i"
-                                }
-                              },
-                              "Property": "Industry"
-                            }
-                          }
-                        ],
-                        "Table": {
-                          "SourceRef": {
-                            "Source": "subquery"
-                          }
-                        }
-                      }
-                    }
-                  }
-                ]
-              },
+              "filter_definition": "`Industry` IN ()",
               "llm_explanation": null
             },
             {
@@ -2611,7 +2206,7 @@
                 "entity": "Industries",
                 "property": "Industry"
               },
-              "filter_definition": {},
+              "filter_definition": "(All values)",
               "llm_explanation": null
             },
             {
@@ -2622,7 +2217,7 @@
                 "entity": "Opportunities",
                 "property": "[Revenue Won]"
               },
-              "filter_definition": {},
+              "filter_definition": "(All values)",
               "llm_explanation": null
             }
           ],
@@ -2673,7 +2268,7 @@
                 "entity": "Owners",
                 "property": "Manager"
               },
-              "filter_definition": {},
+              "filter_definition": "(All values)",
               "llm_explanation": null
             },
             {
@@ -2684,7 +2279,7 @@
                 "entity": "Opportunities",
                 "property": "[Opportunity Count]"
               },
-              "filter_definition": {},
+              "filter_definition": "(All values)",
               "llm_explanation": null
             },
             {
@@ -2695,7 +2290,7 @@
                 "entity": "Opportunities",
                 "property": "[Revenue Won]"
               },
-              "filter_definition": {},
+              "filter_definition": "(All values)",
               "llm_explanation": null
             },
             {
@@ -2706,40 +2301,7 @@
                 "entity": "Opportunity Calendar",
                 "property": "RELATIVE MONTH"
               },
-              "filter_definition": {
-                "Version": 2,
-                "From": [
-                  {
-                    "Name": "o",
-                    "Entity": "Opportunity Calendar",
-                    "Type": 0
-                  }
-                ],
-                "Where": [
-                  {
-                    "Condition": {
-                      "Comparison": {
-                        "ComparisonKind": 3,
-                        "Left": {
-                          "Column": {
-                            "Expression": {
-                              "SourceRef": {
-                                "Source": "o"
-                              }
-                            },
-                            "Property": "RELATIVE MONTH"
-                          }
-                        },
-                        "Right": {
-                          "Literal": {
-                            "Value": "0L"
-                          }
-                        }
-                      }
-                    }
-                  }
-                ]
-              },
+              "filter_definition": "`RELATIVE MONTH` >= 0",
               "llm_explanation": null
             },
             {
@@ -2750,7 +2312,7 @@
                 "entity": "Opportunity Calendar",
                 "property": "YEAR MONTH"
               },
-              "filter_definition": {},
+              "filter_definition": "(All values)",
               "llm_explanation": null
             }
           ],
@@ -3359,45 +2921,7 @@
             "entity": "Opportunities",
             "property": "Status"
           },
-          "filter_definition": {
-            "Version": 2,
-            "From": [
-              {
-                "Name": "o",
-                "Entity": "Opportunities",
-                "Type": 0
-              }
-            ],
-            "Where": [
-              {
-                "Condition": {
-                  "In": {
-                    "Expressions": [
-                      {
-                        "Column": {
-                          "Expression": {
-                            "SourceRef": {
-                              "Source": "o"
-                            }
-                          },
-                          "Property": "Status"
-                        }
-                      }
-                    ],
-                    "Values": [
-                      [
-                        {
-                          "Literal": {
-                            "Value": "'Open'"
-                          }
-                        }
-                      ]
-                    ]
-                  }
-                }
-              }
-            ]
-          },
+          "filter_definition": "`Status` IN ('Open')",
           "llm_explanation": null
         },
         {
@@ -3408,7 +2932,7 @@
             "entity": "Owners",
             "property": "Manager"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         },
         {
@@ -3419,7 +2943,7 @@
             "entity": "Owners",
             "property": "Owner"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         },
         {
@@ -3430,7 +2954,7 @@
             "entity": "Opportunities",
             "property": "Opportunity Owner Name"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         },
         {
@@ -3441,7 +2965,7 @@
             "entity": "Owners",
             "property": "Manager"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         },
         {
@@ -3452,7 +2976,7 @@
             "entity": "Products",
             "property": "Product"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         },
         {
@@ -3463,7 +2987,7 @@
             "entity": "Products",
             "property": "Product Category"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         },
         {
@@ -3474,49 +2998,7 @@
             "entity": "Industries",
             "property": "Industry"
           },
-          "filter_definition": {
-            "Version": 2,
-            "From": [
-              {
-                "Name": "i",
-                "Entity": "Industries",
-                "Type": 0
-              }
-            ],
-            "Where": [
-              {
-                "Condition": {
-                  "Not": {
-                    "Expression": {
-                      "In": {
-                        "Expressions": [
-                          {
-                            "Column": {
-                              "Expression": {
-                                "SourceRef": {
-                                  "Source": "i"
-                                }
-                              },
-                              "Property": "Industry"
-                            }
-                          }
-                        ],
-                        "Values": [
-                          [
-                            {
-                              "Literal": {
-                                "Value": "'n/a'"
-                              }
-                            }
-                          ]
-                        ]
-                      }
-                    }
-                  }
-                }
-              }
-            ]
-          },
+          "filter_definition": "NOT (`Industry` IN ('n/a'))",
           "llm_explanation": null
         }
       ],
@@ -4081,7 +3563,7 @@
                 "entity": "Accounts",
                 "property": "Account Name"
               },
-              "filter_definition": {},
+              "filter_definition": "(All values)",
               "llm_explanation": null
             },
             {
@@ -4092,7 +3574,7 @@
                 "entity": "Opportunities",
                 "property": "[Close %]"
               },
-              "filter_definition": {},
+              "filter_definition": "(All values)",
               "llm_explanation": null
             },
             {
@@ -4103,93 +3585,7 @@
                 "entity": "Industries",
                 "property": "Industry"
               },
-              "filter_definition": {
-                "Version": 2,
-                "From": [
-                  {
-                    "Name": "subquery",
-                    "Expression": {
-                      "Subquery": {
-                        "Query": {
-                          "Version": 2,
-                          "From": [
-                            {
-                              "Name": "i",
-                              "Entity": "Industries",
-                              "Type": 0
-                            },
-                            {
-                              "Name": "o",
-                              "Entity": "Opportunities",
-                              "Type": 0
-                            }
-                          ],
-                          "Select": [
-                            {
-                              "Column": {
-                                "Expression": {
-                                  "SourceRef": {
-                                    "Source": "i"
-                                  }
-                                },
-                                "Property": "Industry"
-                              },
-                              "Name": "field"
-                            }
-                          ],
-                          "OrderBy": [
-                            {
-                              "Direction": 2,
-                              "Expression": {
-                                "Measure": {
-                                  "Expression": {
-                                    "SourceRef": {
-                                      "Source": "o"
-                                    }
-                                  },
-                                  "Property": "Revenue Open"
-                                }
-                              }
-                            }
-                          ],
-                          "Top": 5
-                        }
-                      }
-                    },
-                    "Type": 2
-                  },
-                  {
-                    "Name": "i",
-                    "Entity": "Industries",
-                    "Type": 0
-                  }
-                ],
-                "Where": [
-                  {
-                    "Condition": {
-                      "In": {
-                        "Expressions": [
-                          {
-                            "Column": {
-                              "Expression": {
-                                "SourceRef": {
-                                  "Source": "i"
-                                }
-                              },
-                              "Property": "Industry"
-                            }
-                          }
-                        ],
-                        "Table": {
-                          "SourceRef": {
-                            "Source": "subquery"
-                          }
-                        }
-                      }
-                    }
-                  }
-                ]
-              },
+              "filter_definition": "`Industry` IN ()",
               "llm_explanation": null
             }
           ],
@@ -4277,7 +3673,7 @@
               "filter_type": "Advanced",
               "level": "Visual",
               "target": null,
-              "filter_definition": {},
+              "filter_definition": "(No definition found)",
               "llm_explanation": null
             },
             {
@@ -4285,7 +3681,7 @@
               "filter_type": "Advanced",
               "level": "Visual",
               "target": null,
-              "filter_definition": {},
+              "filter_definition": "(No definition found)",
               "llm_explanation": null
             },
             {
@@ -4293,7 +3689,7 @@
               "filter_type": "Advanced",
               "level": "Visual",
               "target": null,
-              "filter_definition": {},
+              "filter_definition": "(No definition found)",
               "llm_explanation": null
             },
             {
@@ -4301,7 +3697,7 @@
               "filter_type": "Advanced",
               "level": "Visual",
               "target": null,
-              "filter_definition": {},
+              "filter_definition": "(No definition found)",
               "llm_explanation": null
             },
             {
@@ -4312,7 +3708,7 @@
                 "entity": "Opportunities",
                 "property": "OpportunitySeq"
               },
-              "filter_definition": {},
+              "filter_definition": "(All values)",
               "llm_explanation": null
             }
           ],
@@ -4993,64 +4389,7 @@
             "entity": "Opportunity Calendar",
             "property": "RELATIVE MONTH"
           },
-          "filter_definition": {
-            "Version": 2,
-            "From": [
-              {
-                "Name": "o",
-                "Entity": "Opportunity Calendar",
-                "Type": 0
-              }
-            ],
-            "Where": [
-              {
-                "Condition": {
-                  "And": {
-                    "Left": {
-                      "Comparison": {
-                        "ComparisonKind": 2,
-                        "Left": {
-                          "Column": {
-                            "Expression": {
-                              "SourceRef": {
-                                "Source": "o"
-                              }
-                            },
-                            "Property": "RELATIVE MONTH"
-                          }
-                        },
-                        "Right": {
-                          "Literal": {
-                            "Value": "-16L"
-                          }
-                        }
-                      }
-                    },
-                    "Right": {
-                      "Comparison": {
-                        "ComparisonKind": 3,
-                        "Left": {
-                          "Column": {
-                            "Expression": {
-                              "SourceRef": {
-                                "Source": "o"
-                              }
-                            },
-                            "Property": "RELATIVE MONTH"
-                          }
-                        },
-                        "Right": {
-                          "Literal": {
-                            "Value": "0L"
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            ]
-          },
+          "filter_definition": "(`RELATIVE MONTH` > -16 AND `RELATIVE MONTH` >= 0)",
           "llm_explanation": null
         },
         {
@@ -5061,7 +4400,7 @@
             "entity": "Opportunities",
             "property": "Sales Stage"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         },
         {
@@ -5072,7 +4411,7 @@
             "entity": "Products",
             "property": "Product Category"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         },
         {
@@ -5083,7 +4422,7 @@
             "entity": "Owners",
             "property": "Owner"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         },
         {
@@ -5094,7 +4433,7 @@
             "entity": "Products",
             "property": "Product"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         },
         {
@@ -5105,7 +4444,7 @@
             "entity": "Products",
             "property": "Product Category"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         }
       ],
@@ -5128,40 +4467,7 @@
                 "entity": "Opportunity Calendar",
                 "property": "RELATIVE MONTH"
               },
-              "filter_definition": {
-                "Version": 2,
-                "From": [
-                  {
-                    "Name": "o1",
-                    "Entity": "Opportunity Calendar",
-                    "Type": 0
-                  }
-                ],
-                "Where": [
-                  {
-                    "Condition": {
-                      "Comparison": {
-                        "ComparisonKind": 1,
-                        "Left": {
-                          "Column": {
-                            "Expression": {
-                              "SourceRef": {
-                                "Source": "o1"
-                              }
-                            },
-                            "Property": "RELATIVE MONTH"
-                          }
-                        },
-                        "Right": {
-                          "Literal": {
-                            "Value": "-12L"
-                          }
-                        }
-                      }
-                    }
-                  }
-                ]
-              },
+              "filter_definition": "`RELATIVE MONTH` <> -12",
               "llm_explanation": null
             }
           ],
@@ -5673,7 +4979,7 @@
               "filter_type": "Advanced",
               "level": "Visual",
               "target": null,
-              "filter_definition": {},
+              "filter_definition": "(No definition found)",
               "llm_explanation": null
             },
             {
@@ -5681,7 +4987,7 @@
               "filter_type": "Advanced",
               "level": "Visual",
               "target": null,
-              "filter_definition": {},
+              "filter_definition": "(No definition found)",
               "llm_explanation": null
             },
             {
@@ -5689,7 +4995,7 @@
               "filter_type": "Advanced",
               "level": "Visual",
               "target": null,
-              "filter_definition": {},
+              "filter_definition": "(No definition found)",
               "llm_explanation": null
             },
             {
@@ -5697,7 +5003,7 @@
               "filter_type": "Advanced",
               "level": "Visual",
               "target": null,
-              "filter_definition": {},
+              "filter_definition": "(No definition found)",
               "llm_explanation": null
             },
             {
@@ -5708,7 +5014,7 @@
                 "entity": "Opportunities",
                 "property": "OpportunitySeq"
               },
-              "filter_definition": {},
+              "filter_definition": "(All values)",
               "llm_explanation": null
             },
             {
@@ -5719,40 +5025,7 @@
                 "entity": "Opportunity Calendar",
                 "property": "RELATIVE MONTH"
               },
-              "filter_definition": {
-                "Version": 2,
-                "From": [
-                  {
-                    "Name": "o",
-                    "Entity": "Opportunity Calendar",
-                    "Type": 0
-                  }
-                ],
-                "Where": [
-                  {
-                    "Condition": {
-                      "Comparison": {
-                        "ComparisonKind": 2,
-                        "Left": {
-                          "Column": {
-                            "Expression": {
-                              "SourceRef": {
-                                "Source": "o"
-                              }
-                            },
-                            "Property": "RELATIVE MONTH"
-                          }
-                        },
-                        "Right": {
-                          "Literal": {
-                            "Value": "-20L"
-                          }
-                        }
-                      }
-                    }
-                  }
-                ]
-              },
+              "filter_definition": "`RELATIVE MONTH` > -20",
               "llm_explanation": null
             }
           ],
@@ -5823,7 +5096,7 @@
                 "entity": "Opportunities",
                 "property": "[Close %]"
               },
-              "filter_definition": {},
+              "filter_definition": "(All values)",
               "llm_explanation": null
             },
             {
@@ -5831,7 +5104,7 @@
               "filter_type": "Advanced",
               "level": "Visual",
               "target": null,
-              "filter_definition": {},
+              "filter_definition": "(No definition found)",
               "llm_explanation": null
             },
             {
@@ -5839,7 +5112,7 @@
               "filter_type": "Advanced",
               "level": "Visual",
               "target": null,
-              "filter_definition": {},
+              "filter_definition": "(No definition found)",
               "llm_explanation": null
             },
             {
@@ -5847,7 +5120,7 @@
               "filter_type": "Advanced",
               "level": "Visual",
               "target": null,
-              "filter_definition": {},
+              "filter_definition": "(No definition found)",
               "llm_explanation": null
             },
             {
@@ -5858,7 +5131,7 @@
                 "entity": "Opportunities",
                 "property": "OpportunitySeq"
               },
-              "filter_definition": {},
+              "filter_definition": "(All values)",
               "llm_explanation": null
             },
             {
@@ -5869,64 +5142,7 @@
                 "entity": "Opportunity Calendar",
                 "property": "RELATIVE MONTH"
               },
-              "filter_definition": {
-                "Version": 2,
-                "From": [
-                  {
-                    "Name": "o",
-                    "Entity": "Opportunity Calendar",
-                    "Type": 0
-                  }
-                ],
-                "Where": [
-                  {
-                    "Condition": {
-                      "And": {
-                        "Left": {
-                          "Comparison": {
-                            "ComparisonKind": 3,
-                            "Left": {
-                              "Column": {
-                                "Expression": {
-                                  "SourceRef": {
-                                    "Source": "o"
-                                  }
-                                },
-                                "Property": "RELATIVE MONTH"
-                              }
-                            },
-                            "Right": {
-                              "Literal": {
-                                "Value": "0L"
-                              }
-                            }
-                          }
-                        },
-                        "Right": {
-                          "Comparison": {
-                            "ComparisonKind": 3,
-                            "Left": {
-                              "Column": {
-                                "Expression": {
-                                  "SourceRef": {
-                                    "Source": "o"
-                                  }
-                                },
-                                "Property": "RELATIVE MONTH"
-                              }
-                            },
-                            "Right": {
-                              "Literal": {
-                                "Value": "0L"
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                ]
-              },
+              "filter_definition": "(`RELATIVE MONTH` >= 0 AND `RELATIVE MONTH` >= 0)",
               "llm_explanation": null
             },
             {
@@ -5934,7 +5150,7 @@
               "filter_type": "Advanced",
               "level": "Visual",
               "target": null,
-              "filter_definition": {},
+              "filter_definition": "(No definition found)",
               "llm_explanation": null
             },
             {
@@ -5945,7 +5161,7 @@
                 "entity": "Opportunity Calendar",
                 "property": "YEAR MONTH"
               },
-              "filter_definition": {},
+              "filter_definition": "(All values)",
               "llm_explanation": null
             }
           ],
@@ -5983,7 +5199,7 @@
               "filter_type": "Advanced",
               "level": "Visual",
               "target": null,
-              "filter_definition": {},
+              "filter_definition": "(No definition found)",
               "llm_explanation": null
             },
             {
@@ -5991,7 +5207,7 @@
               "filter_type": "Advanced",
               "level": "Visual",
               "target": null,
-              "filter_definition": {},
+              "filter_definition": "(No definition found)",
               "llm_explanation": null
             },
             {
@@ -5999,7 +5215,7 @@
               "filter_type": "Advanced",
               "level": "Visual",
               "target": null,
-              "filter_definition": {},
+              "filter_definition": "(No definition found)",
               "llm_explanation": null
             },
             {
@@ -6007,7 +5223,7 @@
               "filter_type": "Advanced",
               "level": "Visual",
               "target": null,
-              "filter_definition": {},
+              "filter_definition": "(No definition found)",
               "llm_explanation": null
             },
             {
@@ -6018,7 +5234,7 @@
                 "entity": "Opportunities",
                 "property": "OpportunitySeq"
               },
-              "filter_definition": {},
+              "filter_definition": "(All values)",
               "llm_explanation": null
             },
             {
@@ -6029,40 +5245,7 @@
                 "entity": "Opportunity Calendar",
                 "property": "RELATIVE MONTH"
               },
-              "filter_definition": {
-                "Version": 2,
-                "From": [
-                  {
-                    "Name": "o",
-                    "Entity": "Opportunity Calendar",
-                    "Type": 0
-                  }
-                ],
-                "Where": [
-                  {
-                    "Condition": {
-                      "Comparison": {
-                        "ComparisonKind": 2,
-                        "Left": {
-                          "Column": {
-                            "Expression": {
-                              "SourceRef": {
-                                "Source": "o"
-                              }
-                            },
-                            "Property": "RELATIVE MONTH"
-                          }
-                        },
-                        "Right": {
-                          "Literal": {
-                            "Value": "-20L"
-                          }
-                        }
-                      }
-                    }
-                  }
-                ]
-              },
+              "filter_definition": "`RELATIVE MONTH` > -20",
               "llm_explanation": null
             }
           ],
@@ -6110,7 +5293,7 @@
               "filter_type": "Advanced",
               "level": "Visual",
               "target": null,
-              "filter_definition": {},
+              "filter_definition": "(No definition found)",
               "llm_explanation": null
             },
             {
@@ -6118,7 +5301,7 @@
               "filter_type": "Advanced",
               "level": "Visual",
               "target": null,
-              "filter_definition": {},
+              "filter_definition": "(No definition found)",
               "llm_explanation": null
             },
             {
@@ -6126,7 +5309,7 @@
               "filter_type": "Advanced",
               "level": "Visual",
               "target": null,
-              "filter_definition": {},
+              "filter_definition": "(No definition found)",
               "llm_explanation": null
             },
             {
@@ -6134,7 +5317,7 @@
               "filter_type": "Advanced",
               "level": "Visual",
               "target": null,
-              "filter_definition": {},
+              "filter_definition": "(No definition found)",
               "llm_explanation": null
             },
             {
@@ -6145,7 +5328,7 @@
                 "entity": "Opportunities",
                 "property": "OpportunitySeq"
               },
-              "filter_definition": {},
+              "filter_definition": "(All values)",
               "llm_explanation": null
             },
             {
@@ -6156,64 +5339,7 @@
                 "entity": "Opportunity Calendar",
                 "property": "RELATIVE MONTH"
               },
-              "filter_definition": {
-                "Version": 2,
-                "From": [
-                  {
-                    "Name": "o",
-                    "Entity": "Opportunity Calendar",
-                    "Type": 0
-                  }
-                ],
-                "Where": [
-                  {
-                    "Condition": {
-                      "And": {
-                        "Left": {
-                          "Comparison": {
-                            "ComparisonKind": 3,
-                            "Left": {
-                              "Column": {
-                                "Expression": {
-                                  "SourceRef": {
-                                    "Source": "o"
-                                  }
-                                },
-                                "Property": "RELATIVE MONTH"
-                              }
-                            },
-                            "Right": {
-                              "Literal": {
-                                "Value": "0L"
-                              }
-                            }
-                          }
-                        },
-                        "Right": {
-                          "Comparison": {
-                            "ComparisonKind": 3,
-                            "Left": {
-                              "Column": {
-                                "Expression": {
-                                  "SourceRef": {
-                                    "Source": "o"
-                                  }
-                                },
-                                "Property": "RELATIVE MONTH"
-                              }
-                            },
-                            "Right": {
-                              "Literal": {
-                                "Value": "0L"
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                ]
-              },
+              "filter_definition": "(`RELATIVE MONTH` >= 0 AND `RELATIVE MONTH` >= 0)",
               "llm_explanation": null
             }
           ],
@@ -6891,40 +6017,7 @@
                 "entity": "Opportunity Calendar",
                 "property": "RELATIVE MONTH"
               },
-              "filter_definition": {
-                "Version": 2,
-                "From": [
-                  {
-                    "Name": "o1",
-                    "Entity": "Opportunity Calendar",
-                    "Type": 0
-                  }
-                ],
-                "Where": [
-                  {
-                    "Condition": {
-                      "Comparison": {
-                        "ComparisonKind": 1,
-                        "Left": {
-                          "Column": {
-                            "Expression": {
-                              "SourceRef": {
-                                "Source": "o1"
-                              }
-                            },
-                            "Property": "RELATIVE MONTH"
-                          }
-                        },
-                        "Right": {
-                          "Literal": {
-                            "Value": "-16L"
-                          }
-                        }
-                      }
-                    }
-                  }
-                ]
-              },
+              "filter_definition": "`RELATIVE MONTH` <> -16",
               "llm_explanation": null
             }
           ],
@@ -6996,52 +6089,7 @@
             "entity": "Opportunities",
             "property": "Status"
           },
-          "filter_definition": {
-            "Version": 2,
-            "From": [
-              {
-                "Name": "o",
-                "Entity": "Opportunities",
-                "Type": 0
-              }
-            ],
-            "Where": [
-              {
-                "Condition": {
-                  "In": {
-                    "Expressions": [
-                      {
-                        "Column": {
-                          "Expression": {
-                            "SourceRef": {
-                              "Source": "o"
-                            }
-                          },
-                          "Property": "Status"
-                        }
-                      }
-                    ],
-                    "Values": [
-                      [
-                        {
-                          "Literal": {
-                            "Value": "'Lost'"
-                          }
-                        }
-                      ],
-                      [
-                        {
-                          "Literal": {
-                            "Value": "'Won'"
-                          }
-                        }
-                      ]
-                    ]
-                  }
-                }
-              }
-            ]
-          },
+          "filter_definition": "`Status` IN ('Lost', 'Won')",
           "llm_explanation": null
         },
         {
@@ -7052,7 +6100,7 @@
             "entity": "Opportunities",
             "property": "Decision Maker Identified"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         },
         {
@@ -7063,7 +6111,7 @@
             "entity": "Opportunities",
             "property": "Purchase Process"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         },
         {
@@ -7074,7 +6122,7 @@
             "entity": "Industries",
             "property": "Industry"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         },
         {
@@ -7085,7 +6133,7 @@
             "entity": "Owners",
             "property": "Manager"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         },
         {
@@ -7096,7 +6144,7 @@
             "entity": "Owners",
             "property": "Owner"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         },
         {
@@ -7107,7 +6155,7 @@
             "entity": "Products",
             "property": "Product Category"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         },
         {
@@ -7118,7 +6166,7 @@
             "entity": "Products",
             "property": "Product"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         },
         {
@@ -7129,7 +6177,7 @@
             "entity": "Opportunities",
             "property": "Purchase Process"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         }
       ],
@@ -7657,7 +6705,7 @@
                 "entity": "Opportunities",
                 "property": "Status"
               },
-              "filter_definition": {},
+              "filter_definition": "(All values)",
               "llm_explanation": null
             },
             {
@@ -7668,7 +6716,7 @@
                 "entity": "Products",
                 "property": "Product"
               },
-              "filter_definition": {},
+              "filter_definition": "(All values)",
               "llm_explanation": null
             },
             {
@@ -7679,7 +6727,7 @@
                 "entity": "Products",
                 "property": "Product Category"
               },
-              "filter_definition": {},
+              "filter_definition": "(All values)",
               "llm_explanation": null
             },
             {
@@ -7690,7 +6738,7 @@
                 "entity": "Owners",
                 "property": "Owner"
               },
-              "filter_definition": {},
+              "filter_definition": "(All values)",
               "llm_explanation": null
             },
             {
@@ -7701,7 +6749,7 @@
                 "entity": "Owners",
                 "property": "Manager"
               },
-              "filter_definition": {},
+              "filter_definition": "(All values)",
               "llm_explanation": null
             },
             {
@@ -7712,7 +6760,7 @@
                 "entity": "Accounts",
                 "property": "State or Province"
               },
-              "filter_definition": {},
+              "filter_definition": "(All values)",
               "llm_explanation": null
             },
             {
@@ -7723,7 +6771,7 @@
                 "entity": "Territories",
                 "property": "Region"
               },
-              "filter_definition": {},
+              "filter_definition": "(All values)",
               "llm_explanation": null
             },
             {
@@ -7734,7 +6782,7 @@
                 "entity": "Territories",
                 "property": "Territory"
               },
-              "filter_definition": {},
+              "filter_definition": "(All values)",
               "llm_explanation": null
             },
             {
@@ -7745,7 +6793,7 @@
                 "entity": "Opportunities",
                 "property": "Purchase Process"
               },
-              "filter_definition": {},
+              "filter_definition": "(All values)",
               "llm_explanation": null
             },
             {
@@ -7756,7 +6804,7 @@
                 "entity": "Opportunities",
                 "property": "Decision Maker Identified"
               },
-              "filter_definition": {},
+              "filter_definition": "(All values)",
               "llm_explanation": null
             }
           ],
@@ -8409,52 +7457,7 @@
             "entity": "Opportunities",
             "property": "Status"
           },
-          "filter_definition": {
-            "Version": 2,
-            "From": [
-              {
-                "Name": "o",
-                "Entity": "Opportunities",
-                "Type": 0
-              }
-            ],
-            "Where": [
-              {
-                "Condition": {
-                  "In": {
-                    "Expressions": [
-                      {
-                        "Column": {
-                          "Expression": {
-                            "SourceRef": {
-                              "Source": "o"
-                            }
-                          },
-                          "Property": "Status"
-                        }
-                      }
-                    ],
-                    "Values": [
-                      [
-                        {
-                          "Literal": {
-                            "Value": "'Lost'"
-                          }
-                        }
-                      ],
-                      [
-                        {
-                          "Literal": {
-                            "Value": "'Won'"
-                          }
-                        }
-                      ]
-                    ]
-                  }
-                }
-              }
-            ]
-          },
+          "filter_definition": "`Status` IN ('Lost', 'Won')",
           "llm_explanation": null
         },
         {
@@ -8465,7 +7468,7 @@
             "entity": "Opportunities",
             "property": "Decision Maker Identified"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         },
         {
@@ -8476,7 +7479,7 @@
             "entity": "Opportunities",
             "property": "Purchase Process"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         },
         {
@@ -8487,7 +7490,7 @@
             "entity": "Industries",
             "property": "Industry"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         },
         {
@@ -8498,7 +7501,7 @@
             "entity": "Owners",
             "property": "Manager"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         },
         {
@@ -8509,7 +7512,7 @@
             "entity": "Owners",
             "property": "Owner"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         },
         {
@@ -8520,7 +7523,7 @@
             "entity": "Products",
             "property": "Product Category"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         },
         {
@@ -8531,7 +7534,7 @@
             "entity": "Products",
             "property": "Product"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         },
         {
@@ -8542,7 +7545,7 @@
             "entity": "Opportunities",
             "property": "Purchase Process"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         }
       ],
@@ -9094,7 +8097,7 @@
                 "entity": "Products",
                 "property": "Product"
               },
-              "filter_definition": {},
+              "filter_definition": "(All values)",
               "llm_explanation": null
             },
             {
@@ -9105,7 +8108,7 @@
                 "entity": "Owners",
                 "property": "Owner"
               },
-              "filter_definition": {},
+              "filter_definition": "(All values)",
               "llm_explanation": null
             },
             {
@@ -9116,7 +8119,7 @@
                 "entity": "Owners",
                 "property": "Manager"
               },
-              "filter_definition": {},
+              "filter_definition": "(All values)",
               "llm_explanation": null
             },
             {
@@ -9127,7 +8130,7 @@
                 "entity": "Accounts",
                 "property": "State or Province"
               },
-              "filter_definition": {},
+              "filter_definition": "(All values)",
               "llm_explanation": null
             },
             {
@@ -9138,7 +8141,7 @@
                 "entity": "Opportunities",
                 "property": "Purchase Process"
               },
-              "filter_definition": {},
+              "filter_definition": "(All values)",
               "llm_explanation": null
             },
             {
@@ -9149,7 +8152,7 @@
                 "entity": "Opportunities",
                 "property": "Decision Maker Identified"
               },
-              "filter_definition": {},
+              "filter_definition": "(All values)",
               "llm_explanation": null
             }
           ],
@@ -9793,49 +8796,7 @@
             "entity": "Opportunities",
             "property": "Status"
           },
-          "filter_definition": {
-            "Version": 2,
-            "From": [
-              {
-                "Name": "o",
-                "Entity": "Opportunities",
-                "Type": 0
-              }
-            ],
-            "Where": [
-              {
-                "Condition": {
-                  "Not": {
-                    "Expression": {
-                      "In": {
-                        "Expressions": [
-                          {
-                            "Column": {
-                              "Expression": {
-                                "SourceRef": {
-                                  "Source": "o"
-                                }
-                              },
-                              "Property": "Status"
-                            }
-                          }
-                        ],
-                        "Values": [
-                          [
-                            {
-                              "Literal": {
-                                "Value": "'Lost'"
-                              }
-                            }
-                          ]
-                        ]
-                      }
-                    }
-                  }
-                }
-              }
-            ]
-          },
+          "filter_definition": "NOT (`Status` IN ('Lost'))",
           "llm_explanation": null
         },
         {
@@ -9846,7 +8807,7 @@
             "entity": "Opportunities",
             "property": "Decision Maker Identified"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         },
         {
@@ -9857,7 +8818,7 @@
             "entity": "Opportunities",
             "property": "Purchase Process"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         },
         {
@@ -9868,7 +8829,7 @@
             "entity": "Industries",
             "property": "Industry"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         },
         {
@@ -9879,7 +8840,7 @@
             "entity": "Owners",
             "property": "Manager"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         },
         {
@@ -9890,7 +8851,7 @@
             "entity": "Owners",
             "property": "Owner"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         },
         {
@@ -9901,7 +8862,7 @@
             "entity": "Products",
             "property": "Product Category"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         },
         {
@@ -9912,7 +8873,7 @@
             "entity": "Products",
             "property": "Product"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         },
         {
@@ -9923,7 +8884,7 @@
             "entity": "Opportunities",
             "property": "Purchase Process"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         }
       ],
@@ -10480,7 +9441,7 @@
                 "entity": "Opportunities",
                 "property": "Status"
               },
-              "filter_definition": {},
+              "filter_definition": "(All values)",
               "llm_explanation": null
             },
             {
@@ -10491,7 +9452,7 @@
                 "entity": "Products",
                 "property": "Product"
               },
-              "filter_definition": {},
+              "filter_definition": "(All values)",
               "llm_explanation": null
             },
             {
@@ -10502,7 +9463,7 @@
                 "entity": "Products",
                 "property": "Product Category"
               },
-              "filter_definition": {},
+              "filter_definition": "(All values)",
               "llm_explanation": null
             },
             {
@@ -10513,7 +9474,7 @@
                 "entity": "Owners",
                 "property": "Owner"
               },
-              "filter_definition": {},
+              "filter_definition": "(All values)",
               "llm_explanation": null
             },
             {
@@ -10524,7 +9485,7 @@
                 "entity": "Owners",
                 "property": "Manager"
               },
-              "filter_definition": {},
+              "filter_definition": "(All values)",
               "llm_explanation": null
             },
             {
@@ -10535,7 +9496,7 @@
                 "entity": "Industries",
                 "property": "Industry"
               },
-              "filter_definition": {},
+              "filter_definition": "(All values)",
               "llm_explanation": null
             },
             {
@@ -10546,7 +9507,7 @@
                 "entity": "Accounts",
                 "property": "State or Province"
               },
-              "filter_definition": {},
+              "filter_definition": "(All values)",
               "llm_explanation": null
             },
             {
@@ -10557,7 +9518,7 @@
                 "entity": "Territories",
                 "property": "Region"
               },
-              "filter_definition": {},
+              "filter_definition": "(All values)",
               "llm_explanation": null
             },
             {
@@ -10568,7 +9529,7 @@
                 "entity": "Territories",
                 "property": "Territory"
               },
-              "filter_definition": {},
+              "filter_definition": "(All values)",
               "llm_explanation": null
             },
             {
@@ -10579,7 +9540,7 @@
                 "entity": "Opportunities",
                 "property": "Purchase Process"
               },
-              "filter_definition": {},
+              "filter_definition": "(All values)",
               "llm_explanation": null
             },
             {
@@ -10590,7 +9551,7 @@
                 "entity": "Opportunities",
                 "property": "Decision Maker Identified"
               },
-              "filter_definition": {},
+              "filter_definition": "(All values)",
               "llm_explanation": null
             }
           ],
@@ -11224,45 +10185,7 @@
             "entity": "Opportunities",
             "property": "Status"
           },
-          "filter_definition": {
-            "Version": 2,
-            "From": [
-              {
-                "Name": "o",
-                "Entity": "Opportunities",
-                "Type": 0
-              }
-            ],
-            "Where": [
-              {
-                "Condition": {
-                  "In": {
-                    "Expressions": [
-                      {
-                        "Column": {
-                          "Expression": {
-                            "SourceRef": {
-                              "Source": "o"
-                            }
-                          },
-                          "Property": "Status"
-                        }
-                      }
-                    ],
-                    "Values": [
-                      [
-                        {
-                          "Literal": {
-                            "Value": "'Won'"
-                          }
-                        }
-                      ]
-                    ]
-                  }
-                }
-              }
-            ]
-          },
+          "filter_definition": "`Status` IN ('Won')",
           "llm_explanation": null
         },
         {
@@ -11273,7 +10196,7 @@
             "entity": "Opportunities",
             "property": "Decision Maker Identified"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         },
         {
@@ -11284,7 +10207,7 @@
             "entity": "Opportunities",
             "property": "Purchase Process"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         },
         {
@@ -11295,7 +10218,7 @@
             "entity": "Industries",
             "property": "Industry"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         },
         {
@@ -11306,7 +10229,7 @@
             "entity": "Owners",
             "property": "Manager"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         },
         {
@@ -11317,7 +10240,7 @@
             "entity": "Owners",
             "property": "Owner"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         },
         {
@@ -11328,7 +10251,7 @@
             "entity": "Products",
             "property": "Product Category"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         },
         {
@@ -11339,7 +10262,7 @@
             "entity": "Products",
             "property": "Product"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         },
         {
@@ -11350,7 +10273,7 @@
             "entity": "Opportunities",
             "property": "Purchase Process"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         }
       ],
@@ -11527,49 +10450,7 @@
               "filter_type": "Exclude",
               "level": "Visual",
               "target": null,
-              "filter_definition": {
-                "Version": 2,
-                "From": [
-                  {
-                    "Name": "c",
-                    "Entity": "Campaigns",
-                    "Type": 0
-                  }
-                ],
-                "Where": [
-                  {
-                    "Condition": {
-                      "Not": {
-                        "Expression": {
-                          "In": {
-                            "Expressions": [
-                              {
-                                "Column": {
-                                  "Expression": {
-                                    "SourceRef": {
-                                      "Source": "c"
-                                    }
-                                  },
-                                  "Property": "Campaign"
-                                }
-                              }
-                            ],
-                            "Values": [
-                              [
-                                {
-                                  "Literal": {
-                                    "Value": "null"
-                                  }
-                                }
-                              ]
-                            ]
-                          }
-                        }
-                      }
-                    }
-                  }
-                ]
-              },
+              "filter_definition": "NOT (`Campaign` IN ('null'))",
               "llm_explanation": null
             }
           ],
@@ -12526,7 +11407,7 @@
             "entity": "Opportunities",
             "property": "Decision Maker Identified"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         },
         {
@@ -12537,7 +11418,7 @@
             "entity": "Opportunities",
             "property": "Purchase Process"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         },
         {
@@ -12548,7 +11429,7 @@
             "entity": "Industries",
             "property": "Industry"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         },
         {
@@ -12559,7 +11440,7 @@
             "entity": "Owners",
             "property": "Manager"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         },
         {
@@ -12570,7 +11451,7 @@
             "entity": "Owners",
             "property": "Owner"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         },
         {
@@ -12581,7 +11462,7 @@
             "entity": "Products",
             "property": "Product Category"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         },
         {
@@ -12592,7 +11473,7 @@
             "entity": "Products",
             "property": "Product"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         },
         {
@@ -12603,7 +11484,7 @@
             "entity": "Opportunities",
             "property": "Purchase Process"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         }
       ],
@@ -13680,52 +12561,7 @@
             "entity": "Opportunities",
             "property": "Status"
           },
-          "filter_definition": {
-            "Version": 2,
-            "From": [
-              {
-                "Name": "o",
-                "Entity": "Opportunities",
-                "Type": 0
-              }
-            ],
-            "Where": [
-              {
-                "Condition": {
-                  "In": {
-                    "Expressions": [
-                      {
-                        "Column": {
-                          "Expression": {
-                            "SourceRef": {
-                              "Source": "o"
-                            }
-                          },
-                          "Property": "Status"
-                        }
-                      }
-                    ],
-                    "Values": [
-                      [
-                        {
-                          "Literal": {
-                            "Value": "'Open'"
-                          }
-                        }
-                      ],
-                      [
-                        {
-                          "Literal": {
-                            "Value": "'Won'"
-                          }
-                        }
-                      ]
-                    ]
-                  }
-                }
-              }
-            ]
-          },
+          "filter_definition": "`Status` IN ('Open', 'Won')",
           "llm_explanation": null
         },
         {
@@ -13736,68 +12572,7 @@
             "entity": "Opportunity Calendar",
             "property": "RELATIVE MONTH"
           },
-          "filter_definition": {
-            "Version": 2,
-            "From": [
-              {
-                "Name": "o",
-                "Entity": "Opportunity Calendar",
-                "Type": 0
-              }
-            ],
-            "Where": [
-              {
-                "Condition": {
-                  "And": {
-                    "Left": {
-                      "Comparison": {
-                        "ComparisonKind": 2,
-                        "Left": {
-                          "Column": {
-                            "Expression": {
-                              "SourceRef": {
-                                "Source": "o"
-                              }
-                            },
-                            "Property": "RELATIVE MONTH"
-                          }
-                        },
-                        "Right": {
-                          "Literal": {
-                            "Value": "-6L"
-                          }
-                        }
-                      }
-                    },
-                    "Right": {
-                      "Not": {
-                        "Expression": {
-                          "Comparison": {
-                            "ComparisonKind": 0,
-                            "Left": {
-                              "Column": {
-                                "Expression": {
-                                  "SourceRef": {
-                                    "Source": "o"
-                                  }
-                                },
-                                "Property": "RELATIVE MONTH"
-                              }
-                            },
-                            "Right": {
-                              "Literal": {
-                                "Value": "null"
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            ]
-          },
+          "filter_definition": "(`RELATIVE MONTH` > -6 AND NOT (`RELATIVE MONTH` = null))",
           "llm_explanation": null
         },
         {
@@ -13808,7 +12583,7 @@
             "entity": "Opportunities",
             "property": "Sales Stage"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         },
         {
@@ -13819,7 +12594,7 @@
             "entity": "Products",
             "property": "Product Category"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         },
         {
@@ -13830,7 +12605,7 @@
             "entity": "Owners",
             "property": "Owner"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         },
         {
@@ -13841,7 +12616,7 @@
             "entity": "Products",
             "property": "Product"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         },
         {
@@ -13852,7 +12627,7 @@
             "entity": "Products",
             "property": "Product Category"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         }
       ],
@@ -14836,52 +13611,7 @@
             "entity": "Opportunities",
             "property": "Status"
           },
-          "filter_definition": {
-            "Version": 2,
-            "From": [
-              {
-                "Name": "o",
-                "Entity": "Opportunities",
-                "Type": 0
-              }
-            ],
-            "Where": [
-              {
-                "Condition": {
-                  "In": {
-                    "Expressions": [
-                      {
-                        "Column": {
-                          "Expression": {
-                            "SourceRef": {
-                              "Source": "o"
-                            }
-                          },
-                          "Property": "Status"
-                        }
-                      }
-                    ],
-                    "Values": [
-                      [
-                        {
-                          "Literal": {
-                            "Value": "'Open'"
-                          }
-                        }
-                      ],
-                      [
-                        {
-                          "Literal": {
-                            "Value": "'Won'"
-                          }
-                        }
-                      ]
-                    ]
-                  }
-                }
-              }
-            ]
-          },
+          "filter_definition": "`Status` IN ('Open', 'Won')",
           "llm_explanation": null
         },
         {
@@ -14892,68 +13622,7 @@
             "entity": "Opportunity Calendar",
             "property": "RELATIVE MONTH"
           },
-          "filter_definition": {
-            "Version": 2,
-            "From": [
-              {
-                "Name": "o",
-                "Entity": "Opportunity Calendar",
-                "Type": 0
-              }
-            ],
-            "Where": [
-              {
-                "Condition": {
-                  "And": {
-                    "Left": {
-                      "Comparison": {
-                        "ComparisonKind": 2,
-                        "Left": {
-                          "Column": {
-                            "Expression": {
-                              "SourceRef": {
-                                "Source": "o"
-                              }
-                            },
-                            "Property": "RELATIVE MONTH"
-                          }
-                        },
-                        "Right": {
-                          "Literal": {
-                            "Value": "-6L"
-                          }
-                        }
-                      }
-                    },
-                    "Right": {
-                      "Not": {
-                        "Expression": {
-                          "Comparison": {
-                            "ComparisonKind": 0,
-                            "Left": {
-                              "Column": {
-                                "Expression": {
-                                  "SourceRef": {
-                                    "Source": "o"
-                                  }
-                                },
-                                "Property": "RELATIVE MONTH"
-                              }
-                            },
-                            "Right": {
-                              "Literal": {
-                                "Value": "null"
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            ]
-          },
+          "filter_definition": "(`RELATIVE MONTH` > -6 AND NOT (`RELATIVE MONTH` = null))",
           "llm_explanation": null
         },
         {
@@ -14964,7 +13633,7 @@
             "entity": "Opportunities",
             "property": "Sales Stage"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         },
         {
@@ -14975,7 +13644,7 @@
             "entity": "Products",
             "property": "Product Category"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         },
         {
@@ -14986,7 +13655,7 @@
             "entity": "Owners",
             "property": "Owner"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         },
         {
@@ -14997,7 +13666,7 @@
             "entity": "Products",
             "property": "Product"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         },
         {
@@ -15008,7 +13677,7 @@
             "entity": "Products",
             "property": "Product Category"
           },
-          "filter_definition": {},
+          "filter_definition": "(All values)",
           "llm_explanation": null
         }
       ],
@@ -15031,40 +13700,7 @@
                 "entity": "Owners",
                 "property": "[Rev Goal]"
               },
-              "filter_definition": {
-                "Version": 2,
-                "From": [
-                  {
-                    "Name": "o",
-                    "Entity": "Owners",
-                    "Type": 0
-                  }
-                ],
-                "Where": [
-                  {
-                    "Condition": {
-                      "Comparison": {
-                        "ComparisonKind": 1,
-                        "Left": {
-                          "Measure": {
-                            "Expression": {
-                              "SourceRef": {
-                                "Source": "o"
-                              }
-                            },
-                            "Property": "Rev Goal"
-                          }
-                        },
-                        "Right": {
-                          "Literal": {
-                            "Value": "0M"
-                          }
-                        }
-                      }
-                    }
-                  }
-                ]
-              },
+              "filter_definition": "`?` <> 0M",
               "llm_explanation": null
             }
           ],
@@ -15444,45 +14080,7 @@
                 "entity": "Opportunities",
                 "property": "Status"
               },
-              "filter_definition": {
-                "Version": 2,
-                "From": [
-                  {
-                    "Name": "o",
-                    "Entity": "Opportunities",
-                    "Type": 0
-                  }
-                ],
-                "Where": [
-                  {
-                    "Condition": {
-                      "In": {
-                        "Expressions": [
-                          {
-                            "Column": {
-                              "Expression": {
-                                "SourceRef": {
-                                  "Source": "o"
-                                }
-                              },
-                              "Property": "Status"
-                            }
-                          }
-                        ],
-                        "Values": [
-                          [
-                            {
-                              "Literal": {
-                                "Value": "'Open'"
-                              }
-                            }
-                          ]
-                        ]
-                      }
-                    }
-                  }
-                ]
-              },
+              "filter_definition": "`Status` IN ('Open')",
               "llm_explanation": null
             }
           ],
@@ -16058,40 +14656,7 @@
                 "entity": "Owners",
                 "property": "[Rev Goal]"
               },
-              "filter_definition": {
-                "Version": 2,
-                "From": [
-                  {
-                    "Name": "o",
-                    "Entity": "Owners",
-                    "Type": 0
-                  }
-                ],
-                "Where": [
-                  {
-                    "Condition": {
-                      "Comparison": {
-                        "ComparisonKind": 1,
-                        "Left": {
-                          "Measure": {
-                            "Expression": {
-                              "SourceRef": {
-                                "Source": "o"
-                              }
-                            },
-                            "Property": "Rev Goal"
-                          }
-                        },
-                        "Right": {
-                          "Literal": {
-                            "Value": "0M"
-                          }
-                        }
-                      }
-                    }
-                  }
-                ]
-              },
+              "filter_definition": "`?` <> 0M",
               "llm_explanation": null
             }
           ],

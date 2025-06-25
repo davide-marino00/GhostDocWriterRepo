@@ -36,45 +36,97 @@ def load_json_file(file_path: Path) -> Optional[Any]:
         print(f"Warning: Error reading file {file_path.name}: {e}")
     return None
 
+# In src/parse_pbi_report.py
+
+# Replace the existing parse_filter_target with this more robust version
 def parse_filter_target(expression_dict: Optional[Dict[str, Any]]) -> Optional[FilterTarget]:
     """
-    Parses the 'expression' object within a filter definition to find the target entity and property.
-    This version is more robust and handles more variations.
+    Parses the 'expression' object to find the target entity and property.
     """
     if not expression_dict:
         return None
     try:
         # The key can be 'Column', 'Aggregation', 'Measure', etc.
         for key in expression_dict:
-            # Check for a direct 'Column' or 'Measure' reference, which is common
-            if 'Property' in expression_dict[key]:
+            if isinstance(expression_dict[key], dict) and 'Property' in expression_dict[key]:
                 prop_dict = expression_dict[key]
                 property_name = prop_dict.get("Property")
                 
-                # Find the entity name, which can be in a few different places
                 source_ref = prop_dict.get("Expression", {}).get("SourceRef", {})
                 entity = source_ref.get("Entity")
                 
-                if not entity and "Expression" in prop_dict: # Another common location
-                    entity = prop_dict.get("Expression", {}).get("Column", {}).get("Expression",{}).get("SourceRef",{}).get("Entity")
-
-                if not entity and "SourceRef" in prop_dict: # Fallback for simpler structures
+                if not entity:
                     entity = prop_dict.get("SourceRef", {}).get("Entity")
-                
-                # Format the property for measures vs columns
+
                 if key == "Measure" and property_name:
                     property_name = f"[{property_name}]"
 
                 if entity and property_name:
                     return FilterTarget(entity=entity, property=property_name)
     except Exception as e:
-        print(f"Warning: Exception during filter target parsing: {e} - Data: {expression_dict}")
+        print(f"Warning: Exception during filter target parsing: {e}")
     return None
 
 
-# Replace the existing parse_filters function with this one:
+# Add this new helper function before parse_filters
+def _parse_condition_recursively(condition: dict) -> str:
+    """Recursively parses a filter condition object into a human-readable string."""
+    if not isinstance(condition, dict):
+        return "(Invalid condition format)"
+
+    # Handles conditions like "And", "Or", "Not"
+    for logical_op in ["And", "Or"]:
+        if logical_op in condition:
+            left = _parse_condition_recursively(condition[logical_op].get("Left", {}))
+            right = _parse_condition_recursively(condition[logical_op].get("Right", {}))
+            return f"({left} {logical_op.upper()} {right})"
+    
+    if "Not" in condition:
+        inner = _parse_condition_recursively(condition["Not"].get("Expression", {}))
+        return f"NOT ({inner})"
+
+    # Handles "In" condition (e.g., Status IN ('Open', 'Won'))
+    if "In" in condition:
+        in_op = condition["In"]
+        # We can assume the first expression is the column being filtered
+        col_expr = in_op.get("Expressions", [{}])[0]
+        target_prop = col_expr.get("Column", {}).get("Property", "?")
+        
+        values_list = []
+        for value_group in in_op.get("Values", []):
+            for item in value_group:
+                literal_val = item.get("Literal", {}).get("Value", "?")
+                # The value often has extra quotes, e.g., "'Open'". We strip them.
+                if isinstance(literal_val, str):
+                    values_list.append(literal_val.strip("'"))
+                else:
+                    values_list.append(str(literal_val))
+
+        values_str = ", ".join([f"'{v}'" for v in values_list])
+        return f"`{target_prop}` IN ({values_str})"
+
+    # Handles "Comparison" condition (e.g., Year > 2024)
+    if "Comparison" in condition:
+        comp = condition["Comparison"]
+        op_map = {0: "=", 1: "<>", 2: ">", 3: ">=", 4: "<", 5: "<="}
+        op_kind = comp.get("ComparisonKind")
+        op_str = op_map.get(op_kind, f"op({op_kind})")
+        
+        left_prop = comp.get("Left", {}).get("Column", {}).get("Property", "?")
+        right_val = comp.get("Right", {}).get("Literal", {}).get("Value", "?")
+        
+        # Values like "-6L" are Long integers, strip the 'L' for readability
+        if isinstance(right_val, str):
+            right_val = right_val.rstrip("L")
+            
+        return f"`{left_prop}` {op_str} {right_val}"
+    
+    return "(Unparsed condition)"
+
+
+# Replace the existing parse_filters function with this final version
 def parse_filters(filter_list_json: Optional[List[Dict[str, Any]]], level: str) -> List[ReportFilter]:
-    """Parses a list of filter definitions from JSON, now with better handling for Basic filters."""
+    """Parses a list of filter definitions from JSON using robust helpers."""
     filters = []
     if not filter_list_json:
         return filters
@@ -82,32 +134,33 @@ def parse_filters(filter_list_json: Optional[List[Dict[str, Any]]], level: str) 
     for i, filter_dict in enumerate(filter_list_json):
         try:
             target = parse_filter_target(filter_dict.get('expression'))
-            filter_definition = filter_dict.get('filter', {})
+            definition_summary = "(No definition found)"
 
-            # --- NEW: Improved logic for Basic Filters ---
-            # Try to make the definition more readable for basic filters
-            if filter_dict.get('type') == "Basic" and filter_definition:
-                operator = filter_definition.get("operator")
-                values = filter_definition.get("values", [])
-                # Re-assemble a readable definition string
-                definition_summary = f"{operator}: {json.dumps(values)}"
-            else:
-                definition_summary = filter_definition
-            # --- END of new logic ---
+            # Check if there is a 'filter' block to parse
+            if 'filter' in filter_dict and 'Where' in filter_dict['filter']:
+                conditions = []
+                for where_clause in filter_dict['filter']['Where']:
+                    conditions.append(_parse_condition_recursively(where_clause.get("Condition", {})))
+                definition_summary = " AND ".join(conditions)
+            # If no filter block, it's an "All" filter but the target is still useful
+            elif target:
+                definition_summary = "(All values)"
 
             filt = ReportFilter(
                 name=filter_dict.get('name'),
                 filter_type=filter_dict.get('type'),
                 level=level,
                 target=target,
-                filter_definition=definition_summary # Use the potentially improved summary
+                filter_definition=definition_summary
             )
             filters.append(filt)
         except Exception as e:
-            print(f"Warning: Failed to parse filter item {i+1} at level {level}: {e} - Data: {filter_dict}")
+            print(f"Warning: Failed to parse filter item {i+1} at level {level}: {e}")
             traceback.print_exc()
             continue
     return filters
+
+
 def _parse_mappings_from_transforms(visual_transforms: Optional[Dict[str, Any]]) -> List[VisualFieldMapping]:
     """Primary Strategy: Parses field mappings from the dataTransforms.json 'selects' array."""
     mappings = []

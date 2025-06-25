@@ -1,5 +1,4 @@
-![Gemini_Generated_Image_anort2anort2anor](https://github.com/user-attachments/assets/ba81b1e3-08a3-4f1f-bef9-85b8ddba3f62)
-
+![image](https://github.com/user-attachments/assets/05856205-1f90-45c9-8d7d-7e500f6dd264)
 
 
 # GhostDocWriter: AI-Powered Power BI Documentation

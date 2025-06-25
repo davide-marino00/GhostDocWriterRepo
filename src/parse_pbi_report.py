@@ -133,6 +133,12 @@ def parse_filters(filter_list_json: Optional[List[Dict[str, Any]]], level: str) 
             elif target:
                 definition_summary = "(All values)"
 
+                # --- START OF NEW DEBUGGING BLOCK ---
+            print(f"\n--- DEBUGGING PARSED FILTER: {filter_dict.get('name')} ---")
+            print(f"  - Target Object: {target}")
+            print(f"  - Parsed Definition: {definition_summary}")
+            # --- END OF NEW DEBUGGING BLOCK ---
+
             filt = ReportFilter(
                 name=filter_dict.get('name'),
                 filter_type=filter_dict.get('type'),

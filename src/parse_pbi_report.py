@@ -36,111 +36,71 @@ def load_json_file(file_path: Path) -> Optional[Any]:
         print(f"Warning: Error reading file {file_path.name}: {e}")
     return None
 
-# Enhanced parse_filter_target function
 def parse_filter_target(expression_dict: Optional[Dict[str, Any]]) -> Optional[FilterTarget]:
     """
-    Parses the 'expression' object within a filter definition.
-    Handles simple Column references and basic Aggregations.
+    Parses the 'expression' object within a filter definition to find the target entity and property.
+    This version is more robust and handles more variations.
     """
     if not expression_dict:
         return None
     try:
-        # Case 1: Simple Column Filter (Most common)
-        if "Column" in expression_dict:
-            column_dict = expression_dict["Column"]
-            expression = column_dict.get("Expression")
-            source_ref = None
-            if expression: 
-                source_ref = expression.get("SourceRef")
-            if source_ref is None:
-                source_ref = column_dict.get("SourceRef") # Fallback
+        # The key can be 'Column', 'Aggregation', 'Measure', etc.
+        for key in expression_dict:
+            # Check for a direct 'Column' or 'Measure' reference, which is common
+            if 'Property' in expression_dict[key]:
+                prop_dict = expression_dict[key]
+                property_name = prop_dict.get("Property")
+                
+                # Find the entity name, which can be in a few different places
+                source_ref = prop_dict.get("Expression", {}).get("SourceRef", {})
+                entity = source_ref.get("Entity")
+                
+                if not entity and "Expression" in prop_dict: # Another common location
+                    entity = prop_dict.get("Expression", {}).get("Column", {}).get("Expression",{}).get("SourceRef",{}).get("Entity")
 
-            entity = None
-            if source_ref: 
-                entity = source_ref.get("Entity") or source_ref.get("Source")
-            property_name = column_dict.get("Property")
-            if entity and property_name:
-                return FilterTarget(entity=entity, property=property_name)
+                if not entity and "SourceRef" in prop_dict: # Fallback for simpler structures
+                    entity = prop_dict.get("SourceRef", {}).get("Entity")
+                
+                # Format the property for measures vs columns
+                if key == "Measure" and property_name:
+                    property_name = f"[{property_name}]"
 
-        # Case 2: Aggregation Filter (e.g., Sum(SalesAmount) > 50)
-        elif "Aggregation" in expression_dict:
-            agg_dict = expression_dict["Aggregation"]
-            agg_func_map = {0: "Sum", 1: "Avg", 2: "Min", 3: "Max",
-                            4: "Count", 5: "CountNonNull", 6: "Median",
-                            7: "StandardDeviation", 8: "Variance"}
-            agg_func_code = agg_dict.get("Function", -1)
-            agg_func_name = agg_func_map.get(agg_func_code, f"Agg{agg_func_code}")
-
-            # Try to find the underlying column being aggregated
-            inner_expr = agg_dict.get("Expression")
-            if inner_expr and "Column" in inner_expr:
-                 column_dict = inner_expr["Column"]
-                 expression = column_dict.get("Expression")
-                 source_ref = None
-                 if expression: 
-                    source_ref = expression.get("SourceRef")
-                 if source_ref is None:
-                     source_ref = column_dict.get("SourceRef") # Fallback
-
-                 entity = None
-                 if source_ref: 
-                    entity = source_ref.get("Entity") or source_ref.get("Source")
-
-                 property_name = column_dict.get("Property")
-
-                 if entity and property_name:
-                     # Represent the target as "Agg(Entity.Property)"
-                     agg_target_prop = f"{agg_func_name}({property_name})"
-                     return FilterTarget(entity=entity, property=agg_target_prop)
-                 elif property_name: # Found property but no entity
-                      agg_target_prop = f"{agg_func_name}({property_name})"
-                      return FilterTarget(entity="Unknown", property=agg_target_prop)
-
-            # Fallback if inner column not found - just use Aggregation function name
-            return FilterTarget(entity="Aggregation", property=agg_func_name)
-
-        # Case 3: Measure Filter (Basic handling)
-        elif "Measure" in expression_dict:
-             measure_dict = expression_dict["Measure"]
-             expression = measure_dict.get("Expression")
-             source_ref = None
-             if expression:
-                 source_ref = expression.get("SourceRef")
-
-             entity = None
-             if source_ref:
-                 entity = source_ref.get("Entity") or source_ref.get("Source")
-             property_name = measure_dict.get("Property") # This is the Measure name
-
-             if entity and property_name:
-                 return FilterTarget(entity=entity, property=f"[{property_name}]") # Indicate measure with []
-             elif property_name:
-                  return FilterTarget(entity="Measure", property=f"[{property_name}]")
-
+                if entity and property_name:
+                    return FilterTarget(entity=entity, property=property_name)
     except Exception as e:
         print(f"Warning: Exception during filter target parsing: {e} - Data: {expression_dict}")
-        # traceback.print_exc() # Optional: uncomment for more detail
-    return None # Return None if structure doesn't match known patterns
+    return None
 
+
+# Replace the existing parse_filters function with this one:
 def parse_filters(filter_list_json: Optional[List[Dict[str, Any]]], level: str) -> List[ReportFilter]:
-    """Parses a list of filter definitions from JSON."""
+    """Parses a list of filter definitions from JSON, now with better handling for Basic filters."""
     filters = []
     if not filter_list_json:
         return filters
 
     for i, filter_dict in enumerate(filter_list_json):
         try:
-            # Use the enhanced target parser
             target = parse_filter_target(filter_dict.get('expression'))
+            filter_definition = filter_dict.get('filter', {})
 
-            # Create the filter object - ensure all expected fields are present
+            # --- NEW: Improved logic for Basic Filters ---
+            # Try to make the definition more readable for basic filters
+            if filter_dict.get('type') == "Basic" and filter_definition:
+                operator = filter_definition.get("operator")
+                values = filter_definition.get("values", [])
+                # Re-assemble a readable definition string
+                definition_summary = f"{operator}: {json.dumps(values)}"
+            else:
+                definition_summary = filter_definition
+            # --- END of new logic ---
+
             filt = ReportFilter(
                 name=filter_dict.get('name'),
-                filter_type=filter_dict.get('type'), # Extract type
+                filter_type=filter_dict.get('type'),
                 level=level,
-                target=target, # Use potentially improved target
-                filter_definition=filter_dict.get('filter') # Store raw filter logic
-                # llm_explanation is added later
+                target=target,
+                filter_definition=definition_summary # Use the potentially improved summary
             )
             filters.append(filt)
         except Exception as e:
@@ -148,8 +108,6 @@ def parse_filters(filter_list_json: Optional[List[Dict[str, Any]]], level: str) 
             traceback.print_exc()
             continue
     return filters
-# --- Field Mapping Helper Functions ---
-
 def _parse_mappings_from_transforms(visual_transforms: Optional[Dict[str, Any]]) -> List[VisualFieldMapping]:
     """Primary Strategy: Parses field mappings from the dataTransforms.json 'selects' array."""
     mappings = []

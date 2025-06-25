@@ -88,7 +88,7 @@
             "entity": "Opportunities",
             "property": "Sales Stage"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         },
         {
@@ -99,7 +99,7 @@
             "entity": "Products",
             "property": "Product Category"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         },
         {
@@ -110,7 +110,7 @@
             "entity": "Owners",
             "property": "Owner"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         },
         {
@@ -121,7 +121,7 @@
             "entity": "Products",
             "property": "Product"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         },
         {
@@ -132,7 +132,7 @@
             "entity": "Products",
             "property": "Product Category"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         }
       ],
@@ -1725,7 +1725,7 @@
             "entity": "Opportunities",
             "property": "Sales Stage"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         },
         {
@@ -1736,7 +1736,7 @@
             "entity": "Products",
             "property": "Product Category"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         },
         {
@@ -1747,7 +1747,7 @@
             "entity": "Owners",
             "property": "Owner"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         },
         {
@@ -1758,7 +1758,7 @@
             "entity": "Products",
             "property": "Product"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         },
         {
@@ -1769,7 +1769,7 @@
             "entity": "Products",
             "property": "Product Category"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         },
         {
@@ -1780,7 +1780,7 @@
             "entity": "Industries",
             "property": "Industry"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         },
         {
@@ -2347,7 +2347,7 @@
                 "entity": "Owners",
                 "property": "Manager"
               },
-              "filter_definition": null,
+              "filter_definition": {},
               "llm_explanation": null
             },
             {
@@ -2492,7 +2492,7 @@
                 "entity": "Accounts",
                 "property": "Account Name"
               },
-              "filter_definition": null,
+              "filter_definition": {},
               "llm_explanation": null
             },
             {
@@ -2503,7 +2503,7 @@
                 "entity": "Opportunities",
                 "property": "[Close %]"
               },
-              "filter_definition": null,
+              "filter_definition": {},
               "llm_explanation": null
             },
             {
@@ -2611,7 +2611,7 @@
                 "entity": "Industries",
                 "property": "Industry"
               },
-              "filter_definition": null,
+              "filter_definition": {},
               "llm_explanation": null
             },
             {
@@ -2622,7 +2622,7 @@
                 "entity": "Opportunities",
                 "property": "[Revenue Won]"
               },
-              "filter_definition": null,
+              "filter_definition": {},
               "llm_explanation": null
             }
           ],
@@ -2673,7 +2673,7 @@
                 "entity": "Owners",
                 "property": "Manager"
               },
-              "filter_definition": null,
+              "filter_definition": {},
               "llm_explanation": null
             },
             {
@@ -2684,7 +2684,7 @@
                 "entity": "Opportunities",
                 "property": "[Opportunity Count]"
               },
-              "filter_definition": null,
+              "filter_definition": {},
               "llm_explanation": null
             },
             {
@@ -2695,7 +2695,7 @@
                 "entity": "Opportunities",
                 "property": "[Revenue Won]"
               },
-              "filter_definition": null,
+              "filter_definition": {},
               "llm_explanation": null
             },
             {
@@ -2750,7 +2750,7 @@
                 "entity": "Opportunity Calendar",
                 "property": "YEAR MONTH"
               },
-              "filter_definition": null,
+              "filter_definition": {},
               "llm_explanation": null
             }
           ],
@@ -3408,7 +3408,7 @@
             "entity": "Owners",
             "property": "Manager"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         },
         {
@@ -3419,7 +3419,7 @@
             "entity": "Owners",
             "property": "Owner"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         },
         {
@@ -3430,7 +3430,7 @@
             "entity": "Opportunities",
             "property": "Opportunity Owner Name"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         },
         {
@@ -3441,7 +3441,7 @@
             "entity": "Owners",
             "property": "Manager"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         },
         {
@@ -3452,7 +3452,7 @@
             "entity": "Products",
             "property": "Product"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         },
         {
@@ -3463,7 +3463,7 @@
             "entity": "Products",
             "property": "Product Category"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         },
         {
@@ -4081,7 +4081,7 @@
                 "entity": "Accounts",
                 "property": "Account Name"
               },
-              "filter_definition": null,
+              "filter_definition": {},
               "llm_explanation": null
             },
             {
@@ -4092,7 +4092,7 @@
                 "entity": "Opportunities",
                 "property": "[Close %]"
               },
-              "filter_definition": null,
+              "filter_definition": {},
               "llm_explanation": null
             },
             {
@@ -4276,44 +4276,32 @@
               "name": null,
               "filter_type": "Advanced",
               "level": "Visual",
-              "target": {
-                "entity": "Opportunities",
-                "property": "Sum(Value)"
-              },
-              "filter_definition": null,
+              "target": null,
+              "filter_definition": {},
               "llm_explanation": null
             },
             {
               "name": null,
               "filter_type": "Advanced",
               "level": "Visual",
-              "target": {
-                "entity": "Accounts",
-                "property": "Max(Account Name)"
-              },
-              "filter_definition": null,
+              "target": null,
+              "filter_definition": {},
               "llm_explanation": null
             },
             {
               "name": null,
               "filter_type": "Advanced",
               "level": "Visual",
-              "target": {
-                "entity": "Owners",
-                "property": "Max(Owner)"
-              },
-              "filter_definition": null,
+              "target": null,
+              "filter_definition": {},
               "llm_explanation": null
             },
             {
               "name": null,
               "filter_type": "Advanced",
               "level": "Visual",
-              "target": {
-                "entity": "Products",
-                "property": "Max(Product Category)"
-              },
-              "filter_definition": null,
+              "target": null,
+              "filter_definition": {},
               "llm_explanation": null
             },
             {
@@ -4324,7 +4312,7 @@
                 "entity": "Opportunities",
                 "property": "OpportunitySeq"
               },
-              "filter_definition": null,
+              "filter_definition": {},
               "llm_explanation": null
             }
           ],
@@ -5073,7 +5061,7 @@
             "entity": "Opportunities",
             "property": "Sales Stage"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         },
         {
@@ -5084,7 +5072,7 @@
             "entity": "Products",
             "property": "Product Category"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         },
         {
@@ -5095,7 +5083,7 @@
             "entity": "Owners",
             "property": "Owner"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         },
         {
@@ -5106,7 +5094,7 @@
             "entity": "Products",
             "property": "Product"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         },
         {
@@ -5117,7 +5105,7 @@
             "entity": "Products",
             "property": "Product Category"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         }
       ],
@@ -5684,44 +5672,32 @@
               "name": null,
               "filter_type": "Advanced",
               "level": "Visual",
-              "target": {
-                "entity": "Opportunities",
-                "property": "Sum(Value)"
-              },
-              "filter_definition": null,
+              "target": null,
+              "filter_definition": {},
               "llm_explanation": null
             },
             {
               "name": null,
               "filter_type": "Advanced",
               "level": "Visual",
-              "target": {
-                "entity": "Accounts",
-                "property": "Max(Account Name)"
-              },
-              "filter_definition": null,
+              "target": null,
+              "filter_definition": {},
               "llm_explanation": null
             },
             {
               "name": null,
               "filter_type": "Advanced",
               "level": "Visual",
-              "target": {
-                "entity": "Owners",
-                "property": "Max(Owner)"
-              },
-              "filter_definition": null,
+              "target": null,
+              "filter_definition": {},
               "llm_explanation": null
             },
             {
               "name": null,
               "filter_type": "Advanced",
               "level": "Visual",
-              "target": {
-                "entity": "Products",
-                "property": "Max(Product Category)"
-              },
-              "filter_definition": null,
+              "target": null,
+              "filter_definition": {},
               "llm_explanation": null
             },
             {
@@ -5732,7 +5708,7 @@
                 "entity": "Opportunities",
                 "property": "OpportunitySeq"
               },
-              "filter_definition": null,
+              "filter_definition": {},
               "llm_explanation": null
             },
             {
@@ -5847,40 +5823,31 @@
                 "entity": "Opportunities",
                 "property": "[Close %]"
               },
-              "filter_definition": null,
+              "filter_definition": {},
               "llm_explanation": null
             },
             {
               "name": "Filterfce64fda3a5931380f90",
               "filter_type": "Advanced",
               "level": "Visual",
-              "target": {
-                "entity": "Accounts",
-                "property": "Max(Account Name)"
-              },
-              "filter_definition": null,
+              "target": null,
+              "filter_definition": {},
               "llm_explanation": null
             },
             {
               "name": "Filterfd148b1dc07e587ec636",
               "filter_type": "Advanced",
               "level": "Visual",
-              "target": {
-                "entity": "Owners",
-                "property": "Max(Owner)"
-              },
-              "filter_definition": null,
+              "target": null,
+              "filter_definition": {},
               "llm_explanation": null
             },
             {
               "name": "Filter378449185421910ec48c",
               "filter_type": "Advanced",
               "level": "Visual",
-              "target": {
-                "entity": "Products",
-                "property": "Max(Product Category)"
-              },
-              "filter_definition": null,
+              "target": null,
+              "filter_definition": {},
               "llm_explanation": null
             },
             {
@@ -5891,7 +5858,7 @@
                 "entity": "Opportunities",
                 "property": "OpportunitySeq"
               },
-              "filter_definition": null,
+              "filter_definition": {},
               "llm_explanation": null
             },
             {
@@ -5966,11 +5933,8 @@
               "name": "Filterb616ad48471799df27b7",
               "filter_type": "Advanced",
               "level": "Visual",
-              "target": {
-                "entity": "Opportunities",
-                "property": "Sum(Value)"
-              },
-              "filter_definition": null,
+              "target": null,
+              "filter_definition": {},
               "llm_explanation": null
             },
             {
@@ -5981,7 +5945,7 @@
                 "entity": "Opportunity Calendar",
                 "property": "YEAR MONTH"
               },
-              "filter_definition": null,
+              "filter_definition": {},
               "llm_explanation": null
             }
           ],
@@ -6018,44 +5982,32 @@
               "name": null,
               "filter_type": "Advanced",
               "level": "Visual",
-              "target": {
-                "entity": "Opportunities",
-                "property": "Sum(Value)"
-              },
-              "filter_definition": null,
+              "target": null,
+              "filter_definition": {},
               "llm_explanation": null
             },
             {
               "name": null,
               "filter_type": "Advanced",
               "level": "Visual",
-              "target": {
-                "entity": "Accounts",
-                "property": "Max(Account Name)"
-              },
-              "filter_definition": null,
+              "target": null,
+              "filter_definition": {},
               "llm_explanation": null
             },
             {
               "name": null,
               "filter_type": "Advanced",
               "level": "Visual",
-              "target": {
-                "entity": "Owners",
-                "property": "Max(Owner)"
-              },
-              "filter_definition": null,
+              "target": null,
+              "filter_definition": {},
               "llm_explanation": null
             },
             {
               "name": null,
               "filter_type": "Advanced",
               "level": "Visual",
-              "target": {
-                "entity": "Products",
-                "property": "Max(Product Category)"
-              },
-              "filter_definition": null,
+              "target": null,
+              "filter_definition": {},
               "llm_explanation": null
             },
             {
@@ -6066,7 +6018,7 @@
                 "entity": "Opportunities",
                 "property": "OpportunitySeq"
               },
-              "filter_definition": null,
+              "filter_definition": {},
               "llm_explanation": null
             },
             {
@@ -6157,44 +6109,32 @@
               "name": null,
               "filter_type": "Advanced",
               "level": "Visual",
-              "target": {
-                "entity": "Opportunities",
-                "property": "Sum(Value)"
-              },
-              "filter_definition": null,
+              "target": null,
+              "filter_definition": {},
               "llm_explanation": null
             },
             {
               "name": null,
               "filter_type": "Advanced",
               "level": "Visual",
-              "target": {
-                "entity": "Accounts",
-                "property": "Max(Account Name)"
-              },
-              "filter_definition": null,
+              "target": null,
+              "filter_definition": {},
               "llm_explanation": null
             },
             {
               "name": null,
               "filter_type": "Advanced",
               "level": "Visual",
-              "target": {
-                "entity": "Owners",
-                "property": "Max(Owner)"
-              },
-              "filter_definition": null,
+              "target": null,
+              "filter_definition": {},
               "llm_explanation": null
             },
             {
               "name": null,
               "filter_type": "Advanced",
               "level": "Visual",
-              "target": {
-                "entity": "Products",
-                "property": "Max(Product Category)"
-              },
-              "filter_definition": null,
+              "target": null,
+              "filter_definition": {},
               "llm_explanation": null
             },
             {
@@ -6205,7 +6145,7 @@
                 "entity": "Opportunities",
                 "property": "OpportunitySeq"
               },
-              "filter_definition": null,
+              "filter_definition": {},
               "llm_explanation": null
             },
             {
@@ -7112,7 +7052,7 @@
             "entity": "Opportunities",
             "property": "Decision Maker Identified"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         },
         {
@@ -7123,7 +7063,7 @@
             "entity": "Opportunities",
             "property": "Purchase Process"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         },
         {
@@ -7134,7 +7074,7 @@
             "entity": "Industries",
             "property": "Industry"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         },
         {
@@ -7145,7 +7085,7 @@
             "entity": "Owners",
             "property": "Manager"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         },
         {
@@ -7156,7 +7096,7 @@
             "entity": "Owners",
             "property": "Owner"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         },
         {
@@ -7167,7 +7107,7 @@
             "entity": "Products",
             "property": "Product Category"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         },
         {
@@ -7178,7 +7118,7 @@
             "entity": "Products",
             "property": "Product"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         },
         {
@@ -7189,7 +7129,7 @@
             "entity": "Opportunities",
             "property": "Purchase Process"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         }
       ],
@@ -7717,7 +7657,7 @@
                 "entity": "Opportunities",
                 "property": "Status"
               },
-              "filter_definition": null,
+              "filter_definition": {},
               "llm_explanation": null
             },
             {
@@ -7728,7 +7668,7 @@
                 "entity": "Products",
                 "property": "Product"
               },
-              "filter_definition": null,
+              "filter_definition": {},
               "llm_explanation": null
             },
             {
@@ -7739,7 +7679,7 @@
                 "entity": "Products",
                 "property": "Product Category"
               },
-              "filter_definition": null,
+              "filter_definition": {},
               "llm_explanation": null
             },
             {
@@ -7750,7 +7690,7 @@
                 "entity": "Owners",
                 "property": "Owner"
               },
-              "filter_definition": null,
+              "filter_definition": {},
               "llm_explanation": null
             },
             {
@@ -7761,7 +7701,7 @@
                 "entity": "Owners",
                 "property": "Manager"
               },
-              "filter_definition": null,
+              "filter_definition": {},
               "llm_explanation": null
             },
             {
@@ -7772,7 +7712,7 @@
                 "entity": "Accounts",
                 "property": "State or Province"
               },
-              "filter_definition": null,
+              "filter_definition": {},
               "llm_explanation": null
             },
             {
@@ -7783,7 +7723,7 @@
                 "entity": "Territories",
                 "property": "Region"
               },
-              "filter_definition": null,
+              "filter_definition": {},
               "llm_explanation": null
             },
             {
@@ -7794,7 +7734,7 @@
                 "entity": "Territories",
                 "property": "Territory"
               },
-              "filter_definition": null,
+              "filter_definition": {},
               "llm_explanation": null
             },
             {
@@ -7805,7 +7745,7 @@
                 "entity": "Opportunities",
                 "property": "Purchase Process"
               },
-              "filter_definition": null,
+              "filter_definition": {},
               "llm_explanation": null
             },
             {
@@ -7816,7 +7756,7 @@
                 "entity": "Opportunities",
                 "property": "Decision Maker Identified"
               },
-              "filter_definition": null,
+              "filter_definition": {},
               "llm_explanation": null
             }
           ],
@@ -8525,7 +8465,7 @@
             "entity": "Opportunities",
             "property": "Decision Maker Identified"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         },
         {
@@ -8536,7 +8476,7 @@
             "entity": "Opportunities",
             "property": "Purchase Process"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         },
         {
@@ -8547,7 +8487,7 @@
             "entity": "Industries",
             "property": "Industry"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         },
         {
@@ -8558,7 +8498,7 @@
             "entity": "Owners",
             "property": "Manager"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         },
         {
@@ -8569,7 +8509,7 @@
             "entity": "Owners",
             "property": "Owner"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         },
         {
@@ -8580,7 +8520,7 @@
             "entity": "Products",
             "property": "Product Category"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         },
         {
@@ -8591,7 +8531,7 @@
             "entity": "Products",
             "property": "Product"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         },
         {
@@ -8602,7 +8542,7 @@
             "entity": "Opportunities",
             "property": "Purchase Process"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         }
       ],
@@ -9154,7 +9094,7 @@
                 "entity": "Products",
                 "property": "Product"
               },
-              "filter_definition": null,
+              "filter_definition": {},
               "llm_explanation": null
             },
             {
@@ -9165,7 +9105,7 @@
                 "entity": "Owners",
                 "property": "Owner"
               },
-              "filter_definition": null,
+              "filter_definition": {},
               "llm_explanation": null
             },
             {
@@ -9176,7 +9116,7 @@
                 "entity": "Owners",
                 "property": "Manager"
               },
-              "filter_definition": null,
+              "filter_definition": {},
               "llm_explanation": null
             },
             {
@@ -9187,7 +9127,7 @@
                 "entity": "Accounts",
                 "property": "State or Province"
               },
-              "filter_definition": null,
+              "filter_definition": {},
               "llm_explanation": null
             },
             {
@@ -9198,7 +9138,7 @@
                 "entity": "Opportunities",
                 "property": "Purchase Process"
               },
-              "filter_definition": null,
+              "filter_definition": {},
               "llm_explanation": null
             },
             {
@@ -9209,7 +9149,7 @@
                 "entity": "Opportunities",
                 "property": "Decision Maker Identified"
               },
-              "filter_definition": null,
+              "filter_definition": {},
               "llm_explanation": null
             }
           ],
@@ -9906,7 +9846,7 @@
             "entity": "Opportunities",
             "property": "Decision Maker Identified"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         },
         {
@@ -9917,7 +9857,7 @@
             "entity": "Opportunities",
             "property": "Purchase Process"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         },
         {
@@ -9928,7 +9868,7 @@
             "entity": "Industries",
             "property": "Industry"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         },
         {
@@ -9939,7 +9879,7 @@
             "entity": "Owners",
             "property": "Manager"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         },
         {
@@ -9950,7 +9890,7 @@
             "entity": "Owners",
             "property": "Owner"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         },
         {
@@ -9961,7 +9901,7 @@
             "entity": "Products",
             "property": "Product Category"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         },
         {
@@ -9972,7 +9912,7 @@
             "entity": "Products",
             "property": "Product"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         },
         {
@@ -9983,7 +9923,7 @@
             "entity": "Opportunities",
             "property": "Purchase Process"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         }
       ],
@@ -10540,7 +10480,7 @@
                 "entity": "Opportunities",
                 "property": "Status"
               },
-              "filter_definition": null,
+              "filter_definition": {},
               "llm_explanation": null
             },
             {
@@ -10551,7 +10491,7 @@
                 "entity": "Products",
                 "property": "Product"
               },
-              "filter_definition": null,
+              "filter_definition": {},
               "llm_explanation": null
             },
             {
@@ -10562,7 +10502,7 @@
                 "entity": "Products",
                 "property": "Product Category"
               },
-              "filter_definition": null,
+              "filter_definition": {},
               "llm_explanation": null
             },
             {
@@ -10573,7 +10513,7 @@
                 "entity": "Owners",
                 "property": "Owner"
               },
-              "filter_definition": null,
+              "filter_definition": {},
               "llm_explanation": null
             },
             {
@@ -10584,7 +10524,7 @@
                 "entity": "Owners",
                 "property": "Manager"
               },
-              "filter_definition": null,
+              "filter_definition": {},
               "llm_explanation": null
             },
             {
@@ -10595,7 +10535,7 @@
                 "entity": "Industries",
                 "property": "Industry"
               },
-              "filter_definition": null,
+              "filter_definition": {},
               "llm_explanation": null
             },
             {
@@ -10606,7 +10546,7 @@
                 "entity": "Accounts",
                 "property": "State or Province"
               },
-              "filter_definition": null,
+              "filter_definition": {},
               "llm_explanation": null
             },
             {
@@ -10617,7 +10557,7 @@
                 "entity": "Territories",
                 "property": "Region"
               },
-              "filter_definition": null,
+              "filter_definition": {},
               "llm_explanation": null
             },
             {
@@ -10628,7 +10568,7 @@
                 "entity": "Territories",
                 "property": "Territory"
               },
-              "filter_definition": null,
+              "filter_definition": {},
               "llm_explanation": null
             },
             {
@@ -10639,7 +10579,7 @@
                 "entity": "Opportunities",
                 "property": "Purchase Process"
               },
-              "filter_definition": null,
+              "filter_definition": {},
               "llm_explanation": null
             },
             {
@@ -10650,7 +10590,7 @@
                 "entity": "Opportunities",
                 "property": "Decision Maker Identified"
               },
-              "filter_definition": null,
+              "filter_definition": {},
               "llm_explanation": null
             }
           ],
@@ -11333,7 +11273,7 @@
             "entity": "Opportunities",
             "property": "Decision Maker Identified"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         },
         {
@@ -11344,7 +11284,7 @@
             "entity": "Opportunities",
             "property": "Purchase Process"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         },
         {
@@ -11355,7 +11295,7 @@
             "entity": "Industries",
             "property": "Industry"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         },
         {
@@ -11366,7 +11306,7 @@
             "entity": "Owners",
             "property": "Manager"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         },
         {
@@ -11377,7 +11317,7 @@
             "entity": "Owners",
             "property": "Owner"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         },
         {
@@ -11388,7 +11328,7 @@
             "entity": "Products",
             "property": "Product Category"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         },
         {
@@ -11399,7 +11339,7 @@
             "entity": "Products",
             "property": "Product"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         },
         {
@@ -11410,7 +11350,7 @@
             "entity": "Opportunities",
             "property": "Purchase Process"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         }
       ],
@@ -12586,7 +12526,7 @@
             "entity": "Opportunities",
             "property": "Decision Maker Identified"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         },
         {
@@ -12597,7 +12537,7 @@
             "entity": "Opportunities",
             "property": "Purchase Process"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         },
         {
@@ -12608,7 +12548,7 @@
             "entity": "Industries",
             "property": "Industry"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         },
         {
@@ -12619,7 +12559,7 @@
             "entity": "Owners",
             "property": "Manager"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         },
         {
@@ -12630,7 +12570,7 @@
             "entity": "Owners",
             "property": "Owner"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         },
         {
@@ -12641,7 +12581,7 @@
             "entity": "Products",
             "property": "Product Category"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         },
         {
@@ -12652,7 +12592,7 @@
             "entity": "Products",
             "property": "Product"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         },
         {
@@ -12663,7 +12603,7 @@
             "entity": "Opportunities",
             "property": "Purchase Process"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         }
       ],
@@ -13868,7 +13808,7 @@
             "entity": "Opportunities",
             "property": "Sales Stage"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         },
         {
@@ -13879,7 +13819,7 @@
             "entity": "Products",
             "property": "Product Category"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         },
         {
@@ -13890,7 +13830,7 @@
             "entity": "Owners",
             "property": "Owner"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         },
         {
@@ -13901,7 +13841,7 @@
             "entity": "Products",
             "property": "Product"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         },
         {
@@ -13912,7 +13852,7 @@
             "entity": "Products",
             "property": "Product Category"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         }
       ],
@@ -15024,7 +14964,7 @@
             "entity": "Opportunities",
             "property": "Sales Stage"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         },
         {
@@ -15035,7 +14975,7 @@
             "entity": "Products",
             "property": "Product Category"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         },
         {
@@ -15046,7 +14986,7 @@
             "entity": "Owners",
             "property": "Owner"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         },
         {
@@ -15057,7 +14997,7 @@
             "entity": "Products",
             "property": "Product"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         },
         {
@@ -15068,7 +15008,7 @@
             "entity": "Products",
             "property": "Product Category"
           },
-          "filter_definition": null,
+          "filter_definition": {},
           "llm_explanation": null
         }
       ],

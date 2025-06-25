@@ -1,3 +1,5 @@
+![Gemini_Generated_Image_y4us7jy4us7jy4us](https://github.com/user-attachments/assets/3cf63a49-08fa-4b85-b665-7de8b8e9056f)
+
 # GhostDocWriter: AI-Powered Power BI Documentation
 
 **An AI-powered tool to automatically generate documentation for your Power BI models using Azure OpenAI and TMDL metadata.**

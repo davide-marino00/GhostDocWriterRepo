@@ -44,16 +44,21 @@ def parse_filter_target(expression_dict: Optional[Dict[str, Any]]) -> Optional[F
     if not expression_dict:
         return None
     try:
+        # The key can be 'Column', 'Aggregation', 'Measure', etc.
         for key in expression_dict:
             if isinstance(expression_dict[key], dict) and 'Property' in expression_dict[key]:
                 prop_dict = expression_dict[key]
                 property_name = prop_dict.get("Property")
+
                 source_ref = prop_dict.get("Expression", {}).get("SourceRef", {})
                 entity = source_ref.get("Entity")
-                if not entity:
+
+                if not entity: # Add fallback to check another common location
                     entity = prop_dict.get("SourceRef", {}).get("Entity")
+
                 if key == "Measure" and property_name:
-                    property_name = f"[{property_name}]"
+                    property_name = f"[{property_name}]" # Format measures for clarity
+
                 if entity and property_name:
                     return FilterTarget(entity=entity, property=property_name)
     except Exception as e:
@@ -65,6 +70,7 @@ def _parse_condition_recursively(condition: dict) -> str:
     if not isinstance(condition, dict):
         return "(Invalid condition format)"
 
+    # Handles logical operators like "And", "Or", "Not"
     for logical_op in ["And", "Or"]:
         if logical_op in condition:
             left = _parse_condition_recursively(condition[logical_op].get("Left", {}))
@@ -75,10 +81,12 @@ def _parse_condition_recursively(condition: dict) -> str:
         inner = _parse_condition_recursively(condition["Not"].get("Expression", {}))
         return f"NOT ({inner})"
 
+    # Handles "In" condition for categorical filters
     if "In" in condition:
         in_op = condition["In"]
         col_expr = in_op.get("Expressions", [{}])[0]
         target_prop = col_expr.get("Column", {}).get("Property", "?")
+
         values_list = []
         for value_group in in_op.get("Values", []):
             for item in value_group:
@@ -87,18 +95,23 @@ def _parse_condition_recursively(condition: dict) -> str:
                     values_list.append(literal_val.strip("'"))
                 else:
                     values_list.append(str(literal_val))
+
         values_str = ", ".join([f"'{v}'" for v in values_list])
         return f"`{target_prop}` IN ({values_str})"
 
+    # Handles "Comparison" condition for advanced filters
     if "Comparison" in condition:
         comp = condition["Comparison"]
         op_map = {0: "=", 1: "<>", 2: ">", 3: ">=", 4: "<", 5: "<="}
         op_kind = comp.get("ComparisonKind")
         op_str = op_map.get(op_kind, f"op({op_kind})")
+
         left_prop = comp.get("Left", {}).get("Column", {}).get("Property", "?")
         right_val = comp.get("Right", {}).get("Literal", {}).get("Value", "?")
+
         if isinstance(right_val, str):
             right_val = right_val.rstrip("L")
+
         return f"`{left_prop}` {op_str} {right_val}"
 
     return "(Unparsed condition)"
@@ -113,6 +126,7 @@ def parse_filters(filter_list_json: Optional[List[Dict[str, Any]]], level: str) 
         try:
             target = parse_filter_target(filter_dict.get('expression'))
             definition_summary = "(No definition found)"
+
             if 'filter' in filter_dict and 'Where' in filter_dict['filter']:
                 conditions = [_parse_condition_recursively(wc.get("Condition", {})) for wc in filter_dict['filter']['Where']]
                 definition_summary = " AND ".join(conditions)
@@ -132,6 +146,7 @@ def parse_filters(filter_list_json: Optional[List[Dict[str, Any]]], level: str) 
             traceback.print_exc()
             continue
     return filters
+
 
 def _parse_mappings_from_transforms(visual_transforms: Optional[Dict[str, Any]]) -> List[VisualFieldMapping]:
     """Primary Strategy: Parses field mappings from the dataTransforms.json 'selects' array."""

@@ -1,6 +1,6 @@
 # Power BI Model & Report Documentation
 
-*Generated on: 2025-06-25 13:01:18*
+*Generated on: 2025-06-25 13:06:45*
 
 ## Table of Contents
 
@@ -36,9 +36,9 @@
 
 ## <a name="overview"></a>Overview
 
-The Power BI data model appears to represent a comprehensive Customer Relationship Management (CRM) system, likely focused on sales and marketing activities within a business. The presence of tables such as 'Accounts', 'Contacts', 'Opportunities', and 'Campaigns' suggests a strong emphasis on managing customer relationships, tracking sales opportunities, and analyzing marketing campaigns. The relationships between these tables indicate a structured approach to understanding how various elements, such as accounts and contacts, interact with sales opportunities and marketing efforts, providing insights into customer engagement and sales performance.
+The Power BI data model appears to represent a comprehensive Customer Relationship Management (CRM) system, likely focused on sales and marketing activities within a business. The inclusion of tables such as 'Accounts', 'Contacts', 'Opportunities', and 'Campaigns' suggests a strong emphasis on managing customer relationships, tracking sales opportunities, and analyzing marketing efforts. The relationships between these tables indicate a structured approach to linking accounts with their respective contacts, opportunities, and marketing campaigns, facilitating a holistic view of customer interactions and sales performance.
 
-Additionally, the inclusion of tables like 'Industries', 'Products', 'Territories', and 'Opportunity Calendar' points to a model designed to facilitate detailed analysis of market segments, product performance, and sales forecasting. The relationships established between opportunities and their respective owners, products, and campaigns, as well as the integration of opportunity forecasting adjustments, suggest a focus on optimizing sales strategies and resource allocation. Overall, this data model is likely aimed at empowering business users to make informed decisions based on a holistic view of their sales and marketing operations.
+Additionally, the presence of tables like 'Industries', 'Products', 'Territories', and 'Opportunity Calendar' highlights the model's capability to analyze sales data across different sectors, product lines, and geographical regions. The 'Opportunity Forecast Adjustment' table suggests a focus on refining sales forecasts based on various factors, enhancing decision-making processes. Overall, this data model is likely designed to empower businesses to optimize their sales strategies, improve customer engagement, and drive revenue growth through data-driven insights.
 
 ---
 
@@ -63,41 +63,41 @@ The following relationships link the tables:
 
 #### <a name="table-accounts"></a>Table: `Accounts`
 
-The 'Accounts' table serves as a comprehensive repository of customer account information, detailing key attributes such as account identifiers, geographical locations, and ownership, which enables businesses to analyze customer demographics, manage relationships, and optimize sales strategies across various territories and industries.
+The 'Accounts' table serves as a comprehensive repository of customer account information, detailing key attributes such as account identifiers, geographic locations, and ownership, which enables businesses to analyze customer demographics, manage relationships, and optimize sales strategies across various territories and industries.
 
 ##### Columns
 
 | Name | Data Type | Description (Generated) |
 |------|-----------|-------------------------|
 | `Account Name` | `string` | The 'Account Name' column stores the names of customer accounts, serving as a key identifier for managing and referencing account-related information within the Accounts table. |
-| `Account Number` | `string` | The 'Account Number' column stores unique identifiers for each account, facilitating efficient tracking and management of customer accounts within the Accounts table. |
-| `AccountID` | `string` | Column Description: A unique identifier for each account, represented as a string, used to differentiate and manage account records within the Accounts table. |
-| `AccountOwnerSeq` | `int64` | The 'AccountOwnerSeq' column (int64) uniquely identifies the sequence number of the owner associated with each account, facilitating efficient tracking and management of account ownership within the Accounts table. |
-| `AccountSeq` | `int64` | Column Description: The 'AccountSeq' column (int64) uniquely identifies each account in the Accounts table, serving as a sequential identifier for efficient data retrieval and management. |
-| `Country` | `string` | Column Description: The 'Country' column identifies the geographical location associated with each account, facilitating regional analysis and reporting. |
-| `IndustrySeq` | `int64` | The 'IndustrySeq' column (int64) in the 'Accounts' table uniquely identifies the sequence number associated with the industry classification of each account, facilitating efficient categorization and analysis of account data. |
-| `State or Province` | `string` | The 'State or Province' column captures the geographical region associated with each account, facilitating location-based analysis and reporting. |
+| `Account Number` | `string` | The 'Account Number' column stores a unique identifier for each account, facilitating efficient tracking and management of customer accounts within the Accounts table. |
+| `AccountID` | `string` | Column Description: A unique identifier for each account, represented as a string, used to facilitate account management and data retrieval within the Accounts table. |
+| `AccountOwnerSeq` | `int64` | Column Description: The 'AccountOwnerSeq' column (int64) uniquely identifies the sequence number of the account owner associated with each account in the Accounts table. |
+| `AccountSeq` | `int64` | Column Description: The 'AccountSeq' column (int64) uniquely identifies each account in the Accounts table, serving as a sequential reference for account management and tracking. |
+| `Country` | `string` | The 'Country' column in the 'Accounts' table stores the name of the country associated with each account, facilitating geographic segmentation and analysis of account data. |
+| `IndustrySeq` | `int64` | Column Description: The 'IndustrySeq' column (int64) uniquely identifies the sequence number of the industry associated with each account, facilitating efficient categorization and analysis of accounts by industry type. |
+| `State or Province` | `string` | Column Description: This column captures the state or province associated with each account, facilitating regional analysis and reporting. |
 | `TerritorySeq` | `int64` | Column Description: The 'TerritorySeq' column (int64) uniquely identifies the sequence number of the territory assigned to each account, facilitating efficient territory management and reporting. |
 
 ---
 
 #### <a name="table-campaigns"></a>Table: `Campaigns`
 
-The 'Campaigns' table serves as a centralized repository for tracking marketing initiatives, detailing each campaign's unique identifier, type, and name. This enables businesses to analyze campaign performance, optimize marketing strategies, and enhance overall engagement with target audiences.
+The 'Campaigns' table serves as a central repository for tracking and managing marketing initiatives, detailing each campaign's unique identifier, type, and name. This enables businesses to analyze campaign performance, optimize marketing strategies, and enhance overall engagement with target audiences.
 
 ##### Columns
 
 | Name | Data Type | Description (Generated) |
 |------|-----------|-------------------------|
 | `Campaign` | `string` | The 'Campaign' column stores the names or identifiers of marketing campaigns, enabling the tracking and management of various promotional initiatives within the Campaigns table. |
-| `Campaign Type` | `string` | Column Description: This column categorizes the type of marketing campaign, enabling targeted analysis and reporting on campaign performance within the Campaigns table. |
-| `CampaignSeq` | `int64` | Column Description: The 'CampaignSeq' column represents a unique sequential identifier for each marketing campaign, facilitating the tracking and management of campaign data within the 'Campaigns' table. |
+| `Campaign Type` | `string` | Column Description: This column categorizes the type of marketing campaign, enabling targeted analysis and reporting on campaign performance within the 'Campaigns' table. |
+| `CampaignSeq` | `int64` | Column Description: The 'CampaignSeq' column represents a unique sequential identifier for each marketing campaign, facilitating the organization and retrieval of campaign data within the 'Campaigns' table. |
 
 ---
 
 #### <a name="table-contacts"></a>Table: `Contacts`
 
-The 'Contacts' table serves as a centralized repository for managing key stakeholder information within the organization, capturing essential details such as individual names, job titles, and their associated account identifiers. This enables effective relationship management and targeted communication strategies across various business functions.
+The 'Contacts' table serves as a centralized repository for managing key stakeholder information, including their job titles and unique identifiers, facilitating effective communication and relationship management across various accounts within the organization. This table enables businesses to streamline outreach efforts and enhance collaboration by providing a clear overview of contacts associated with each account.
 
 ##### Columns
 
@@ -106,70 +106,70 @@ The 'Contacts' table serves as a centralized repository for managing key stakeho
 | `AccountSeq` | `int64` | Column Description: The 'AccountSeq' column (int64) uniquely identifies the sequence number of the associated account for each contact, facilitating efficient data retrieval and relationship mapping within the Contacts table. |
 | `Contact` | `string` | The 'Contact' column stores the names or identifiers of individuals or organizations associated with each entry in the Contacts table, facilitating communication and relationship management. |
 | `ContactSeq` | `int64` | Column Description: The 'ContactSeq' column serves as a unique sequential identifier for each contact entry in the Contacts table, facilitating efficient data retrieval and management. |
-| `Job Title` | `string` | Column Description: The 'Job Title' column captures the professional designation of each contact, facilitating targeted communication and relationship management within the Contacts table. |
+| `Job Title` | `string` | Column Description: The 'Job Title' column captures the professional designation of each contact, providing essential context for understanding their role and responsibilities within their organization. |
 
 ---
 
 #### <a name="table-industries"></a>Table: `Industries`
 
-The 'Industries' table serves as a reference dataset that categorizes various sectors of the economy, enabling businesses to analyze performance metrics and trends by industry type. The inclusion of an industry sequence number facilitates efficient sorting and organization of industry data for reporting and analytical purposes.
+The 'Industries' table serves as a reference dataset that categorizes various sectors of the economy, enabling businesses to analyze performance metrics and trends across different industries. The inclusion of an industry sequence number facilitates efficient sorting and organization of industry data for reporting and analytical purposes.
 
 ##### Columns
 
 | Name | Data Type | Description (Generated) |
 |------|-----------|-------------------------|
-| `Industry` | `string` | The 'Industry' column contains the names of various sectors or fields of economic activity, providing essential context for categorizing and analyzing business data within the Industries table. |
-| `IndustrySeq` | `int64` | Column Description: The 'IndustrySeq' column serves as a unique sequential identifier for each industry entry in the Industries table, facilitating efficient data retrieval and organization. |
+| `Industry` | `string` | The 'Industry' column categorizes various sectors of the economy, providing a textual representation of the specific industry type associated with each entry in the Industries table. |
+| `IndustrySeq` | `int64` | Column Description: The 'IndustrySeq' column serves as a unique sequential identifier for each industry entry in the Industries table, facilitating efficient data retrieval and management. |
 
 ---
 
 #### <a name="table-opportunities"></a>Table: `Opportunities`
 
-The 'Opportunities' table serves as a critical resource for tracking and managing potential sales deals within the organization, providing insights into the purchase process, decision-making status, and sales progression. By analyzing key metrics such as deal value, probability of closure, and time in the sales cycle, businesses can optimize their sales strategies and improve forecasting accuracy.
+The 'Opportunities' table captures critical data related to potential sales deals, enabling businesses to track the progress of each opportunity through the purchase process. By analyzing key metrics such as sales stage, value, probability, and decision-maker identification, organizations can optimize their sales strategies and forecast revenue more accurately.
 
 ##### Columns
 
 | Name | Data Type | Description (Generated) |
 |------|-----------|-------------------------|
-| `AccountSeq` | `int64` | Column Description: The 'AccountSeq' column (int64) uniquely identifies the sequence number of the associated account for each opportunity, facilitating the tracking and management of relationships between accounts and their respective opportunities. |
+| `AccountSeq` | `int64` | Column Description: The 'AccountSeq' column (int64) uniquely identifies the sequence number of the associated account for each opportunity, facilitating efficient tracking and management of account-related opportunities. |
 | `CampaignSeq` | `int64` | Column Description: The 'CampaignSeq' column (int64) uniquely identifies the sequence number of marketing campaigns associated with each opportunity, facilitating the tracking and analysis of campaign effectiveness. |
 | `CloseDate` | `dateTime` | The 'CloseDate' column represents the scheduled date and time when an opportunity is expected to be finalized or closed, facilitating effective sales forecasting and pipeline management. |
-| `DateDiff-Days` | `int64` | Column Description: This column represents the difference in days between the opportunity's creation date and the current date, providing insights into the age of the opportunity for better tracking and management. |
-| `DaysToClose` | `int64` | Column Description: The 'DaysToClose' column represents the estimated number of days remaining to finalize a sales opportunity, providing insights into the sales cycle duration and urgency for closing deals. |
+| `DateDiff-Days` | `int64` | Column Description: This column represents the difference in days between the opportunity's creation date and the current date, providing insights into the age of each opportunity within the sales pipeline. |
+| `DaysToClose` | `int64` | The 'DaysToClose' column represents the number of days remaining until an opportunity is expected to be finalized, providing insights into the sales cycle duration for effective pipeline management. |
 | `Decision Maker Identified` | `boolean` | Indicates whether a decision maker has been identified for the opportunity, facilitating targeted engagement strategies. |
-| `Discount` | `double` | The 'Discount' column (double) in the 'Opportunities' table represents the monetary reduction applied to the total price of a sales opportunity, facilitating the assessment of pricing strategies and revenue impact. |
-| `Opportunity Created On` | `dateTime` | Column Description: The 'Opportunity Created On' column records the date and time when each sales opportunity was initiated, providing a timestamp for tracking the lifecycle of opportunities within the sales process. |
-| `OpportunitySeq` | `int64` | The 'OpportunitySeq' column (int64) uniquely identifies each opportunity in the Opportunities table, serving as a sequential reference for tracking and managing sales prospects. |
+| `Discount` | `double` | The 'Discount' column (double) in the 'Opportunities' table represents the monetary reduction applied to the total value of an opportunity, facilitating the assessment of pricing strategies and revenue projections. |
+| `Opportunity Created On` | `dateTime` | The 'Opportunity Created On' column records the date and time when each sales opportunity was initiated, providing essential context for tracking the lifecycle and performance of opportunities within the sales pipeline. |
+| `OpportunitySeq` | `int64` | Column Description: The 'OpportunitySeq' column represents a unique sequential identifier for each opportunity, facilitating efficient tracking and management within the Opportunities table. |
 | `Probability` | `double` | The 'Probability' column (double) in the 'Opportunities' table represents the likelihood, expressed as a percentage, of successfully closing a sales opportunity, aiding in prioritization and forecasting efforts. |
-| `Probability (raw)` | `double` | The 'Probability (raw)' column represents the unadjusted likelihood, expressed as a double value, of successfully closing an opportunity within the sales pipeline. |
+| `Probability (raw)` | `double` | The 'Probability (raw)' column represents the unadjusted likelihood, expressed as a double value, of successfully closing each opportunity within the Opportunities table. |
 | `ProductSeq` | `int64` | Column Description: The 'ProductSeq' column (int64) uniquely identifies the sequence of products associated with each opportunity, facilitating the tracking and management of product offerings within the sales pipeline. |
-| `Purchase Process` | `string` | Column Description: This column captures the specific stage or method of the purchasing journey associated with each opportunity, providing insights into the sales process and customer engagement strategies. |
-| `Rating` | `string` | The 'Rating' column captures qualitative assessments of each opportunity, allowing stakeholders to gauge potential value and prioritize actions accordingly. |
+| `Purchase Process` | `string` | The 'Purchase Process' column captures the current stage or steps involved in the buyer's journey for each opportunity, providing insights into the progression and status of potential sales. |
+| `Rating` | `string` | The 'Rating' column captures qualitative assessments of each opportunity, allowing stakeholders to gauge the potential value or priority of the opportunity based on predefined criteria. |
 | `Sales Stage` | `string` | The 'Sales Stage' column indicates the current phase of the sales process for each opportunity, helping to track progress and forecast potential revenue. |
-| `Status` | `string` | The 'Status' column indicates the current stage or condition of each opportunity, providing essential insights for tracking progress and decision-making within the sales pipeline. |
-| `SystemUserSeq` | `int64` | Column Description: The 'SystemUserSeq' column (int64) uniquely identifies the system user associated with each opportunity, facilitating user-specific tracking and management within the Opportunities table. |
-| `Value` | `int64` | The 'Value' column (int64) in the 'Opportunities' table represents the monetary worth associated with each sales opportunity, facilitating financial analysis and forecasting. |
+| `Status` | `string` | The 'Status' column indicates the current stage or condition of each opportunity, providing essential insights for tracking progress and decision-making in the sales process. |
+| `SystemUserSeq` | `int64` | Column Description: The 'SystemUserSeq' column (int64) uniquely identifies the system user associated with each opportunity, facilitating user-specific tracking and management of sales activities. |
+| `Value` | `int64` | The 'Value' column (int64) in the 'Opportunities' table represents the monetary worth or potential revenue associated with each opportunity, facilitating financial analysis and decision-making. |
 
 ##### Calculated Columns
 
 **`Blank`** (`string`)
 
-- **Description:** The 'Blank' column in the Opportunities table is intended to hold placeholder or optional string values that may be used for future data enrichment or categorization tasks.
+- **Description:** The 'Blank' column in the Opportunities table is intended for future use or to accommodate optional data entries that may not currently be applicable.
 - **DAX Expression:**
 ```dax
 BLANK()
 ```
-- **DAX Explanation (Generated):** The DAX expression `BLANK()` is used to create a calculated column that contains no value, essentially representing an empty or null state. 
+- **DAX Explanation (Generated):** The DAX expression `BLANK()` is used to create a calculated column that contains no value, essentially representing a "blank" or "empty" state. 
 
-In simple business terms, when you use `BLANK()` in a calculated column, you are telling the system to leave that column empty for every row in the dataset. This can be useful in various scenarios, such as:
+In simple business terms, when you use `BLANK()` in a calculated column, you are telling the system to leave that column empty for every row in the table. This can be useful in various scenarios, such as:
 
-1. **Placeholder for Future Data**: You might want to reserve a column for future data that isn't available yet. Using `BLANK()` indicates that the column is intentionally left empty for now.
+1. **Placeholder for Future Data**: You might want to reserve a column for future data entry or calculations but currently do not have any values to populate it with.
 
-2. **Conditional Logic**: If you have other calculations or logic that depend on whether a value is present or not, using `BLANK()` can help you manage those conditions effectively.
+2. **Conditional Logic**: You may want to use this blank state in conjunction with other calculations or conditions later on. For example, if you have a calculation that checks for blank values, this can help in creating specific logic flows.
 
-3. **Data Cleaning**: In some cases, you may want to clear out values from a column based on certain criteria. Setting it to `BLANK()` can help you achieve a clean dataset.
+3. **Data Cleaning**: If you are preparing your data for analysis and want to ensure that certain rows do not contribute any values, using `BLANK()` can help you achieve that.
 
-Overall, `BLANK()` is a straightforward way to indicate that there is no value in a specific column for each row, which can be useful for data organization and future calculations.
+Overall, `BLANK()` is a way to explicitly indicate that there is no data available for that particular column in the context of your analysis.
 
 **`Days Remaining In Pipeline`** (`string`)
 
@@ -178,24 +178,24 @@ Overall, `BLANK()` is a straightforward way to indicate that there is no value i
 ```dax
 IF(Opportunities[Status]="Open", DATEDIFF(TODAY(),Opportunities[CloseDate],DAY),0)
 ```
-- **DAX Explanation (Generated):** This DAX code snippet is used to create a calculated column called 'Days Remaining In Pipeline' for a dataset of opportunities, typically in a sales context. Here's a breakdown of what it does in simple business terms:
+- **DAX Explanation (Generated):** This DAX code snippet is used to create a calculated column called "Days Remaining In Pipeline" for a dataset of opportunities, typically in a sales context. Here's a breakdown of what it does in simple business terms:
 
 1. **Condition Check**: The expression starts with an `IF` statement that checks if the status of an opportunity is "Open". This means it only considers opportunities that are currently active and not yet closed.
 
-2. **Calculate Days Remaining**: If the opportunity is "Open", the expression calculates the number of days remaining until the opportunity's close date. It does this using the `DATEDIFF` function, which finds the difference between today's date (`TODAY()`) and the opportunity's `CloseDate`. The result is expressed in days.
+2. **Calculating Days Remaining**: If the opportunity is "Open", the code calculates the number of days remaining until the opportunity's close date. It does this using the `DATEDIFF` function, which finds the difference between today's date (`TODAY()`) and the opportunity's `CloseDate`. The result is expressed in days.
 
-3. **Return Value**: If the opportunity is "Open", it returns the calculated number of days remaining. If the opportunity is not "Open" (for example, if it is "Closed" or "Won"), it returns 0.
+3. **Returning Zero for Closed Opportunities**: If the opportunity is not "Open" (meaning it is either closed or in another status), the expression returns a value of 0. This indicates that there are no days remaining in the pipeline for closed opportunities.
 
 ### Summary:
-In summary, this DAX expression helps sales teams understand how many days are left before an open opportunity is expected to close. If the opportunity is closed, it simply shows 0 days remaining. This information can be crucial for managing sales pipelines and prioritizing follow-ups.
+In summary, this DAX expression calculates how many days are left until an open opportunity is expected to close. If the opportunity is closed, it simply returns 0. This helps sales teams understand how much time they have left to work on active opportunities in their pipeline.
 
 **`Days Remaining In Pipeline (bins)`** (`string`)
 
-- **Description:** Column Description: This column categorizes opportunities based on the number of days remaining in the sales pipeline, helping to prioritize and manage sales efforts effectively.
+- **Description:** Column Description: This column categorizes the remaining days in the sales pipeline into predefined bins, enabling quick assessment of opportunity urgency and prioritization for sales teams.
 
 **`Weeks Open`** (`string`)
 
-- **Description:** Column Description: "Weeks Open" indicates the duration, in weeks, that an opportunity has been active or available for engagement, represented as a string for flexibility in formatting.
+- **Description:** The 'Weeks Open' column indicates the duration, in weeks, that each opportunity has been active or available for engagement, represented as a string for flexibility in formatting.
 
 ##### Measures
 
@@ -218,9 +218,9 @@ Here's a breakdown of the components:
 4. **[Count of Won] / ([Count of Won] + [Count of Lost])**: Finally, this divides the number of won deals by the total number of deals (won + lost). 
 
 ### What It Achieves:
-The result of this calculation is a percentage that indicates how successful the team or organization has been in closing deals. A higher percentage means a greater proportion of deals were won compared to those that were lost, which is a positive indicator of performance. Conversely, a lower percentage suggests that there may be room for improvement in closing deals. 
+The result of this calculation is a decimal value that represents the proportion of deals that were won out of all deals. To express it as a percentage, you would typically multiply the result by 100. 
 
-In summary, this measure helps businesses understand their success rate in closing deals, which can inform strategies for sales improvement and performance evaluation.
+In simple terms, this measure helps a business understand its success rate in closing deals. A higher percentage indicates a stronger performance in winning deals, while a lower percentage suggests there may be challenges in converting opportunities into successful outcomes. This metric can be crucial for sales teams to evaluate their effectiveness and identify areas for improvement.
 
 **`Count of Lost`**
 
@@ -233,16 +233,18 @@ COUNTAX(
 			    Opportunities[OpportunitySeq]
 			    )
 ```
-- **DAX Explanation (Generated):** This DAX code snippet is designed to calculate the number of opportunities that have a status of "Lost" in a dataset called "Opportunities." Here's a breakdown of what it does in simple business terms:
+- **DAX Explanation (Generated):** This DAX code snippet is designed to calculate the number of opportunities that have a status of "Lost" within a dataset called "Opportunities." Let's break it down step by step in simple business terms:
 
-1. **FILTER Function**: The code first filters the "Opportunities" table to only include rows where the "Status" column is equal to "Lost." This means it is narrowing down the dataset to just those opportunities that are marked as lost.
+1. **COUNTAX Function**: This function counts the number of rows that meet certain criteria. In this case, it will count the opportunities that are filtered based on their status.
 
-2. **KEEPFILTERS Function**: The `KEEPFILTERS` function ensures that any existing filters applied to the "Opportunities" table are preserved while applying the new filter for lost opportunities. This is important because it allows the measure to consider any other filters that might be in place (like date ranges or specific sales regions) when calculating the count.
+2. **FILTER Function**: This part of the code is used to narrow down the dataset. It looks at the "Opportunities" table and filters it to include only those rows where the "Status" column equals "Lost." Essentially, it creates a smaller list that only contains opportunities that have been marked as lost.
 
-3. **COUNTAX Function**: After filtering the opportunities, the `COUNTAX` function counts the number of entries in the "OpportunitySeq" column for the filtered set. Essentially, it counts how many opportunities have been marked as "Lost."
+3. **KEEPCFILTERS Function**: This function ensures that any existing filters applied to the "Opportunities" table remain in effect while adding the new filter for "Lost" status. This means that if there are other filters (like date ranges or sales regions) applied in your report, they will still be considered in this calculation.
+
+4. **Opportunities[OpportunitySeq]**: This is the column that the COUNTAX function will count. It represents a unique identifier for each opportunity. By counting this column, the measure effectively counts how many opportunities have been marked as "Lost."
 
 ### Summary:
-In summary, this DAX measure calculates the total number of opportunities that have been lost, while respecting any other filters that may be applied to the data. This helps businesses understand how many potential sales were not successful, which can be crucial for analyzing sales performance and strategizing improvements.
+In summary, this DAX measure calculates the total number of opportunities that have been classified as "Lost," while respecting any other filters that may be applied to the dataset. This is useful for businesses to understand how many potential sales were not successful, which can inform strategies for improvement.
 
 **`Count of Won`**
 
@@ -255,17 +257,17 @@ COUNTAX(
 			    Opportunities[OpportunitySeq]
 			    )
 ```
-- **DAX Explanation (Generated):** This DAX code snippet is designed to create a measure called 'Count of Won' that calculates the number of opportunities that have been marked as "Won" in a dataset of sales opportunities. Here's a breakdown of what it does in simple business terms:
+- **DAX Explanation (Generated):** This DAX code snippet is designed to calculate the total number of "Won" opportunities from a dataset called "Opportunities." Let's break it down step by step in simple business terms:
 
-1. **Opportunities Table**: The measure works with a table called `Opportunities`, which contains various records of sales opportunities.
+1. **Opportunities Table**: The code is working with a table named "Opportunities," which likely contains various records of sales opportunities, including their status (e.g., Won, Lost, Pending).
 
-2. **Filtering for Won Opportunities**: The `FILTER` function is used to narrow down the records in the `Opportunities` table to only those where the `Status` column equals "Won". This means it is looking for opportunities that have successfully closed as sales.
+2. **Filtering for Won Opportunities**: The `FILTER` function is used to create a subset of the Opportunities table. It looks for records where the status of the opportunity is "Won." This means that only the opportunities that have been successfully closed and marked as won will be considered in the next steps.
 
-3. **Keeping Existing Filters**: The `KEEPIFILTERS` function ensures that any other filters that might already be applied to the `Opportunities` table (like date ranges, regions, or sales reps) are preserved. This allows the measure to be dynamic and responsive to the context in which it is used.
+3. **Keeping Existing Filters**: The `KEEPIFILTERS` function ensures that any other filters already applied to the Opportunities table (like date ranges, regions, or sales teams) are preserved. This means that the measure will respect the context in which it is being calculated, providing a count of won opportunities that fits within any existing criteria.
 
-4. **Counting Opportunities**: The `COUNTAX` function then counts the number of records that meet the criteria set by the `FILTER`. Specifically, it counts the entries in the `OpportunitySeq` column for those filtered records. `OpportunitySeq` is likely a unique identifier for each opportunity.
+4. **Counting the Opportunities**: The `COUNTAX` function then counts the number of records in the filtered set. Specifically, it counts the values in the `OpportunitySeq` column for the opportunities that have been filtered to only include those with a status of "Won." 
 
-In summary, this DAX measure calculates the total number of sales opportunities that have been won, while respecting any other filters that may be applied in the report or dashboard. This helps businesses understand their success rate in closing deals and can be used for performance analysis and reporting.
+In summary, this DAX measure calculates the total number of opportunities that have been won, while also respecting any other filters that may be applied to the data. This is useful for sales teams to understand their success rate and performance in closing deals.
 
 **`Forecast`**
 
@@ -273,19 +275,23 @@ In summary, this DAX measure calculates the total number of sales opportunities 
 ```dax
 ([Revenue Won]+[Revenue In Pipeline])
 ```
-- **DAX Explanation (Generated):** The DAX expression `([Revenue Won] + [Revenue In Pipeline])` is a simple calculation that combines two key financial metrics to provide a clearer picture of a company's revenue situation.
+- **DAX Explanation (Generated):** This DAX code snippet is a simple calculation that combines two key components of revenue for a business:
 
-Here's what each part means:
+1. **Revenue Won**: This represents the total amount of revenue that has already been secured or confirmed from sales that have been completed successfully.
 
-1. **Revenue Won**: This represents the total amount of revenue that has already been secured or confirmed from sales. It includes all the deals that have been closed successfully and for which the company expects to receive payment.
+2. **Revenue In Pipeline**: This refers to the potential revenue that is expected to be generated from sales opportunities that are currently in progress but have not yet been finalized. This could include deals that are being negotiated or are in the final stages of closing.
 
-2. **Revenue In Pipeline**: This refers to the potential revenue that is expected from deals that are currently in progress but have not yet been finalized. This could include negotiations that are ongoing or contracts that are expected to be signed soon.
+### What the DAX Expression Achieves:
 
-### What the Expression Achieves:
+The expression `([Revenue Won] + [Revenue In Pipeline])` calculates the total expected revenue by adding together the revenue that has already been won and the revenue that is anticipated from ongoing sales efforts. 
 
-By adding these two figures together, the expression calculates the **total expected revenue**. This total gives the business a comprehensive view of both the revenue that is already guaranteed (Revenue Won) and the revenue that is likely to come in the future (Revenue In Pipeline). 
+### In Business Terms:
 
-In simple terms, this measure helps the company understand its current financial health and future revenue potential, allowing for better planning and decision-making. It provides a snapshot of how much money the company can expect to generate from its sales efforts, both from completed deals and those that are still in the works.
+- **Total Revenue Projection**: This measure provides a forecast of total revenue by considering both confirmed sales and potential future sales. 
+- **Decision-Making Tool**: It helps business leaders understand their current financial position and future revenue potential, allowing them to make informed decisions about resource allocation, budgeting, and strategic planning.
+- **Performance Indicator**: By tracking this measure over time, businesses can assess their sales performance and pipeline health, identifying trends and areas for improvement.
+
+In summary, this DAX expression gives a comprehensive view of the company's revenue situation by combining what has been achieved with what is expected, helping to guide business strategy and operations.
 
 **`Forecast %`**
 
@@ -293,22 +299,23 @@ In simple terms, this measure helps the company understand its current financial
 ```dax
 (([Revenue Won]+[Revenue In Pipeline]))/ [Rev Goal]
 ```
-- **DAX Explanation (Generated):** This DAX code snippet calculates the percentage of revenue that has been achieved or is expected to be achieved compared to a predefined revenue goal. Let's break it down:
+- **DAX Explanation (Generated):** This DAX code snippet calculates a measure called 'Forecast %', which represents the percentage of revenue that is expected to be achieved compared to a predefined revenue goal. Here's a breakdown of what each part of the expression does:
 
-1. **Components of the Calculation**:
-   - **[Revenue Won]**: This represents the actual revenue that has been successfully earned or closed.
-   - **[Revenue In Pipeline]**: This refers to the revenue that is expected to be earned from potential deals that are currently in progress but have not yet been finalized.
-   - **[Rev Goal]**: This is the target revenue that the business aims to achieve within a specific period.
+1. **Revenue Won**: This is the total revenue that has already been successfully secured or closed. It represents the sales that have been finalized.
 
-2. **What the Calculation Does**:
-   - The expression adds together the revenue that has already been won and the revenue that is still in the pipeline. This gives a total of both confirmed and potential revenue.
-   - It then divides this total by the revenue goal ([Rev Goal]). 
+2. **Revenue In Pipeline**: This refers to the potential revenue from deals that are currently in progress but have not yet been finalized. It includes opportunities that are expected to close in the future.
 
-3. **Outcome**:
-   - The result of this calculation is a percentage that indicates how much of the revenue goal has been met or is expected to be met based on current performance and potential future sales.
-   - For example, if the total revenue (won + in pipeline) is $80,000 and the revenue goal is $100,000, the calculation would yield 0.8 or 80%. This means the business has achieved 80% of its revenue goal.
+3. **Rev Goal**: This is the revenue target or goal that the business aims to achieve within a specific period.
 
-In summary, this DAX measure helps businesses assess their progress towards their revenue targets by considering both completed sales and potential future sales.
+### What the Calculation Achieves:
+
+- **Combining Revenue**: The expression first adds together the 'Revenue Won' and 'Revenue In Pipeline'. This gives a total of all revenue that is either already secured or expected to be secured soon.
+
+- **Calculating the Percentage**: The total revenue (from both won and in pipeline) is then divided by the 'Rev Goal'. This division calculates how much of the revenue goal has been achieved or is expected to be achieved.
+
+- **Result**: The final result is a percentage that indicates how close the business is to reaching its revenue goal. For example, if the result is 0.75 (or 75%), it means the business has secured or expects to secure 75% of its revenue target.
+
+In summary, this DAX measure helps the business understand its performance against its revenue goals by showing the proportion of revenue that has been secured or is anticipated, providing valuable insight for decision-making and forecasting.
 
 **`Forecast by Win/Loss Ratio`**
 
@@ -316,16 +323,16 @@ In summary, this DAX measure helps businesses assess their progress towards thei
 ```dax
 [Revenue Open] * [Close %]
 ```
-- **DAX Explanation (Generated):** The DAX expression you've provided calculates a specific financial metric related to forecasting revenue based on the likelihood of closing deals. Here's a breakdown of what it does in simple business terms:
+- **DAX Explanation (Generated):** The DAX expression you provided is used to calculate a measure called "Forecast by Win/Loss Ratio." Let's break it down into simple terms:
 
-1. **[Revenue Open]**: This part of the expression represents the total revenue that is currently in the pipeline or open for potential sales. It reflects the value of all deals that have not yet been finalized.
+1. **[Revenue Open]**: This part of the expression represents the total revenue that is currently open or in the pipeline. It could be the revenue from potential sales that have not yet been finalized.
 
-2. **[Close %]**: This component indicates the probability or percentage chance that these open deals will successfully close. It is a measure of how likely it is that the sales team will convert these opportunities into actual revenue.
+2. **[Close %]**: This part represents the percentage likelihood that these open opportunities will actually close successfully. It reflects the probability of converting these potential sales into actual revenue.
 
-3. **Multiplication**: By multiplying [Revenue Open] by [Close %], the expression calculates the expected revenue from the open deals. Essentially, it estimates how much revenue the business can realistically anticipate based on the current opportunities and their likelihood of closing.
+3. **Multiplication**: By multiplying [Revenue Open] by [Close %], the expression calculates the expected revenue that is likely to be realized from the open opportunities. In other words, it estimates how much of the open revenue can realistically be expected to be earned based on the likelihood of closing those sales.
 
-### In Summary:
-The DAX expression `[Revenue Open] * [Close %]` provides a forecast of potential revenue by taking the total value of open deals and adjusting it based on the probability of those deals closing. This helps businesses understand how much revenue they can expect to generate from their current sales pipeline, allowing for better financial planning and decision-making.
+### What It Achieves:
+The overall goal of this DAX expression is to provide a forecast of revenue based on the current sales opportunities and their likelihood of closing. This helps businesses understand how much revenue they can expect to generate in the future, allowing for better planning and decision-making. Essentially, it gives a more realistic view of potential income by considering both the available opportunities and their chances of success.
 
 **`Opportunity Count`**
 
@@ -344,20 +351,20 @@ CALCULATE (
 			        )
 			    )
 ```
-- **DAX Explanation (Generated):** This DAX code snippet is designed to create a measure called "Opportunity Count In Pipeline." Let's break it down into simpler terms to understand what it calculates and achieves:
+- **DAX Explanation (Generated):** This DAX code snippet is designed to calculate the number of opportunities in a sales pipeline that are currently open. Let's break it down step by step in simple business terms:
 
-1. **Purpose**: The measure counts the number of opportunities that are currently "Open" in the business's sales pipeline.
+1. **CALCULATE Function**: The `CALCULATE` function is used to modify the context in which data is evaluated. In this case, it is being used to count specific opportunities based on certain conditions.
 
-2. **Components**:
-   - **CALCULATE**: This function changes the context in which data is evaluated. In this case, it is used to count specific opportunities based on certain criteria.
-   - **COUNT(Opportunities[Value])**: This part counts the number of entries (or rows) in the "Opportunities" table where the "Value" field is not blank. Essentially, it counts how many opportunities exist.
-   - **FILTER(Opportunities, ...)**: This function filters the "Opportunities" table to only include rows that meet certain conditions. In this case, it filters for opportunities where the "Status" is "Open."
+2. **COUNT Function**: The `COUNT(Opportunities[Value])` part counts the number of entries in the "Value" column of the "Opportunities" table. This means it is counting how many opportunities there are, but only those that meet the criteria specified in the `FILTER` function.
 
-3. **Condition**: The measure specifically looks for opportunities that are marked as "Open." There is also a commented-out condition that suggests the measure could be further refined to only include opportunities that are in specific stages of the pipeline (like "3-Pipeline," "4-Mandate," or "5-Close"), but this part is currently not active.
+3. **FILTER Function**: The `FILTER` function is applied to the "Opportunities" table to narrow down the data to only those records that meet certain conditions. 
 
-4. **Outcome**: The final result of this measure is a count of all open opportunities in the sales pipeline. This helps the business understand how many potential deals are currently active and being pursued.
+4. **Condition for Filtering**: Inside the `FILTER`, the condition `Opportunities[Status] = "Open"` specifies that only opportunities with a status of "Open" should be considered. This means the measure is only counting opportunities that are currently active and not closed or lost.
 
-In summary, this DAX measure provides a clear count of active sales opportunities, which is crucial for sales management and forecasting.
+5. **Commented Out Condition**: There is a commented-out condition (`--  && Opportunities[PipelineStep] IN { "3-Pipeline", "4-Mandate", "5-Close" }`) that suggests there was an intention to further filter the opportunities based on their stage in the pipeline. If this condition were active, it would only count opportunities that are in specific stages of the sales process (like "3-Pipeline", "4-Mandate", or "5-Close"). However, since it is commented out, it does not affect the current calculation.
+
+### Summary:
+In summary, this DAX measure calculates the total number of open opportunities in the sales pipeline. It helps businesses understand how many potential deals are still active and available for follow-up, which is crucial for sales forecasting and resource allocation.
 
 **`Revenue In Pipeline`**
 
@@ -377,15 +384,15 @@ VAR Revenue =
 ```
 - **DAX Explanation (Generated):** This DAX code snippet calculates a measure called "Revenue In Pipeline," which represents the expected revenue from sales opportunities that are currently open and at a certain stage in the sales process. Here’s a breakdown of what it does in simple business terms:
 
-1. **Identify Open Opportunities**: The code first looks at a table called `Opportunities`, which contains various sales opportunities. It filters this table to only include opportunities that are currently "Open" and have a sales stage that is at least 2 or higher. This means it focuses on opportunities that are not just in the initial stages but are further along in the sales process.
+1. **Identify Open Opportunities**: The code first looks at a table called `Opportunities`, which contains various sales opportunities. It filters this table to focus only on those opportunities that are currently "Open" and have a sales stage that is considered advanced (specifically, where the first character of the `Sales Stage` is 2 or higher).
 
-2. **Calculate Total Value**: For the filtered opportunities, it sums up their values (the potential revenue from these opportunities). This total is stored in a variable called `Revenue`.
+2. **Calculate Total Value**: For the filtered opportunities, it sums up their values (the potential revenue from each opportunity). This total is stored in a variable called `Revenue`.
 
-3. **Adjust for Forecasting**: After calculating the total revenue from the open opportunities, the code applies a forecast adjustment. This adjustment is taken from another table called `Opportunity Forecast Adjustment`, specifically the `Forecast Adjustment Value`. This value is expressed as a percentage.
+3. **Adjust for Forecasting**: After calculating the total revenue from the open opportunities, the code then adjusts this amount based on a forecast adjustment value. This adjustment is expressed as a percentage (from the `Opportunity Forecast Adjustment` table). The adjustment is calculated by taking the total revenue and multiplying it by the forecast adjustment percentage (divided by 100 to convert it from a percentage to a decimal).
 
-4. **Final Calculation**: The final step adds the original `Revenue` to the adjusted amount (which is calculated by multiplying the `Revenue` by the forecast adjustment percentage divided by 100). This gives a final figure that reflects both the expected revenue from open opportunities and any adjustments based on forecasting.
+4. **Final Calculation**: Finally, the measure returns the total revenue from the open opportunities plus the adjusted amount. This gives a more accurate picture of the expected revenue in the pipeline, taking into account any adjustments that may be necessary based on forecasting.
 
-In summary, this DAX measure calculates the expected revenue from open sales opportunities, taking into account their current status and stage in the sales process, and adjusts this figure based on a specified forecast adjustment percentage. This helps businesses understand their potential revenue more accurately and make informed decisions.
+In summary, this DAX measure calculates the expected revenue from open sales opportunities, while also factoring in any adjustments based on forecasted changes, providing a clearer view of potential future income.
 
 **`Revenue Open`**
 
@@ -400,16 +407,16 @@ CALCULATE(
 			     FILTER(Opportunities, Opportunities[Status] = "Won")
 			 )
 ```
-- **DAX Explanation (Generated):** This DAX code snippet is designed to calculate the total revenue from opportunities that have been marked as "Won." Let's break it down step by step in simple business terms:
+- **DAX Explanation (Generated):** This DAX code snippet is used to calculate a measure called "Revenue Won," which represents the total revenue from opportunities that have been marked as "Won." Here's a breakdown of what it does in simple business terms:
 
-1. **SUMX Function**: The `SUMX` function is used to perform a calculation across a table (in this case, the `Opportunities` table). It goes through each row in the `Opportunities` table and sums up the values in the `Opportunities[Value]` column. This column typically represents the monetary value of each opportunity.
+1. **SUMX Function**: The `SUMX` function is used to iterate over a table—in this case, the `Opportunities` table. For each row in this table, it sums up the values in the `Opportunities[Value]` column. This means it adds up all the revenue amounts associated with each opportunity.
 
-2. **FILTER Function**: The `FILTER` function is applied to the `Opportunities` table to narrow down the data. It only includes rows where the `Opportunities[Status]` is equal to "Won." This means we are only interested in opportunities that have been successfully closed and are generating revenue.
+2. **FILTER Function**: The `FILTER` function is applied to the `Opportunities` table to narrow down the data. It only includes rows where the `Opportunities[Status]` is equal to "Won." This means we are only interested in opportunities that have been successfully closed and marked as won.
 
-3. **CALCULATE Function**: The `CALCULATE` function modifies the context in which the data is evaluated. In this case, it takes the sum calculated by `SUMX` and applies the filter from the `FILTER` function. This means that the sum will only include the values from opportunities that have a status of "Won."
+3. **CALCULATE Function**: The `CALCULATE` function modifies the context in which the data is evaluated. It takes the result of the `SUMX` function and applies the filter created by the `FILTER` function. Essentially, it tells DAX to calculate the sum of the values only for those opportunities that have a status of "Won."
 
-### What It Achieves:
-In summary, this DAX expression calculates the total revenue from all opportunities that have been successfully won. It helps businesses understand how much money they can expect to receive from deals that have been closed successfully, providing valuable insight into sales performance and revenue forecasting.
+### In Summary:
+The entire expression calculates the total revenue from all opportunities that have been successfully won. It filters out any opportunities that are still open or have been lost, ensuring that only the revenue from successful deals is included in the final total. This measure is crucial for understanding how much revenue has been generated from successful sales efforts.
 
 **`Revenue Won Average Deal Size`**
 
@@ -417,76 +424,80 @@ In summary, this DAX expression calculates the total revenue from all opportunit
 ```dax
 AVERAGEX(Opportunities,[Revenue Won])
 ```
-- **DAX Explanation (Generated):** The DAX expression you've provided calculates the average deal size for opportunities that have been won. Let's break it down:
+- **DAX Explanation (Generated):** The DAX expression you provided calculates the average deal size of revenue won from opportunities. Let's break it down:
 
-1. **AVERAGEX**: This is a DAX function that calculates the average of a set of values. It takes two arguments: a table (or a set of rows) and an expression that defines the values to average.
+- **AVERAGEX**: This is a DAX function that calculates the average of a set of values. It takes two arguments: a table and an expression. It evaluates the expression for each row in the table and then computes the average of those results.
 
-2. **Opportunities**: This refers to a table in your data model that contains information about sales opportunities. Each row in this table represents a different sales opportunity.
+- **Opportunities**: This refers to a table in your data model that contains information about sales opportunities. Each row in this table represents a different sales opportunity.
 
-3. **[Revenue Won]**: This is a measure or column that represents the revenue generated from opportunities that have been successfully closed (won). It indicates how much money was earned from each of these opportunities.
+- **[Revenue Won]**: This is a measure or column that represents the revenue that has been successfully won from each opportunity. It indicates how much money was generated from closed deals.
 
-### What It Achieves:
-The entire expression `AVERAGEX(Opportunities,[Revenue Won])` calculates the average revenue from all the won opportunities in the Opportunities table. 
+Putting it all together, the expression `AVERAGEX(Opportunities,[Revenue Won])` does the following:
 
-In simpler terms, this measure tells you, on average, how much revenue is generated from each successful sale. This information is valuable for understanding the effectiveness of your sales efforts and can help in forecasting future revenues based on past performance.
+1. It looks at each opportunity in the Opportunities table.
+2. For each opportunity, it retrieves the value of revenue won.
+3. It calculates the average of all these revenue values.
+
+In simple business terms, this measure provides the average amount of revenue generated from deals that have been successfully closed. This information can help businesses understand their typical deal size and assess their sales performance.
 
 ---
 
 #### <a name="table-opportunity-calendar"></a>Table: `Opportunity Calendar`
 
-The 'Opportunity Calendar' table serves as a comprehensive time dimension that enables businesses to analyze and track opportunities over various timeframes, facilitating insights into sales performance and trends by day, week, month, and year. This structured calendar data supports effective reporting and forecasting by providing a consistent reference for temporal analysis across related business metrics.
+The 'Opportunity Calendar' table serves as a comprehensive time-based reference for tracking and analyzing business opportunities, enabling users to filter and segment data by various time dimensions such as day, week, month, and year. This facilitates strategic planning and performance evaluation by providing insights into opportunity trends and seasonality.
 
 ##### Columns
 
 | Name | Data Type | Description (Generated) |
 |------|-----------|-------------------------|
-| `Date` | `string` | Column Description: The 'Date' column captures the specific date associated with each opportunity, facilitating the scheduling and tracking of calendar events related to enrichment tasks. |
-| `DAY` | `string` | Column Description: The 'DAY' column represents the specific day of the week associated with each opportunity, facilitating the scheduling and analysis of calendar events within the Opportunity Calendar table. |
-| `DaySeq` | `string` | Column Description: 'DaySeq' is a string that represents the sequential identifier for each day in the Opportunity Calendar, facilitating the organization and tracking of scheduled opportunities. |
+| `Date` | `string` | Column Description: The 'Date' column stores the scheduled dates for each opportunity, represented as strings, to facilitate the organization and tracking of calendar events related to business opportunities. |
+| `DAY` | `string` | The 'DAY' column in the 'Opportunity Calendar' table represents the specific day of the week or month associated with scheduled opportunities, facilitating effective planning and resource allocation. |
+| `DaySeq` | `string` | The 'DaySeq' column represents a sequential identifier for each day in the Opportunity Calendar, facilitating the organization and tracking of scheduled events or tasks. |
 | `MONTH` | `string` | The 'MONTH' column (string) in the 'Opportunity Calendar' table represents the name of the month associated with each scheduled opportunity, facilitating time-based analysis and planning for enrichment tasks. |
-| `MONTH NUMBER` | `string` | The 'MONTH NUMBER' column (string) in the 'Opportunity Calendar' table represents the numerical designation of each month, facilitating the organization and scheduling of opportunity-related activities throughout the year. |
-| `RELATIVE 07 DAY PERIOD` | `string` | The 'RELATIVE 07 DAY PERIOD' column indicates a string representation of a seven-day timeframe relative to the current date, used for scheduling and tracking opportunities within the Opportunity Calendar. |
-| `RELATIVE 30 DAY PERIOD` | `string` | The 'RELATIVE 30 DAY PERIOD' column indicates the timeframe for evaluating opportunities, providing a string representation of the last 30 days relative to the current date for scheduling and analysis purposes within the Opportunity Calendar. |
-| `RELATIVE DAY` | `string` | The 'RELATIVE DAY' column in the Opportunity Calendar table indicates the specific day in relation to a defined reference point, facilitating the scheduling and tracking of opportunity-related activities. |
-| `RELATIVE MONTH` | `string` | The 'RELATIVE MONTH' column in the Opportunity Calendar table indicates the month relative to the current date, facilitating the scheduling and tracking of opportunity-related activities over time. |
-| `RELATIVE WEEK` | `string` | The 'RELATIVE WEEK' column indicates the week number relative to a specified reference point, facilitating the scheduling and tracking of opportunities within the Opportunity Calendar. |
-| `WEEK` | `string` | The 'WEEK' column (string) in the Opportunity Calendar table represents the specific week identifier for scheduling and tracking enrichment tasks related to opportunities. |
+| `MONTH NUMBER` | `string` | The 'MONTH NUMBER' column (string) in the 'Opportunity Calendar' table represents the numerical designation of each month, facilitating the organization and analysis of opportunities by their corresponding month in a calendar year. |
+| `RELATIVE 07 DAY PERIOD` | `string` | The 'RELATIVE 07 DAY PERIOD' column in the Opportunity Calendar table represents a string indicating the timeframe of the last seven days relative to the current date, used for tracking and analyzing opportunity trends over a weekly cycle. |
+| `RELATIVE 30 DAY PERIOD` | `string` | The 'RELATIVE 30 DAY PERIOD' column indicates the timeframe of the last 30 days relative to the current date, used to track and analyze opportunity trends within the Opportunity Calendar. |
+| `RELATIVE DAY` | `string` | The 'RELATIVE DAY' column in the Opportunity Calendar table indicates the specific day in relation to a defined event or timeframe, represented as a string, to facilitate scheduling and task management. |
+| `RELATIVE MONTH` | `string` | The 'RELATIVE MONTH' column in the Opportunity Calendar table indicates the month relative to the current date, facilitating time-based analysis of opportunities and scheduling tasks effectively. |
+| `RELATIVE WEEK` | `string` | The 'RELATIVE WEEK' column indicates the week number in relation to a specific reference date, facilitating the scheduling and tracking of opportunities within the Opportunity Calendar. |
+| `WEEK` | `string` | The 'WEEK' column represents the specific week identifier for scheduling and tracking enrichment tasks within the Opportunity Calendar. |
 | `YEAR` | `string` | The 'YEAR' column (string) in the 'Opportunity Calendar' table represents the specific year associated with each scheduled opportunity, facilitating time-based analysis and planning for enrichment tasks. |
 | `YEAR MONTH` | `string` | Column Description: Represents the year and month of each opportunity, formatted as a string, to facilitate time-based analysis and scheduling within the Opportunity Calendar. |
-| `YEAR MONTH NUMBER` | `string` | Column Description: This column represents the year and month in a concatenated string format, facilitating the organization and tracking of opportunities within the Opportunity Calendar. |
+| `YEAR MONTH NUMBER` | `string` | The 'YEAR MONTH NUMBER' column stores a string representation of the year and month, facilitating the organization and scheduling of opportunity-related tasks within the Opportunity Calendar. |
 | `YEAR WEEK` | `string` | The 'YEAR WEEK' column represents the specific year and week number for each opportunity, facilitating time-based analysis and scheduling of calendar events within the Opportunity Calendar table. |
 
 ---
 
 #### <a name="table-opportunity-forecast-adjustment"></a>Table: `Opportunity Forecast Adjustment`
 
-The 'Opportunity Forecast Adjustment' table is designed to capture and manage modifications to sales forecasts, enabling businesses to refine their revenue projections based on updated insights or strategic decisions. This table facilitates better decision-making by providing a clear record of adjustments made to forecasts, ensuring alignment with current market conditions and organizational goals.
+The 'Opportunity Forecast Adjustment' table is designed to capture and manage modifications to sales forecasts, enabling businesses to refine their revenue projections based on updated insights or strategic decisions. This table facilitates better decision-making by providing a clear record of adjustments made to forecasted opportunities, ensuring alignment with organizational goals.
 
 ##### Columns
 
 | Name | Data Type | Description (Generated) |
 |------|-----------|-------------------------|
-| `Forecast Adjustment` | `string` | The 'Forecast Adjustment' column captures qualitative notes or explanations regarding modifications made to the opportunity forecast, enabling stakeholders to understand the rationale behind changes in projected outcomes. |
+| `Forecast Adjustment` | `string` | The 'Forecast Adjustment' column captures qualitative notes or explanations regarding modifications made to the opportunity forecast, enabling better understanding and analysis of forecast changes. |
 
 ##### Calculated Columns
 
 **`Blank`** (`string`)
 
-- **Description:** Column Description: This column captures any additional notes or comments related to the opportunity forecast adjustment, allowing users to provide context or clarification for the adjustments made.
+- **Description:** Column Description: This column captures any additional notes or comments related to the opportunity forecast adjustments, allowing users to provide context or clarification for specific entries.
 - **DAX Expression:**
 ```dax
 1
 ```
-- **DAX Explanation (Generated):** The DAX expression you provided is simply the number `1`. 
-
-In the context of a calculated column in a data model, this expression will create a new column where every row in that column will have the value `1`. 
+- **DAX Explanation (Generated):** The DAX expression you provided is simply the number `1`. In the context of a calculated column in a data model, this means that for every row in the table where this calculated column is created, the value of that column will be `1`.
 
 ### What it achieves:
-- **Uniform Value**: Every entry in this new column will be the same, specifically the number `1`. This can be useful for various analytical purposes.
-- **Counting or Aggregation**: If you later want to count the number of rows or perform aggregations, having a column with a constant value like `1` allows you to easily sum it up to get the total number of rows in the table.
-- **Flagging or Grouping**: It can also serve as a simple flag or indicator that can be used in further calculations or to group data.
+- **Uniform Value**: Every row will have the same value of `1`, which can be useful for various purposes, such as creating a constant for calculations or aggregations.
+- **Counting or Summing**: If you later want to count the number of rows or sum values in this column, you can easily do so since every row contributes equally (1) to the total.
 
-In summary, this DAX expression creates a calculated column where every row has the value `1`, which can be useful for counting or aggregating data in your analysis.
+### Business Implications:
+- **Simplicity**: This calculated column can serve as a straightforward way to represent a constant value across all records, which can simplify certain calculations or analyses.
+- **Facilitating Aggregations**: It can be used in measures to facilitate aggregations, such as counting the total number of records in a dataset.
+
+In summary, this DAX expression creates a calculated column where every entry is `1`, which can be useful for counting or as a placeholder for further calculations.
 
 ##### Measures
 
@@ -496,20 +507,17 @@ In summary, this DAX expression creates a calculated column where every row has 
 ```dax
 CONCATENATE("Use the slicer to adjust the forecast, current value is ", 'Opportunity Forecast Adjustment'[Forecast Adjustment Value])
 ```
-- **DAX Explanation (Generated):** This DAX code snippet is designed to create a text message that provides guidance to users about how to interact with a forecast adjustment feature in a report or dashboard.
+- **DAX Explanation (Generated):** This DAX code snippet is designed to create a text message that provides guidance to users interacting with a report or dashboard. Here's a breakdown of what it does in simple business terms:
 
-Here's a breakdown of what it does:
+1. **Purpose**: The measure generates a dynamic text message that informs users about how to interact with a slicer (a filtering tool) in the report.
 
-1. **CONCATENATE Function**: The function is used to combine two pieces of text into one single string. In this case, it combines a static message with a dynamic value.
+2. **Message Content**: The message starts with the phrase "Use the slicer to adjust the forecast," which instructs users on what action they can take. It then includes the current value of a forecast adjustment, which is pulled from a specific data field called `'Opportunity Forecast Adjustment'[Forecast Adjustment Value]`.
 
-2. **Static Message**: The first part of the text is a fixed message: "Use the slicer to adjust the forecast, current value is ". This part informs the user that they can use a slicer (a filtering tool) to modify the forecast.
+3. **Dynamic Value**: The part `'Opportunity Forecast Adjustment'[Forecast Adjustment Value]` represents a numerical value that reflects the current adjustment to the forecast. This value will change based on user interactions with the slicer.
 
-3. **Dynamic Value**: The second part, `'Opportunity Forecast Adjustment'[Forecast Adjustment Value]`, refers to a specific value from a data table. This value represents the current adjustment made to the forecast.
+4. **Final Output**: When the measure is evaluated, it combines the static text with the dynamic value to create a complete sentence. For example, if the current forecast adjustment value is 10, the output would be: "Use the slicer to adjust the forecast, current value is 10."
 
-4. **Final Output**: When the DAX expression is executed, it produces a complete sentence that tells the user the current forecast adjustment value. For example, if the current adjustment value is 10, the output would be: "Use the slicer to adjust the forecast, current value is 10."
-
-### In Summary:
-This DAX expression creates a user-friendly message that helps users understand how to adjust the forecast using a slicer and informs them of the current adjustment value. It enhances the interactivity of the report by guiding users on how to use the available tools effectively.
+In summary, this DAX expression helps users understand how to adjust the forecast using a slicer and shows them the current adjustment value, making the report more interactive and user-friendly.
 
 **`Forecast Adjustment Value`**
 
@@ -519,35 +527,32 @@ SELECTEDVALUE('Opportunity Forecast Adjustment'[Forecast Adjustment], 0)
 ```
 - **DAX Explanation (Generated):** The DAX expression you provided is used to retrieve a specific value from a column in a data table, and it has a fallback option if no value is selected. Here’s a breakdown of what it does in simple business terms:
 
-1. **Context of Use**: This expression is likely used in a report or dashboard where users can select different options related to "Forecast Adjustments" for opportunities in a sales or forecasting context.
+1. **Context of Use**: This expression is likely used in a report or dashboard where users can select different options related to "Forecast Adjustments" for opportunities (like sales opportunities).
 
-2. **SELECTEDVALUE Function**: The `SELECTEDVALUE` function is designed to return the value of a column when there is a single value selected. If there are multiple values selected or no value selected at all, it will return a default value instead.
+2. **SELECTEDVALUE Function**: The `SELECTEDVALUE` function checks the column `'Opportunity Forecast Adjustment'[Forecast Adjustment]` to see if there is a single value currently selected by the user. 
 
-3. **Column Reference**: In this case, the column being referenced is `'Opportunity Forecast Adjustment'[Forecast Adjustment]`. This column contains the forecast adjustment values that might be applied to sales opportunities.
+3. **Return Value**: 
+   - If there is exactly one value selected in the `'Forecast Adjustment'` column, the function returns that value.
+   - If there are multiple values selected or no value is selected at all, it returns a default value of `0`.
 
-4. **Default Value**: The second part of the function, `0`, is the default value that will be returned if no single value is selected. This means that if a user hasn’t made a specific selection, the measure will assume there is no adjustment to apply, effectively treating it as zero.
+4. **Purpose**: This measure helps in ensuring that the calculation or analysis can proceed smoothly. By providing a default value of `0`, it prevents errors or misleading results when no specific adjustment is chosen. This is particularly useful in scenarios where users might filter or slice data, and it ensures that the analysis remains robust and understandable.
 
-### What It Achieves:
-- **Single Value Retrieval**: The measure retrieves the specific forecast adjustment value that a user has selected from the available options.
-- **Fallback to Zero**: If the user hasn’t selected anything, it defaults to zero, ensuring that the calculation can proceed without errors or ambiguity.
-- **Simplifies Analysis**: This allows users to easily see and work with the forecast adjustments in their analysis, making it clear how adjustments impact overall forecasts.
-
-In summary, this DAX expression helps in dynamically capturing user-selected forecast adjustments while ensuring that there is always a valid number (either the selected adjustment or zero) for further calculations or reporting.
+In summary, this DAX expression is designed to safely retrieve a forecast adjustment value from user selections, defaulting to zero when no specific selection is made, thus facilitating accurate reporting and analysis of forecast adjustments in business opportunities.
 
 ---
 
 #### <a name="table-owners"></a>Table: `Owners`
 
-The 'Owners' table captures key information about individuals responsible for various assets or projects within the organization, detailing their names, managerial relationships, and unique identifiers. This data is essential for tracking accountability and facilitating communication across teams, thereby enhancing operational efficiency and decision-making.
+The 'Owners' table serves to track the ownership and management structure within the organization, detailing each owner's identity alongside their corresponding manager and system user identifiers. This information is essential for understanding accountability and facilitating communication across teams.
 
 ##### Columns
 
 | Name | Data Type | Description (Generated) |
 |------|-----------|-------------------------|
-| `Manager` | `string` | The 'Manager' column identifies the individual responsible for overseeing the ownership activities recorded in the 'Owners' table. |
+| `Manager` | `string` | The 'Manager' column identifies the individual responsible for overseeing the owners listed in the table, facilitating accountability and communication within the organization. |
 | `Owner` | `string` | The 'Owner' column identifies the individual or entity responsible for managing or overseeing the associated records within the Owners table. |
-| `systemuserid` | `string` | Column Description: The 'systemuserid' column stores the unique identifier for each owner in the Owners table, facilitating the association of ownership records with specific users in the system. |
-| `SystemUserSeq` | `int64` | Column Description: The 'SystemUserSeq' column (int64) uniquely identifies each system user associated with the owners in the table, facilitating user-specific data management and access control. |
+| `systemuserid` | `string` | The 'systemuserid' column in the 'Owners' table uniquely identifies the user associated with each ownership record, facilitating user-specific data management and access control. |
+| `SystemUserSeq` | `int64` | Column Description: The 'SystemUserSeq' column (int64) uniquely identifies the sequence number of the system user associated with each owner record, facilitating user-specific data management and tracking within the Owners table. |
 
 ##### Measures
 
@@ -572,29 +577,25 @@ VAR RevenueInPipeline =
 - **DAX Explanation (Generated):** This DAX code snippet is designed to calculate a revenue goal for a business based on current opportunities in the sales pipeline and previously won revenue. Here’s a breakdown of what it does in simple business terms:
 
 1. **Calculate Revenue in Pipeline**:
-   - The first part of the code calculates the total value of sales opportunities that are currently "Open" and have a sales stage that is at least 2 (indicating they are further along in the sales process).
+   - The first part of the code defines a variable called `RevenueInPipeline`. This variable calculates the total value of all sales opportunities that are currently "Open" and have a sales stage that is at least 2 (indicating they are further along in the sales process).
    - It uses the `SUMX` function to sum up the values of these opportunities, filtered by their status and sales stage.
 
-2. **Base Goal Calculation**:
-   - Next, it calculates a "Base Goal" by taking the total revenue that has already been won (`Revenue Won`) and adding 60% of the revenue from the open opportunities calculated in the previous step.
-   - This total is then rounded to the nearest million using the `MROUND` function, which helps in setting a more manageable goal.
+2. **Calculate Base Goal**:
+   - Next, the code defines another variable called `BaseGoal`. This variable calculates the revenue goal by taking the total revenue that has already been won (`Revenue Won`) and adding 60% of the `RevenueInPipeline` calculated earlier. 
+   - The result is then rounded to the nearest million using the `MROUND` function, which helps in setting a more manageable revenue target.
 
-3. **Return the Goal**:
-   - Finally, the code checks if the calculated "Base Goal" is greater than zero. If it is, that value is returned as the measure's result.
-   - If the "Base Goal" is not greater than zero, it defaults to a similar calculation but rounds to the nearest hundred thousand instead.
+3. **Return the Final Goal**:
+   - Finally, the code checks if the `BaseGoal` is greater than zero. If it is, it returns the `BaseGoal`. If not, it defaults to rounding the same calculation to the nearest hundred thousand instead.
+   - This ensures that the revenue goal is always a positive number and is presented in a rounded format for easier understanding.
 
 ### Summary:
-In essence, this DAX measure calculates a revenue goal based on:
-- The revenue already won.
-- A portion (60%) of the potential revenue from open sales opportunities that are at a certain stage in the sales process.
-
-The goal is rounded for simplicity and is adjusted based on whether the calculated goal is positive or not. This helps the business set realistic revenue targets based on current sales activity.
+In summary, this DAX measure calculates a revenue goal based on current sales opportunities and past performance. It takes into account only the opportunities that are actively being pursued and adjusts the goal based on how much of that potential revenue is expected to be realized. The final output is a rounded figure that represents a realistic target for revenue generation.
 
 ---
 
 #### <a name="table-products"></a>Table: `Products`
 
-The 'Products' table serves as a comprehensive inventory management resource, detailing each product's unique identifier, sequence number, and category, enabling businesses to efficiently track, analyze, and optimize their product offerings for improved sales and inventory control.
+The 'Products' table serves as a comprehensive inventory catalog, detailing each product's unique identifier, sequence number, and associated category, enabling businesses to efficiently manage and analyze their product offerings for better sales strategies and inventory control.
 
 ##### Columns
 
@@ -602,23 +603,23 @@ The 'Products' table serves as a comprehensive inventory management resource, de
 |------|-----------|-------------------------|
 | `Product` | `string` | Column Description: The 'Product' column contains the names of items available for sale, serving as a key identifier for inventory management and sales tracking within the Products table. |
 | `Product Category` | `string` | Column Description: This column categorizes each product into specific groups, facilitating easier inventory management and targeted marketing strategies. |
-| `ProductSeq` | `int64` | Column Description: The 'ProductSeq' column serves as a unique identifier for each product in the 'Products' table, facilitating efficient data retrieval and management. |
+| `ProductSeq` | `int64` | Column Description: The 'ProductSeq' column serves as a unique sequential identifier for each product in the 'Products' table, facilitating efficient data retrieval and management. |
 
 ---
 
 #### <a name="table-territories"></a>Table: `Territories`
 
-The 'Territories' table provides a structured overview of geographical divisions within a business's operational landscape, detailing regions, countries, and specific territories along with their sequences and state or province affiliations. This table is essential for analyzing market coverage, optimizing sales strategies, and enhancing regional performance tracking.
+The 'Territories' table serves to organize and categorize sales regions, providing critical insights into geographic distribution and market segmentation. By detailing the hierarchical structure of territories, including regions, countries, and states or provinces, this table enables businesses to analyze performance and strategize effectively across different markets.
 
 ##### Columns
 
 | Name | Data Type | Description (Generated) |
 |------|-----------|-------------------------|
-| `Country` | `string` | Column Description: The 'Country' column stores the names of countries associated with each territory, facilitating geographic categorization and analysis within the Territories table. |
-| `Region` | `string` | Column Description: The 'Region' column identifies the geographical area associated with each territory, facilitating targeted analysis and strategic planning for market segmentation and resource allocation. |
+| `Country` | `string` | The 'Country' column in the 'Territories' table stores the names of countries associated with each territory, facilitating geographic categorization and analysis for business operations. |
+| `Region` | `string` | Column Description: The 'Region' column identifies the geographical area associated with each territory, facilitating regional analysis and strategic planning. |
 | `State Or Province` | `string` | Column Description: This column captures the name of the state or province associated with each territory, facilitating geographic identification and analysis within the Territories table. |
-| `Territory` | `string` | The 'Territory' column identifies specific geographic regions or areas assigned for sales, marketing, or operational purposes within the Territories table. |
-| `TerritorySeq` | `string` | Column Description: The 'TerritorySeq' column stores a unique string identifier for each territory, facilitating efficient tracking and management of territorial data within the Territories table. |
+| `Territory` | `string` | The 'Territory' column identifies specific geographic regions or areas assigned for sales or operational activities within the Territories table. |
+| `TerritorySeq` | `string` | Column Description: The 'TerritorySeq' column stores a unique string identifier for each territory, facilitating efficient tracking and management of territorial assignments within the organization. |
 
 ---
 

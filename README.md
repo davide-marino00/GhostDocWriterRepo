@@ -1,90 +1,86 @@
-GhostDocWriter: AI-Powered Power BI Documentation
-=================================================
+# GhostDocWriter: AI-Powered Power BI Documentation
 
 **An AI-powered tool to automatically generate documentation for your Power BI models using Azure OpenAI and TMDL metadata.**
 
-Overview
---------
+---
 
-GhostDocWriter streamlines the often tedious process of documenting Power BI reports. By parsing the metadata extracted by pbi-tools, it leverages the power of Large Language Models to generate business-friendly descriptions for tables, columns, and complex DAX measures. This tool is designed for Power BI developers, data analysts, and consultants who need to create and maintain clear, comprehensive documentation with minimal effort.
+## Overview
+GhostDocWriter streamlines the often tedious process of documenting Power BI reports. By parsing the metadata extracted by `pbi-tools`, it leverages the power of Large Language Models to generate business-friendly descriptions for tables, columns, and complex DAX measures. This tool is designed for Power BI developers, data analysts, and consultants who need to create and maintain clear, comprehensive documentation with minimal effort.
 
-Features
---------
+## Features
+-   **Automated Parsing:** Ingests `pbi-tools` TMDL output for data models, relationships, and measures.
+-   **Report Structure Analysis:** Deconstructs report pages, visuals, and filters from the report's JSON metadata.
+-   **AI-Powered Descriptions:** Utilizes Azure OpenAI to generate clear explanations for your data model components.
+-   **Markdown & JSON Output:** Produces a clean, readable Markdown report for documentation portals and a comprehensive JSON file for programmatic use.
 
-*   **Automated Parsing:** Ingests pbi-tools TMDL output for data models, relationships, and measures.
-    
-*   **Report Structure Analysis:** Deconstructs report pages, visuals, and filters from the report's JSON metadata.
-    
-*   **AI-Powered Descriptions:** Utilizes Azure OpenAI to generate clear explanations for your data model components.
-    
-*   **Markdown & JSON Output:** Produces a clean, readable Markdown report for documentation portals and a comprehensive JSON file for programmatic use.
-    
-
-Prerequisites
--------------
-
+## Prerequisites
 Before you begin, ensure you have the following:
+* Python 3.8+ installed on your machine.
+* An Azure Subscription with permissions to create and manage Azure OpenAI resources.
+* A Power BI report file (`.pbix`).
 
-*   Python 3.8+ installed on your machine.
-    
-*   An Azure Subscription with permissions to create and manage Azure OpenAI resources.
-    
-*   A Power BI report file (.pbix).
-    
-
-Setup and Usage
----------------
+## Setup and Usage
 
 Follow these steps to get GhostDocWriter running.
 
-### Step 1: Prepare Your Power BI File with pbi-tools  
+### Step 1: Prepare Your Power BI File with pbi-tools
+First, extract the metadata from your `.pbix` file. We will use the open-source `pbi-tools` for this.
 
-First, extract the metadata from your .pbix file. We will use the open-source pbi-tools for this.
+1.  **Download and Extract pbi-tools**
+    Download the latest version from the official GitHub releases: [pbi-tools Releases](https://github.com/pbi-tools/pbi-tools/releases). Extract the contents into a folder on your computer.
 
-1.  **Download and Extract pbi-tools**  Download the latest version from the official GitHub releases: [pbi-tools v1.2.0](https://github.com/pbi-tools/pbi-tools/releases/download/1.2.0/pbi-tools.1.2.0.zip). Extract the contents into a folder on your computer.
-    
-2.  **Example for Windows:**  Open the terminal from the same folder where you extracted pbi-tools.
-  ```pbi-tools.exe extract "C:\\Users\\yourusername\\Documents\\yourreport.pbix"```  
-This command will create a new folder (e.g., yourreport). Move this newly created folder into the input\_folder within the GhostDocWriter project directory.
-    
+2.  **Extract Your .pbix File**
+    Open a Terminal or PowerShell in the folder where you extracted `pbi-tools`. Run the following command, replacing the example path with the actual path to your report.
 
-### Step 2: Set Up Azure OpenAI Service
+    **Example:**
+    ```bash
+    .\pbi-tools.exe extract "C:\Path\To\Your\Report.pbix"
+    ```
+    This command will create a new folder (e.g., `Report`). Move this newly created folder into the `input_folder` within the GhostDocWriter project directory.
 
-Next, deploy a model in Azure to get the necessary credentials.
+### Step 2: Configure the Application
+Provide your credentials and paths to the script using an environment file.
 
-1.  Log in to the Azure Portal, search for "Azure OpenAI", and create a resource.
-    
-2.  In your new Azure OpenAI resource, navigate to the **Deployments** section.
-    
-3.  Deploy a new model:
-    
-    *   **Model:** gpt-4o-mini
-        
-    *   **Deployment name:** gpt-4o-mini (the script uses this name).
-        
-    *   **Model Version:** 2024-07-18
-        
-4.  Navigate to the **Keys and Endpoint** section in your resource page to find your credentials. You will need the **Endpoint** URL and one of the secret **Keys** (KEY 1 or KEY 2).
-    
+1.  Open the `.env` file and update it with your paths and Azure credentials. **Use forward slashes (`/`) for paths.**
 
-### Step 3: Configure the Application
+    **Example `.env` file:**
+    ```env
+    # --- REQUIRED: Path Configuration ---
+    PBI_EXTRACT_ROOT_DIR=input_folder/your_report_folder_name
+    OUTPUT_DIR=output_folder
 
-Provide your credentials to the script using an environment file.
+    # --- REQUIRED: Azure OpenAI Configuration ---
+    AZURE_OPENAI_ENDPOINT=[https://your-resource-name.openai.azure.com/](https://your-resource-name.openai.azure.com/)
+    AZURE_OPENAI_API_KEY=your_secret_key
+    AZURE_OPENAI_API_VERSION=2024-12-01-preview
+    AZURE_OPENAI_CHAT_DEPLOYMENT_NAME=your_deployment_name
+    ```
 
-1.  Locate .env in the project folder
-    
-2.  Provide your credentials:
-    
-
-### Step 4: Run the Documentation Pipeline
-
+### Step 3: Run the Documentation Pipeline
 Finally, set up the Python environment and run the script.
 
-1. ```python -m venv venv; .\venv\Scripts\Activate.ps1``` # On Windows                         
-         ```python3 -m venv venv && source venv/bin/activate``` # On macOS/Linux                      
-    
-2. ```pip install -r requirements.txt```
-    
-3. The script will generate the documentation in your specified output\_folder.
-        
-     ```python -m src.run_pipeline```
+1.  **Create and activate a virtual environment:**
+    ```bash
+    python -m venv venv
+    .\venv\Scripts\activate  # On Windows
+    # source venv/bin/activate  # On macOS/Linux
+    ```
+2.  **Install required libraries:**
+    ```bash
+    pip install -r requirements.txt
+    ```
+3.  **Run the script!** The tool is run as a module from the project root. You can choose to run only specific parts of the pipeline.
+
+    * **To parse local files into intermediate JSON (no AI calls):**
+        ```bash
+        python -m src.run_pipeline parse
+        ```
+    * **To generate documentation from existing JSON files (requires AI config):**
+        ```bash
+        python -m src.run_pipeline generate
+        ```
+    * **To run the full end-to-end pipeline:**
+        ```bash
+        python -m src.run_pipeline all
+        ```
+    The script will generate the documentation in your specified `output_folder`.

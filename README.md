@@ -1,4 +1,4 @@
-                                                ![image](https://github.com/user-attachments/assets/05856205-1f90-45c9-8d7d-7e500f6dd264)
+![image](https://github.com/user-attachments/assets/05856205-1f90-45c9-8d7d-7e500f6dd264)
 
 
 # GhostDocWriter: AI-Powered Power BI Documentation

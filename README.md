@@ -1,8 +1,6 @@
-![image](https://github.com/user-attachments/assets/05856205-1f90-45c9-8d7d-7e500f6dd264)
+                                                ![image](https://github.com/user-attachments/assets/05856205-1f90-45c9-8d7d-7e500f6dd264)
 
-<p align="center">
-  <img src="(https://github.com/user-attachments/assets/05856205-1f90-45c9-8d7d-7e500f6dd264)" alt="Descriptive alt text" width="200">
-</p>
+
 # GhostDocWriter: AI-Powered Power BI Documentation
 
 **An AI-powered tool to automatically generate documentation for your Power BI models using Azure OpenAI and TMDL metadata.**

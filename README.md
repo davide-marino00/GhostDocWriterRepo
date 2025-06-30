@@ -32,14 +32,15 @@ First, extract the metadata from your `.pbix` file. We will use the open-source 
 1.  **Download and Extract pbi-tools**
     Download the latest version from the official GitHub releases: [pbi-tools Releases](https://github.com/pbi-tools/pbi-tools/releases). Extract the contents into a folder on your computer.
 
-2.  **Extract Your .pbix File**
-    Open a Terminal or PowerShell in the folder where you extracted `pbi-tools`. Run the following command, replacing the example path with the actual path to your report.
+2.  **Extract Your .pbix File**    
+    Open a Terminal or PowerShell **in the folder where you extracted `pbi-tools`**. Run the following command, replacing the example path with the actual path to your report.
 
     **Example:**
     ```bash
     .\pbi-tools.exe extract "C:\Path\To\Your\Report.pbix"
     ```
-    This command will create a new folder (e.g., `Report`). Move this newly created folder into the `input_folder` within the GhostDocWriter project directory.
+    This command will create a new folder (e.g., `Report`) in the same location of the path provided.   
+ Move this newly created folder into the `input_folder` within the GhostDocWriter project directory.
 
 ### Step 2: Configure the Application
 Provide your credentials and paths to the script using an environment file.
